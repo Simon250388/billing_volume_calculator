@@ -20,8 +20,17 @@ public class AccountingPointServiceState extends BaseHistoty {
     @ManyToOne
     @JoinColumn(name = "accounting_point_Key_room_service_id")
     private AccountingPointKeyRoomService accountingPointKeyRoomService;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     /**
-     * Состояние точки учета
+     * Состояние услуги
      */
     private boolean active;
 

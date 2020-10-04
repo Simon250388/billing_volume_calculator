@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseCatalog extends BaseEntity {
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 50)
     private String description;
 
     public String getDescription() {

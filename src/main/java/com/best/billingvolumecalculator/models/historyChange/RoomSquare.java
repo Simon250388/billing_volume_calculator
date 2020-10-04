@@ -4,10 +4,7 @@ import com.best.billingvolumecalculator.basemodels.BaseHistoty;
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 import com.best.billingvolumecalculator.models.enums.SquareType;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * История изменения площадей помещения
@@ -30,6 +27,7 @@ public class RoomSquare extends BaseHistoty {
     /**
      * Значение площади
      */
+    @Column(nullable = false)
     private int value;
 
     public KeyRoom getKeyRoom() {

@@ -18,6 +18,11 @@ public class KeyRoom extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "room_id", nullable = true)
     private Room room;
+    /**
+     * Признак частного сектора
+     */
+    @Column(nullable = false)
+    private boolean privateSector;
 
     public Building getBuilding() {
         return building;
@@ -33,5 +38,13 @@ public class KeyRoom extends BaseEntity {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public boolean isPrivateSector() {
+        return privateSector;
+    }
+
+    public void setPrivateSector(boolean privateSector) {
+        this.privateSector = privateSector;
     }
 }

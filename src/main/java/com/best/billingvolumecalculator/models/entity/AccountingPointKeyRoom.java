@@ -2,7 +2,6 @@ package com.best.billingvolumecalculator.models.entity;
 
 import com.best.billingvolumecalculator.basemodels.BaseEntity;
 import com.best.billingvolumecalculator.models.catalog.AccountingPoint;
-import com.best.billingvolumecalculator.models.catalog.Service;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,13 +12,13 @@ import javax.persistence.Table;
  * Токи учета ключа помещения
  */
 @Entity
-@Table(name = "accounting-point-key-room")
+@Table(name = "accounting_point_key_room")
 public class AccountingPointKeyRoom extends BaseEntity {
     /**
      * Ключ помещения
      */
     @ManyToOne
-    @JoinColumn(name = "key-room_id", nullable = false)
+    @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
     /**
      * Точка учета

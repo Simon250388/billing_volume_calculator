@@ -1,6 +1,7 @@
 package com.best.billingvolumecalculator.models.entity;
 
 import com.best.billingvolumecalculator.basemodels.BaseEntity;
+import com.best.billingvolumecalculator.models.catalog.DirectionOfUse;
 import com.best.billingvolumecalculator.models.catalog.Service;
 
 import javax.persistence.Entity;
@@ -22,6 +23,10 @@ public class AccountingPointKeyRoomService extends BaseEntity {
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
+    @ManyToOne
+    @JoinColumn(name = "direction_of_use_id", nullable = false)
+    private DirectionOfUse directionOfUse;
+
     public Service getService() {
         return service;
     }
@@ -36,5 +41,13 @@ public class AccountingPointKeyRoomService extends BaseEntity {
 
     public void setAccountingPointKeyRoom(AccountingPointKeyRoom accountingPointKeyRoom) {
         this.accountingPointKeyRoom = accountingPointKeyRoom;
+    }
+
+    public DirectionOfUse getDirectionOfUse() {
+        return directionOfUse;
+    }
+
+    public void setDirectionOfUse(DirectionOfUse directionOfUse) {
+        this.directionOfUse = directionOfUse;
     }
 }

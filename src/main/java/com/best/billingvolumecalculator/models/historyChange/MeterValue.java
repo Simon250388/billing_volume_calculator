@@ -4,24 +4,31 @@ import com.best.billingvolumecalculator.basemodels.BaseHistoty;
 import com.best.billingvolumecalculator.models.catalog.Meter;
 import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomService;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
- * Прибор установленный на точке учета (без учета состояния прибора)
+ * История показаний прибора учета
  */
 @Entity
-@Table(name = "accounting_point_meters")
-public class AccountingPointMeter extends BaseHistoty {
+@Table(name = "meter_values")
+public class MeterValue extends BaseHistoty {
     @ManyToOne
     @JoinColumn(name = "accounting_point_key_room_service_id" )
     private AccountingPointKeyRoomService accountingPointKeyRoomService;
-
     @ManyToOne
-    @JoinColumn(name = "meter_id")
+    @JoinColumn(name = "meter_id" )
     private Meter meter;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    @Column(nullable = false)
+    private int value;
 
     public AccountingPointKeyRoomService getAccountingPointKeyRoomService() {
         return accountingPointKeyRoomService;
@@ -38,4 +45,5 @@ public class AccountingPointMeter extends BaseHistoty {
     public void setMeter(Meter meter) {
         this.meter = meter;
     }
+
 }
