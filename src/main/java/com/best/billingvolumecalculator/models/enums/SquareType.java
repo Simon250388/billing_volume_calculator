@@ -8,7 +8,5 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "square_types")
 public class SquareType extends BaseCatalog {
-    static int getCommonSquareTypeId() {
-        return 1;
-    }
+    static final long COMMON_SQUARE_TYPE_ID = 1;
 }

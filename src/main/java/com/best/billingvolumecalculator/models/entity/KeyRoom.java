@@ -16,7 +16,7 @@ public class KeyRoom extends BaseEntity {
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
     @OneToOne
-    @JoinColumn(name = "room_id", nullable = true)
+    @JoinColumn(name = "room_id")
     private Room room;
     /**
      * Признак частного сектора
