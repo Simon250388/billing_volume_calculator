@@ -16,5 +16,5 @@ public interface RoomOwnerRepository extends CrudRepository<RoomOwner, Long> {
             " AND ro.period = maxPeriod.period" +
             " AND ro.key_room_id =:KeyRoomId",
     nativeQuery = true)
-    Optional<RoomOwner> getLastByKeyRoom(@Param("KeyRoomId") long KeyRoomId);
+    Optional<RoomOwner> getLastByKeyRoom(@Param("KeyRoomId") long keyRoomId);
 }

@@ -2,6 +2,7 @@ package com.best.billingvolumecalculator.controllers.v1.catalog;
 
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 import com.best.billingvolumecalculator.services.entity.KeyRoomService;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,10 @@ public class KeyRoomController {
     }
 
     @GetMapping("/{keyRoomId}")
-    public ResponseEntity getById(@PathVariable long keyRoomId) {
+    public ResponseEntity<KeyRoom> getById(@PathVariable long keyRoomId) {
         Optional<KeyRoom> value = this.entityService.findById(keyRoomId);
         if (!value.isPresent()) {
+            // TODO FIX ME
             return new ResponseEntity(String.format("Key room with key %o not found", keyRoomId), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<KeyRoom>(value.get(), HttpStatus.OK);
