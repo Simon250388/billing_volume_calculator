@@ -1,5 +1,6 @@
 package com.best.billingvolumecalculator.models.historyChange;
 
+import com.best.billingvolumecalculator.basemodels.BaseHistoty;
 import com.best.billingvolumecalculator.models.catalog.ImprovementType;
 import com.best.billingvolumecalculator.models.catalog.Service;
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "room_improvement_types")
-public class RoomImprovementType {
+public class RoomImprovementType extends BaseHistoty {
     @ManyToOne
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
