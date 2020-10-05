@@ -2,7 +2,6 @@ package com.best.billingvolumecalculator.controllers.v1.catalog;
 
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 import com.best.billingvolumecalculator.services.entity.KeyRoomService;
-import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
