@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.services.historyChange;
+package com.best.billingvolumecalculator.services.historychange;
 
-import com.best.billingvolumecalculator.models.historyChange.RoomOwner;
+import com.best.billingvolumecalculator.models.historychange.RoomOwner;
 import com.best.billingvolumecalculator.services.catalog.BaseEntityService;
 
 import java.util.Optional;

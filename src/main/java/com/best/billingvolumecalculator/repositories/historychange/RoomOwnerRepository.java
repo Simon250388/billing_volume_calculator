@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.repositories.historyChange;
+package com.best.billingvolumecalculator.repositories.historychange;
 
-import com.best.billingvolumecalculator.models.historyChange.RoomOwner;
+import com.best.billingvolumecalculator.models.historychange.RoomOwner;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

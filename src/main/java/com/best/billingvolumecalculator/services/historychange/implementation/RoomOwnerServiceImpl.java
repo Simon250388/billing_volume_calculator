@@ -1,8 +1,8 @@
-package com.best.billingvolumecalculator.services.historyChange.implementation;
+package com.best.billingvolumecalculator.services.historychange.implementation;
 
-import com.best.billingvolumecalculator.models.historyChange.RoomOwner;
-import com.best.billingvolumecalculator.repositories.historyChange.RoomOwnerRepository;
-import com.best.billingvolumecalculator.services.historyChange.RoomOwnerService;
+import com.best.billingvolumecalculator.models.historychange.RoomOwner;
+import com.best.billingvolumecalculator.repositories.historychange.RoomOwnerRepository;
+import com.best.billingvolumecalculator.services.historychange.RoomOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class RoomOwnerServiceImpl implements RoomOwnerService {
-    private RoomOwnerRepository repository;
+    private final RoomOwnerRepository repository;
 
     @Autowired
     public RoomOwnerServiceImpl(RoomOwnerRepository repository) {

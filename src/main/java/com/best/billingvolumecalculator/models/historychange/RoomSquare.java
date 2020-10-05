@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.models.historyChange;
+package com.best.billingvolumecalculator.models.historychange;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistoty;
+import com.best.billingvolumecalculator.basemodels.BaseHistory;
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 import com.best.billingvolumecalculator.models.enums.SquareType;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "room_squares")
-public class RoomSquare extends BaseHistoty {
+public class RoomSquare extends BaseHistory {
     /**
      * Ключ помещения
      */

@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.models.historyChange;
+package com.best.billingvolumecalculator.models.historychange;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistoty;
+import com.best.billingvolumecalculator.basemodels.BaseHistory;
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "room_owners")
-public class RoomOwner extends BaseHistoty {
+public class RoomOwner extends BaseHistory {
     @ManyToOne
     @JoinColumn(name = "key_room_id")
     private KeyRoom keyRoom;

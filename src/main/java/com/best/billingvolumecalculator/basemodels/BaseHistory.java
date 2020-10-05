@@ -4,7 +4,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseHistoty extends BaseEntity {
+public class BaseHistory extends BaseEntity {
     private Date period;
 
     public Date getPeriod() {

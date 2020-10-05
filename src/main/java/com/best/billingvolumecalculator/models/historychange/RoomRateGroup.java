@@ -1,7 +1,7 @@
-package com.best.billingvolumecalculator.models.historyChange;
+package com.best.billingvolumecalculator.models.historychange;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistoty;
-import com.best.billingvolumecalculator.models.catalog.ImprovementType;
+import com.best.billingvolumecalculator.basemodels.BaseHistory;
+import com.best.billingvolumecalculator.models.catalog.RateGroup;
 import com.best.billingvolumecalculator.models.catalog.Service;
 import com.best.billingvolumecalculator.models.entity.KeyRoom;
 
@@ -11,11 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Вид благоустройства для услуг помещения
+ * Тарифные группы услуг помещения
  */
 @Entity
-@Table(name = "room_improvement_types")
-public class RoomImprovementType extends BaseHistoty {
+@Table(name = "room_rate_groups")
+public class RoomRateGroup  extends BaseHistory {
     @ManyToOne
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
@@ -23,8 +23,8 @@ public class RoomImprovementType extends BaseHistoty {
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
     @ManyToOne
-    @JoinColumn(name = "improvement_type_id", nullable = false)
-    private ImprovementType improvementType;
+    @JoinColumn(name = "rate_group_id", nullable = false)
+    private RateGroup rateGroup;
 
     public KeyRoom getKeyRoom() {
         return keyRoom;
@@ -42,11 +42,11 @@ public class RoomImprovementType extends BaseHistoty {
         this.service = service;
     }
 
-    public ImprovementType getImprovementType() {
-        return improvementType;
+    public RateGroup getRateGroup() {
+        return rateGroup;
     }
 
-    public void setImprovementType(ImprovementType improvementType) {
-        this.improvementType = improvementType;
+    public void setRateGroup(RateGroup rateGroup) {
+        this.rateGroup = rateGroup;
     }
 }

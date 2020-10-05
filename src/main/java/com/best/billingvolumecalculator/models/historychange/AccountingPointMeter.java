@@ -1,6 +1,7 @@
-package com.best.billingvolumecalculator.models.historyChange;
+package com.best.billingvolumecalculator.models.historychange;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistoty;
+import com.best.billingvolumecalculator.basemodels.BaseHistory;
+import com.best.billingvolumecalculator.models.catalog.Meter;
 import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
 
 import javax.persistence.Entity;
@@ -9,30 +10,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Состояние услуги на точке учета
+ * Прибор установленный на точке учета (без учета состояния прибора)
  */
 @Entity
-@Table(name = "accounting_point_service_state")
-public class AccountingPointServiceState extends BaseHistoty {
-    /**
-     * Ключ услуги на точке учета
-     */
+@Table(name = "accounting_point_meters")
+public class AccountingPointMeter extends BaseHistory {
     @ManyToOne
-    @JoinColumn(name = "accounting_point_Key_room_service_id")
+    @JoinColumn(name = "accounting_point_key_room_service_id" )
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    /**
-     * Состояние услуги
-     */
-    private boolean active;
+    @ManyToOne
+    @JoinColumn(name = "meter_id")
+    private Meter meter;
 
     public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomService() {
         return accountingPointKeyRoomServiceEntity;
@@ -40,5 +29,13 @@ public class AccountingPointServiceState extends BaseHistoty {
 
     public void setAccountingPointKeyRoomService(AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity) {
         this.accountingPointKeyRoomServiceEntity = accountingPointKeyRoomServiceEntity;
+    }
+
+    public Meter getMeter() {
+        return meter;
+    }
+
+    public void setMeter(Meter meter) {
+        this.meter = meter;
     }
 }

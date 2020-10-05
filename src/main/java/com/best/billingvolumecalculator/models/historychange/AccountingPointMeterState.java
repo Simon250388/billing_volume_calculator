@@ -1,34 +1,30 @@
-package com.best.billingvolumecalculator.models.historyChange;
+package com.best.billingvolumecalculator.models.historychange;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistoty;
+import com.best.billingvolumecalculator.basemodels.BaseHistory;
 import com.best.billingvolumecalculator.models.catalog.Meter;
 import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
+import com.best.billingvolumecalculator.models.enums.MeterState;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * История показаний прибора учета
+ * Состояние прибора учета на точке учета
  */
 @Entity
-@Table(name = "meter_values")
-public class MeterValue extends BaseHistoty {
+@Table(name = "accounting_point_meter_states")
+public class AccountingPointMeterState extends BaseHistory {
     @ManyToOne
     @JoinColumn(name = "accounting_point_key_room_service_id" )
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne
     @JoinColumn(name = "meter_id" )
     private Meter meter;
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    @Column(nullable = false)
-    private int value;
+    @ManyToOne
+    @JoinColumn(name = "meter_state_id" )
+    private MeterState meterState;
 
     public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomService() {
         return accountingPointKeyRoomServiceEntity;
@@ -44,6 +40,14 @@ public class MeterValue extends BaseHistoty {
 
     public void setMeter(Meter meter) {
         this.meter = meter;
+    }
+
+    public MeterState getMeterState() {
+        return meterState;
+    }
+
+    public void setMeterState(MeterState meterState) {
+        this.meterState = meterState;
     }
 
 }
