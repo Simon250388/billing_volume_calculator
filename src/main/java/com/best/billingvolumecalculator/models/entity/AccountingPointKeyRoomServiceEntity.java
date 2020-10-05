@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "accounting_point_key_room_services")
-public class AccountingPointKeyRoomService extends BaseEntity {
+public class AccountingPointKeyRoomServiceEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "accounting_point_key_room_id", nullable = false)
     private AccountingPointKeyRoom accountingPointKeyRoom;

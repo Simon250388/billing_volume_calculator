@@ -1,7 +1,7 @@
 package com.best.billingvolumecalculator.models.historyChange;
 
 import com.best.billingvolumecalculator.basemodels.BaseHistoty;
-import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomService;
+import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -19,7 +19,7 @@ public class AccountingPointServiceState extends BaseHistoty {
      */
     @ManyToOne
     @JoinColumn(name = "accounting_point_Key_room_service_id")
-    private AccountingPointKeyRoomService accountingPointKeyRoomService;
+    private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
 
     public boolean isActive() {
         return active;
@@ -34,11 +34,11 @@ public class AccountingPointServiceState extends BaseHistoty {
      */
     private boolean active;
 
-    public AccountingPointKeyRoomService getAccountingPointKeyRoomService() {
-        return accountingPointKeyRoomService;
+    public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomService() {
+        return accountingPointKeyRoomServiceEntity;
     }
 
-    public void setAccountingPointKeyRoomService(AccountingPointKeyRoomService accountingPointKeyRoomService) {
-        this.accountingPointKeyRoomService = accountingPointKeyRoomService;
+    public void setAccountingPointKeyRoomService(AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity) {
+        this.accountingPointKeyRoomServiceEntity = accountingPointKeyRoomServiceEntity;
     }
 }

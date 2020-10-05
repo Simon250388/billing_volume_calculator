@@ -2,7 +2,7 @@ package com.best.billingvolumecalculator.models.historyChange;
 
 import com.best.billingvolumecalculator.basemodels.BaseHistoty;
 import com.best.billingvolumecalculator.models.catalog.Meter;
-import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomService;
+import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
 
 import javax.persistence.*;
 
@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class MeterValue extends BaseHistoty {
     @ManyToOne
     @JoinColumn(name = "accounting_point_key_room_service_id" )
-    private AccountingPointKeyRoomService accountingPointKeyRoomService;
+    private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne
     @JoinColumn(name = "meter_id" )
     private Meter meter;
@@ -30,12 +30,12 @@ public class MeterValue extends BaseHistoty {
     @Column(nullable = false)
     private int value;
 
-    public AccountingPointKeyRoomService getAccountingPointKeyRoomService() {
-        return accountingPointKeyRoomService;
+    public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomService() {
+        return accountingPointKeyRoomServiceEntity;
     }
 
-    public void setAccountingPointKeyRoomService(AccountingPointKeyRoomService accountingPointKeyRoomService) {
-        this.accountingPointKeyRoomService = accountingPointKeyRoomService;
+    public void setAccountingPointKeyRoomService(AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity) {
+        this.accountingPointKeyRoomServiceEntity = accountingPointKeyRoomServiceEntity;
     }
 
     public Meter getMeter() {
