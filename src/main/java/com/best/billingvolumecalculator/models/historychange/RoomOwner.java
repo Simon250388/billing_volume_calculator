@@ -11,11 +11,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "room_owners")
 public class RoomOwner extends BaseHistory {
+
     @ManyToOne
     @JoinColumn(name = "key_room_id")
     private KeyRoom keyRoom;
     @Column(nullable = false)
     private int ownerCount;
+
+    public RoomOwner() {
+        super();
+    }
 
     public KeyRoom getKeyRoom() {
         return keyRoom;

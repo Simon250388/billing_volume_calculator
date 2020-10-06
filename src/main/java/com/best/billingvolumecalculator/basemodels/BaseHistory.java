@@ -5,6 +5,11 @@ import java.util.Date;
 
 @MappedSuperclass
 public class BaseHistory extends BaseEntity {
+
+    public BaseHistory() {
+        super();
+    }
+
     private Date period;
 
     public Date getPeriod() {

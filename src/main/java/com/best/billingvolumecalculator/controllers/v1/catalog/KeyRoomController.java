@@ -1,7 +1,7 @@
 package com.best.billingvolumecalculator.controllers.v1.catalog;
 
 import com.best.billingvolumecalculator.dto.ResponseListDTO;
-import com.best.billingvolumecalculator.models.entity.KeyRoom;
+import com.best.billingvolumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billingvolumecalculator.services.entity.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class KeyRoomController {
     }
 
     @GetMapping("/{keyRoomId}")
-    public ResponseEntity<ResponseListDTO<KeyRoom>> getById(@PathVariable long keyRoomId) {
-        Optional<KeyRoom> value = this.entityService.findById(keyRoomId);
+    public ResponseEntity<ResponseListDTO<KeyRoomDTO>> getById(@PathVariable long keyRoomId) {
+        Optional<KeyRoomDTO> value = this.entityService.findById(keyRoomId);
         return value.map(keyRoom -> new ResponseEntity<>(
                 new ResponseListDTO<>(
                         Collections.singletonList(keyRoom),

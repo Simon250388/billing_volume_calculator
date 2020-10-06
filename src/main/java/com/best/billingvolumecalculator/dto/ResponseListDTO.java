@@ -1,12 +1,9 @@
 package com.best.billingvolumecalculator.dto;
 
-import com.best.billingvolumecalculator.basemodels.BaseCatalog;
-import com.best.billingvolumecalculator.basemodels.BaseEntity;
-
 import java.util.List;
 import java.util.Map;
 
-public class ResponseListDTO<T extends BaseEntity> {
+public class ResponseListDTO<T extends BaseEntityDTO> {
     private List<T> data;
     private Map<String, List<BaseCatalogDTO>> views;
     private List<String> errors;
