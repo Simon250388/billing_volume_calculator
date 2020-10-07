@@ -1,12 +1,12 @@
-package com.best.billing.volumecalculator.services.entity.implementation;
+package com.best.billingvolumecalculator.services.entity.implementation;
 
-import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoom;
-import com.best.billing.volumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
-import com.best.billing.volumecalculator.services.entity.AccountingPointKeyRoomService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.best.billingvolumecalculator.dto.entity.AccountingPointKeyRoomDTO;
+import com.best.billingvolumecalculator.mappers.entity.AccountingPointKeyRoomMapper;
+import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoom;
+import com.best.billingvolumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
+import com.best.billingvolumecalculator.services.entity.AccountingPointKeyRoomService;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +14,11 @@ import java.util.Optional;
 public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoomService {
 
     private final AccountingPointKeyRoomRepository repository;
+    private final AccountingPointKeyRoomMapper mapper;
 
-    @Autowired
-    public AccountingPointKeyRoomServiceImpl(@NotNull AccountingPointKeyRoomRepository repository) {
+    public AccountingPointKeyRoomServiceImpl(AccountingPointKeyRoomRepository repository, AccountingPointKeyRoomMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -26,12 +27,12 @@ public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoom
     }
 
     @Override
-    public Optional<AccountingPointKeyRoom> findById(long id) {
-        return this.repository.findById(id);
+    public Optional<AccountingPointKeyRoomDTO> findById(long id) {
+        return this.repository.findById(id).map(mapper::fromEntity);
     }
 
     @Override
-    public List<AccountingPointKeyRoom> findByKeyRoomId(long keyRoomId) {
-        return this.repository.findAllByKeyRoom(keyRoomId);
+    public List<AccountingPointKeyRoomDTO> findByKeyRoomId(long keyRoomId) {
+        return this.mapper.fromEntity(this.repository.findAllByKeyRoom(keyRoomId));
     }
 }

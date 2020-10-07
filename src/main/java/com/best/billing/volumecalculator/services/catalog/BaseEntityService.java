@@ -1,10 +1,11 @@
-package com.best.billing.volumecalculator.services.catalog;
+package com.best.billingvolumecalculator.services.catalog;
 
-import com.best.billing.volumecalculator.basemodels.BaseEntity;
+import com.best.billingvolumecalculator.basemodels.BaseEntity;
+import com.best.billingvolumecalculator.dto.BaseEntityDTO;
 
 import java.util.Optional;
 
-public interface BaseEntityService<T extends BaseEntity> {
-    T save(T accountingPoint);
-    Optional<T> findById(long id);
+public interface BaseEntityService<E extends BaseEntity, D extends BaseEntityDTO> {
+    E save(E accountingPoint);
+    Optional<D> findById(long id);
 }
