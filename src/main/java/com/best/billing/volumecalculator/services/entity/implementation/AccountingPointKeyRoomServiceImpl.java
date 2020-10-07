@@ -22,8 +22,8 @@ public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoom
     }
 
     @Override
-    public AccountingPointKeyRoom save(AccountingPointKeyRoom accountingPoint) {
-        return this.repository.save(accountingPoint);
+    public AccountingPointKeyRoomDTO save(AccountingPointKeyRoom accountingPoint) {
+        return mapper.fromEntity(this.repository.save(accountingPoint));
     }
 
     @Override

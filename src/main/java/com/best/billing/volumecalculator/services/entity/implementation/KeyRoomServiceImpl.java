@@ -25,8 +25,8 @@ public class KeyRoomServiceImpl implements KeyRoomService {
     }
 
     @Override
-    public KeyRoom save(KeyRoom accountingPoint) {
-        return this.repository.save(accountingPoint);
+    public KeyRoomDTO save(KeyRoom accountingPoint) {
+        return mapper.fromEntity(this.repository.save(accountingPoint));
     }
 
     @Override

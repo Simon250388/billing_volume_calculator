@@ -1,9 +1,10 @@
-package com.best.billing.volumecalculator.services.catalog;
+package com.best.billing.volumecalculator.services.catalog.implementation;
 
 import com.best.billing.volumecalculator.dto.catalog.AccountingPointDTO;
 import com.best.billing.volumecalculator.mappers.catalog.AccountingPointMapper;
 import com.best.billing.volumecalculator.models.catalog.AccountingPoint;
 import com.best.billing.volumecalculator.repositories.catalog.AccountingPointRepository;
+import com.best.billing.volumecalculator.services.BaseEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class AccountingPointServiceImpl implements BaseEntityService<AccountingP
     }
 
     @Override
-    public AccountingPoint save(AccountingPoint accountingPoint) {
-        return this.repository.save(accountingPoint);
+    public AccountingPointDTO save(AccountingPoint accountingPoint) {
+        return mapper.fromEntity(this.repository.save(accountingPoint));
     }
 
     @Override

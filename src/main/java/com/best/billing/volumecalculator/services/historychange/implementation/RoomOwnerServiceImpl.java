@@ -30,8 +30,8 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
     }
 
     @Override
-    public RoomOwner save(RoomOwner accountingPoint) {
-        return this.repository.save(accountingPoint);
+    public RoomOwnerDTO save(RoomOwner accountingPoint) {
+        return mapper.fromEntity(this.repository.save(accountingPoint));
     }
 
     @Override

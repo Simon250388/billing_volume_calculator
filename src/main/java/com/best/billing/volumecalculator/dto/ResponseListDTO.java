@@ -1,5 +1,7 @@
 package com.best.billing.volumecalculator.dto;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,18 @@ public class ResponseListDTO<T extends BaseEntityDTO> {
         this.data = data;
         this.views = views;
         this.errors = errors;
+    }
+
+    public ResponseListDTO(List<T> data, Map<String, List<BaseCatalogDTO>> views) {
+        this.data = data;
+        this.views = views;
+        this.errors = new ArrayList<>();
+    }
+
+    public ResponseListDTO(List<T> data) {
+        this.data = data;
+        this.views = Collections.emptyMap();
+        this.errors = new ArrayList<>();
     }
 
 
