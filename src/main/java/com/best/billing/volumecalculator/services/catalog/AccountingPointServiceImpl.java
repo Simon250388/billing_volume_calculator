@@ -1,9 +1,9 @@
-package com.best.billingvolumecalculator.services.catalog;
+package com.best.billing.volumecalculator.services.catalog;
 
-import com.best.billingvolumecalculator.dto.catalog.AccountingPointDTO;
-import com.best.billingvolumecalculator.mappers.catalog.AccountingPointMapper;
-import com.best.billingvolumecalculator.models.catalog.AccountingPoint;
-import com.best.billingvolumecalculator.repositories.catalog.AccountingPointRepository;
+import com.best.billing.volumecalculator.dto.catalog.AccountingPointDTO;
+import com.best.billing.volumecalculator.mappers.catalog.AccountingPointMapper;
+import com.best.billing.volumecalculator.models.catalog.AccountingPoint;
+import com.best.billing.volumecalculator.repositories.catalog.AccountingPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

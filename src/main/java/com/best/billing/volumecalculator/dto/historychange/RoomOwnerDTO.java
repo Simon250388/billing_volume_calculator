@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.dto.changehistory;
+package com.best.billing.volumecalculator.dto.historychange;
 
-import com.best.billingvolumecalculator.dto.BaseHistoryDTO;
+import com.best.billing.volumecalculator.dto.BaseHistoryDTO;
 
 public class RoomOwnerDTO extends BaseHistoryDTO {
     private long keyRoomId;

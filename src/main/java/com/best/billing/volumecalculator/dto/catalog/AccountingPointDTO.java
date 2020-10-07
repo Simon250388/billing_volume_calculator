@@ -1,6 +1,6 @@
-package com.best.billingvolumecalculator.dto.catalog;
+package com.best.billing.volumecalculator.dto.catalog;
 
-import com.best.billingvolumecalculator.dto.BaseCatalogDTO;
+import com.best.billing.volumecalculator.dto.BaseCatalogDTO;
 
 public class AccountingPointDTO extends BaseCatalogDTO {
 }

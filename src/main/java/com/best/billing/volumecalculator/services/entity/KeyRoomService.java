@@ -1,8 +1,8 @@
-package com.best.billingvolumecalculator.services.entity;
+package com.best.billing.volumecalculator.services.entity;
 
-import com.best.billingvolumecalculator.dto.entity.KeyRoomDTO;
-import com.best.billingvolumecalculator.models.entity.KeyRoom;
-import com.best.billingvolumecalculator.services.catalog.BaseEntityService;
+import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
+import com.best.billing.volumecalculator.models.entity.KeyRoom;
+import com.best.billing.volumecalculator.services.catalog.BaseEntityService;
 
 import java.util.Optional;
 

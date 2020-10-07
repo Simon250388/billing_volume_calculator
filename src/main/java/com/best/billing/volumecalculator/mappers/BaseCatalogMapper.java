@@ -1,12 +1,12 @@
-package com.best.billingvolumecalculator.mappers;
+package com.best.billing.volumecalculator.mappers;
 
-import com.best.billingvolumecalculator.basemodels.BaseCatalog;
-import com.best.billingvolumecalculator.dto.BaseCatalogDTO;
+import com.best.billing.volumecalculator.basemodels.BaseCatalog;
+import com.best.billing.volumecalculator.dto.BaseCatalogDTO;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
 
-@MapperConfig(componentModel = "spring")
+@MapperConfig
 public interface BaseCatalogMapper<E extends BaseCatalog, D extends BaseCatalogDTO> extends BaseEntityMapper<E, D> {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "description", target = "present")

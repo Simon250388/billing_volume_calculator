@@ -1,12 +1,12 @@
-package com.best.billingvolumecalculator.mappers;
+package com.best.billing.volumecalculator.mappers;
 
-import com.best.billingvolumecalculator.basemodels.BaseHistory;
-import com.best.billingvolumecalculator.dto.BaseHistoryDTO;
+import com.best.billing.volumecalculator.basemodels.BaseHistory;
+import com.best.billing.volumecalculator.dto.BaseHistoryDTO;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
 
-@MapperConfig(componentModel = "spring")
+@MapperConfig
 public interface BaseHistoryMapper<E extends BaseHistory, D extends BaseHistoryDTO> extends BaseEntityMapper<E, D> {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "period", target = "period", dateFormat = "yyyy-MM-dd'T'HH:mm:ss")

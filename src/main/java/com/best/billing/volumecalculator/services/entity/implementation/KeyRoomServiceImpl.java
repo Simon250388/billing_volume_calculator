@@ -1,9 +1,9 @@
-package com.best.billingvolumecalculator.services.entity.implementation;
+package com.best.billing.volumecalculator.services.entity.implementation;
 
-import com.best.billingvolumecalculator.dto.entity.KeyRoomDTO;
-import com.best.billingvolumecalculator.mappers.entity.KeyRoomMapper;
-import com.best.billingvolumecalculator.models.entity.KeyRoom;
-import com.best.billingvolumecalculator.services.entity.KeyRoomService;
+import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
+import com.best.billing.volumecalculator.mappers.entity.KeyRoomMapper;
+import com.best.billing.volumecalculator.models.entity.KeyRoom;
+import com.best.billing.volumecalculator.services.entity.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;

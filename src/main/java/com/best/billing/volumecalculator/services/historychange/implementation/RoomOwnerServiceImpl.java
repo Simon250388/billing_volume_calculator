@@ -1,10 +1,10 @@
-package com.best.billingvolumecalculator.services.historychange.implementation;
+package com.best.billing.volumecalculator.services.historychange.implementation;
 
-import com.best.billingvolumecalculator.dto.changehistory.RoomOwnerDTO;
-import com.best.billingvolumecalculator.mappers.changehistory.RoomOwnerMapper;
-import com.best.billingvolumecalculator.models.historychange.RoomOwner;
-import com.best.billingvolumecalculator.repositories.historychange.RoomOwnerRepository;
-import com.best.billingvolumecalculator.services.historychange.RoomOwnerService;
+import com.best.billing.volumecalculator.dto.historychange.RoomOwnerDTO;
+import com.best.billing.volumecalculator.mappers.historychange.RoomOwnerMapper;
+import com.best.billing.volumecalculator.models.historychange.RoomOwner;
+import com.best.billing.volumecalculator.repositories.historychange.RoomOwnerRepository;
+import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.best.billingvolumecalculator.dto;
+package com.best.billing.volumecalculator.dto;
 
 public class BaseCatalogDTO extends BaseEntityDTO {
     private String present;

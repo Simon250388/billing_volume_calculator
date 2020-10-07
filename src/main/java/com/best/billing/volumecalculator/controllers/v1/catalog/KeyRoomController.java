@@ -1,8 +1,8 @@
-package com.best.billingvolumecalculator.controllers.v1.catalog;
+package com.best.billing.volumecalculator.controllers.v1.catalog;
 
-import com.best.billingvolumecalculator.dto.ResponseListDTO;
-import com.best.billingvolumecalculator.dto.entity.KeyRoomDTO;
-import com.best.billingvolumecalculator.services.entity.KeyRoomService;
+import com.best.billing.volumecalculator.dto.ResponseListDTO;
+import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
+import com.best.billing.volumecalculator.services.entity.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

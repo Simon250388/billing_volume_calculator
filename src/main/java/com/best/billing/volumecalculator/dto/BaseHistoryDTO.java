@@ -1,4 +1,4 @@
-package com.best.billingvolumecalculator.dto;
+package com.best.billing.volumecalculator.dto;
 
 public abstract class BaseHistoryDTO extends BaseEntityDTO {
     private String period;

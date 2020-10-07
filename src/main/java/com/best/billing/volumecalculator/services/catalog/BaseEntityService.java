@@ -1,7 +1,7 @@
-package com.best.billingvolumecalculator.services.catalog;
+package com.best.billing.volumecalculator.services.catalog;
 
-import com.best.billingvolumecalculator.basemodels.BaseEntity;
-import com.best.billingvolumecalculator.dto.BaseEntityDTO;
+import com.best.billing.volumecalculator.basemodels.BaseEntity;
+import com.best.billing.volumecalculator.dto.BaseEntityDTO;
 
 import java.util.Optional;
 

@@ -1,13 +1,13 @@
-package com.best.billingvolumecalculator.mappers.changehistory;
+package com.best.billing.volumecalculator.mappers.historychange;
 
-import com.best.billingvolumecalculator.dto.changehistory.RoomOwnerDTO;
-import com.best.billingvolumecalculator.mappers.BaseHistoryMapper;
-import com.best.billingvolumecalculator.models.historychange.RoomOwner;
+import com.best.billing.volumecalculator.dto.historychange.RoomOwnerDTO;
+import com.best.billing.volumecalculator.mappers.BaseHistoryMapper;
+import com.best.billing.volumecalculator.models.historychange.RoomOwner;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", config = BaseHistoryMapper.class)
+@Mapper(componentModel = "spring")
 public interface RoomOwnerMapper extends BaseHistoryMapper<RoomOwner, RoomOwnerDTO> {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "keyRoom.id", target = "keyRoomId")

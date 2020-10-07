@@ -1,4 +1,4 @@
-package com.best.billingvolumecalculator.dto;
+package com.best.billing.volumecalculator.dto;
 
 import java.util.List;
 import java.util.Map;

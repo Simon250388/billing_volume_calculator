@@ -1,17 +1,17 @@
-package com.best.billingvolumecalculator.services.entity.implementation;
+package com.best.billing.volumecalculator.services.entity.implementation;
 
-import com.best.billingvolumecalculator.dto.entity.AccountingPointKeyRoomDTO;
-import com.best.billingvolumecalculator.mappers.entity.AccountingPointKeyRoomMapper;
-import com.best.billingvolumecalculator.models.entity.AccountingPointKeyRoom;
-import com.best.billingvolumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
-import com.best.billingvolumecalculator.services.entity.AccountingPointKeyRoomService;
+import com.best.billing.volumecalculator.dto.entity.AccountingPointKeyRoomDTO;
+import com.best.billing.volumecalculator.mappers.entity.AccountingPointKeyRoomMapper;
+import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoom;
+import com.best.billing.volumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
+import com.best.billing.volumecalculator.services.entity.AccountingPointKeyRoomServiceService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoomService {
+public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoomServiceService {
 
     private final AccountingPointKeyRoomRepository repository;
     private final AccountingPointKeyRoomMapper mapper;

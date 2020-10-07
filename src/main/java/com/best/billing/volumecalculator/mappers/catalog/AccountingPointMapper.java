@@ -1,15 +1,11 @@
-package com.best.billingvolumecalculator.mappers.catalog;
+package com.best.billing.volumecalculator.mappers.catalog;
 
-import com.best.billingvolumecalculator.dto.catalog.AccountingPointDTO;
-import com.best.billingvolumecalculator.mappers.BaseCatalogMapper;
-import com.best.billingvolumecalculator.models.catalog.AccountingPoint;
+import com.best.billing.volumecalculator.dto.catalog.AccountingPointDTO;
+import com.best.billing.volumecalculator.mappers.BaseCatalogMapper;
+import com.best.billing.volumecalculator.models.catalog.AccountingPoint;
 import org.mapstruct.InheritConfiguration;
+import org.mapstruct.Mapper;
 
+@Mapper(componentModel = "spring")
 public interface AccountingPointMapper extends BaseCatalogMapper<AccountingPoint, AccountingPointDTO> {
-    @InheritConfiguration( name= "fromEntity" )
-    @Override
-    AccountingPointDTO fromEntity(AccountingPoint source);
-    @InheritConfiguration( name= "toEntity" )
-    @Override
-    AccountingPoint toEntity(AccountingPointDTO source);
 }

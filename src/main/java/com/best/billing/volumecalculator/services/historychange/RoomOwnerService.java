@@ -1,8 +1,8 @@
-package com.best.billingvolumecalculator.services.historychange;
+package com.best.billing.volumecalculator.services.historychange;
 
-import com.best.billingvolumecalculator.dto.changehistory.RoomOwnerDTO;
-import com.best.billingvolumecalculator.models.historychange.RoomOwner;
-import com.best.billingvolumecalculator.services.catalog.BaseEntityService;
+import com.best.billing.volumecalculator.dto.historychange.RoomOwnerDTO;
+import com.best.billing.volumecalculator.models.historychange.RoomOwner;
+import com.best.billing.volumecalculator.services.catalog.BaseEntityService;
 
 import java.util.Optional;
 
