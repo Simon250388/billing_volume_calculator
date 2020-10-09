@@ -7,11 +7,6 @@ import com.best.billing.volumecalculator.services.BaseEntityService;
 import java.util.Optional;
 
 public interface RoomOwnerService extends BaseEntityService<RoomOwner, RoomOwnerDTO> {
-    Optional<RoomOwner> getLastByKeyRoomId(long keyRoomId);
-
-    @Override
-    RoomOwnerDTO save(RoomOwner accountingPoint);
-
-    @Override
-    Optional<RoomOwnerDTO> findById(long id);
+    Optional<RoomOwnerDTO> getLastByKeyRoomId(long keyRoomId);
+    Iterable<RoomOwnerDTO> doGetHistoryByKeyRoomId(long keyRoomId);
 }

@@ -15,6 +15,8 @@ public interface BaseEntityMapper<E extends BaseEntity, D extends BaseEntityDTO>
 
     List<D> fromEntity(List<E> source);
 
+    Iterable<D> fromEntity(Iterable<E> source);
+
     @Mapping(source = "id", target = "id")
     E toEntity(D source);
 

@@ -5,10 +5,12 @@ import com.best.billing.volumecalculator.mappers.catalog.BuildingMapper;
 import com.best.billing.volumecalculator.models.catalog.Building;
 import com.best.billing.volumecalculator.repositories.catalog.BuildingRepository;
 import com.best.billing.volumecalculator.services.catalog.BuildingService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BuildingServiceImpl implements BuildingService {
     private final BuildingRepository repository;
     private final BuildingMapper mapper;

@@ -5,36 +5,41 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ResponseListDTO<T extends BaseEntityDTO> {
-    private Iterable<T> data;
+public class ResponseDTO<T extends BaseEntityDTO> {
+
+
+    private T data;
     private Map<String, List<BaseCatalogDTO>> views;
     private List<String> errors;
 
-    public ResponseListDTO(Iterable<T> data, Map<String, List<BaseCatalogDTO>> views, List<String> errors) {
+    public ResponseDTO() {
+        this.views = Collections.emptyMap();
+        this.errors = new ArrayList<>();
+    }
+
+    public ResponseDTO(T data, Map<String, List<BaseCatalogDTO>> views, List<String> errors) {
         this.data = data;
         this.views = views;
         this.errors = errors;
     }
 
-    public ResponseListDTO(Iterable<T> data, Map<String, List<BaseCatalogDTO>> views) {
+    public ResponseDTO(T data, Map<String, List<BaseCatalogDTO>> views) {
         this.data = data;
         this.views = views;
         this.errors = new ArrayList<>();
     }
 
-    public ResponseListDTO(Iterable<T> data) {
+    public ResponseDTO(T data) {
         this.data = data;
         this.views = Collections.emptyMap();
         this.errors = new ArrayList<>();
     }
 
-
-
-    public Iterable<T> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Iterable<T> data) {
+    public void setData(T data) {
         this.data = data;
     }
 

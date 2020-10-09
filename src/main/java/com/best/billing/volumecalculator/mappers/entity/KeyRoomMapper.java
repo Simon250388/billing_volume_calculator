@@ -5,7 +5,6 @@ import com.best.billing.volumecalculator.mappers.BaseEntityMapper;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")

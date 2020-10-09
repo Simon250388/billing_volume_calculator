@@ -9,7 +9,10 @@ import java.util.Optional;
 public interface KeyRoomService extends BaseEntityService<KeyRoom, KeyRoomDTO> {
     @Override
     KeyRoomDTO save(KeyRoom accountingPoint);
-
     @Override
     Optional<KeyRoomDTO> findById(long id);
+    Iterable<KeyRoomDTO> findAll();
+    Iterable<KeyRoomDTO> findAll(long buildingId);
+    Iterable<KeyRoomDTO> findAll(long buildingId, long roomId);
+
 }

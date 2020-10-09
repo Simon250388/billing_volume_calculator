@@ -25,8 +25,8 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
     }
 
     @Override
-    public Optional<RoomOwner> getLastByKeyRoomId(long keyRoomId) {
-        return this.repository.getLastByKeyRoom(keyRoomId);
+    public Optional<RoomOwnerDTO> getLastByKeyRoomId(final long keyRoomId) {
+        return this.repository.getLastByKeyRoom(keyRoomId).map(mapper::fromEntity);
     }
 
     @Override
@@ -35,7 +35,12 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
     }
 
     @Override
-    public Optional<RoomOwnerDTO> findById(long id) {
+    public Optional<RoomOwnerDTO> findById(final long id) {
         return this.repository.findById(id).map(mapper::fromEntity);
+    }
+
+    @Override
+    public Iterable<RoomOwnerDTO> doGetHistoryByKeyRoomId(final long keyRoomId) {
+        return mapper.fromEntity(this.repository.findAllByKeyRoomId(keyRoomId));
     }
 }

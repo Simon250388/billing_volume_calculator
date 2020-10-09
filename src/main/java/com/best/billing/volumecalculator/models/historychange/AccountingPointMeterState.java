@@ -26,11 +26,11 @@ public class AccountingPointMeterState extends BaseHistory {
     @JoinColumn(name = "meter_state_id" )
     private MeterState meterState;
 
-    public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomService() {
+    public AccountingPointKeyRoomServiceEntity getAccountingPointKeyRoomServiceEntity() {
         return accountingPointKeyRoomServiceEntity;
     }
 
-    public void setAccountingPointKeyRoomService(AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity) {
+    public void setAccountingPointKeyRoomServiceEntity(AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity) {
         this.accountingPointKeyRoomServiceEntity = accountingPointKeyRoomServiceEntity;
     }
 
@@ -49,5 +49,4 @@ public class AccountingPointMeterState extends BaseHistory {
     public void setMeterState(MeterState meterState) {
         this.meterState = meterState;
     }
-
 }
