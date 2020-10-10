@@ -20,7 +20,7 @@ public interface AccountingPointMeterStateRepository extends CrudRepository<Acco
             "       WHERE c.accountingPointKeyRoomServiceEntity =:accountingPointKeyRoomServiceEntityId" +
             "       AND c.meter =:meterId" +
             ")")
-    Optional<AccountingPointMeterState> findLastAccountingPointKeyRoomServiceEntityIdAndMeterId(
+    Optional<AccountingPointMeterState> findOneLastAccountingPointKeyRoomServiceEntityIdAndMeterId(
             @Param("accountingPointKeyRoomServiceEntityId") long accountingPointKeyRoomServiceEntityId,
             @Param("meterId") long meterId);
 

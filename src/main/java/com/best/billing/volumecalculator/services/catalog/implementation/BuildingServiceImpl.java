@@ -2,7 +2,6 @@ package com.best.billing.volumecalculator.services.catalog.implementation;
 
 import com.best.billing.volumecalculator.dto.catalog.BuildingDTO;
 import com.best.billing.volumecalculator.mappers.catalog.BuildingMapper;
-import com.best.billing.volumecalculator.models.catalog.Building;
 import com.best.billing.volumecalculator.repositories.catalog.BuildingRepository;
 import com.best.billing.volumecalculator.services.catalog.BuildingService;
 import org.springframework.stereotype.Service;
@@ -28,8 +27,9 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public BuildingDTO save(Building accountingPoint) {
-        return mapper.fromEntity(repository.save(accountingPoint));
+    public BuildingDTO save(BuildingDTO dto) {
+
+        return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.best.billing.volumecalculator.services.entity.implementation;
 
 import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billing.volumecalculator.mappers.entity.KeyRoomMapper;
-import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import com.best.billing.volumecalculator.repositories.entity.KeyRoomRepository;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class KeyRoomServiceImpl implements KeyRoomService {
     }
 
     @Override
-    public KeyRoomDTO save(KeyRoom accountingPoint) {
-        return mapper.fromEntity(this.repository.save(accountingPoint));
+    public KeyRoomDTO save(KeyRoomDTO dto) {
+        return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override

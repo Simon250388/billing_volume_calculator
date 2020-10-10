@@ -2,7 +2,6 @@ package com.best.billing.volumecalculator.services.historychange.implementation;
 
 import com.best.billing.volumecalculator.dto.historychange.AccountingPointMeterStateDTO;
 import com.best.billing.volumecalculator.mappers.historychange.AccountingPointMeterStateMapper;
-import com.best.billing.volumecalculator.models.historychange.AccountingPointMeterState;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointMeterStateRepository;
 import com.best.billing.volumecalculator.services.historychange.AccountingPointMeterStateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,8 @@ public class AccountingPointMeterStateServiceImpl implements AccountingPointMete
     }
 
     @Override
-    public AccountingPointMeterStateDTO save(AccountingPointMeterState accountingPoint) {
-        return mapper.fromEntity(repository.save(accountingPoint));
+    public AccountingPointMeterStateDTO save(AccountingPointMeterStateDTO dto) {
+        return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
@@ -40,11 +39,11 @@ public class AccountingPointMeterStateServiceImpl implements AccountingPointMete
 
     @Override
     public Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(long accountingPointKeyRoomServiceEntityId, long meterId) {
-        return repository.findLastAccountingPointKeyRoomServiceEntityIdAndMeterId(accountingPointKeyRoomServiceEntityId, meterId).map(mapper::fromEntity);
+        return repository.findOneLastAccountingPointKeyRoomServiceEntityIdAndMeterId(accountingPointKeyRoomServiceEntityId, meterId).map(mapper::fromEntity);
     }
 
     @Override
     public Iterable<AccountingPointMeterStateDTO> doGetLastByKeyRoomId(long keyRoomId) {
-        return null;
+        return mapper.fromEntity(repository.findAllLastByKeyRoomId(keyRoomId));
     }
 }

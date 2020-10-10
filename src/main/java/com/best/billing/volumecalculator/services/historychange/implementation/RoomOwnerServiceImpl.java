@@ -2,7 +2,6 @@ package com.best.billing.volumecalculator.services.historychange.implementation;
 
 import com.best.billing.volumecalculator.dto.historychange.RoomOwnerDTO;
 import com.best.billing.volumecalculator.mappers.historychange.RoomOwnerMapper;
-import com.best.billing.volumecalculator.models.historychange.RoomOwner;
 import com.best.billing.volumecalculator.repositories.historychange.RoomOwnerRepository;
 import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,13 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
     }
 
     @Override
-    public Optional<RoomOwnerDTO> getLastByKeyRoomId(final long keyRoomId) {
-        return this.repository.getLastByKeyRoom(keyRoomId).map(mapper::fromEntity);
+    public Optional<RoomOwnerDTO> doGetLastByKeyRoomId(final long keyRoomId) {
+        return this.repository.findOneLastByKeyRoomId(keyRoomId).map(mapper::fromEntity);
     }
 
     @Override
-    public RoomOwnerDTO save(RoomOwner accountingPoint) {
-        return mapper.fromEntity(this.repository.save(accountingPoint));
+    public RoomOwnerDTO save(RoomOwnerDTO dto) {
+        return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override
