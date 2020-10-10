@@ -23,16 +23,16 @@ public class AccountingPointMeterStateController {
     }
 
     @GetMapping("/history/{accountingPointKeyRoomService}/{meterId}")
-    public ResponseEntity<ResponseListDTO<AccountingPointMeterStateDTO>> doGetHistory(@PathVariable final long accountingPointKeyRoomServiceId, @PathVariable final long meterId ) {
+    public ResponseEntity<ResponseListDTO<AccountingPointMeterStateDTO>> doGetHistory(@PathVariable final long accountingPointKeyRoomServiceId, @PathVariable final long meterId) {
         return new ResponseEntity<>(
                 new ResponseListDTO<>(this.entityService.doGetHistoryByAccountingPointKeyRoomService(accountingPointKeyRoomServiceId, meterId)),
                 HttpStatus.OK);
     }
 
     @GetMapping("/last/{accountingPointKeyRoomServiceId}/{meterId}")
-    public ResponseEntity<ResponseDTO<AccountingPointMeterStateDTO>> doGetLast(@PathVariable final long accountingPointKeyRoomServiceId,  @PathVariable final long meterId) {
+    public ResponseEntity<ResponseDTO<AccountingPointMeterStateDTO>> doGetLast(@PathVariable final long accountingPointKeyRoomServiceId, @PathVariable final long meterId) {
 
-        return this.entityService.doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(accountingPointKeyRoomServiceId, meterId).map(value->
+        return this.entityService.doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(accountingPointKeyRoomServiceId, meterId).map(value ->
                 new ResponseEntity<>(
                         new ResponseDTO<>(value), HttpStatus.OK)
         ).orElse(

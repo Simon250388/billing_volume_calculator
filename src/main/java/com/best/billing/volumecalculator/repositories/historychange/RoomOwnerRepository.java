@@ -8,14 +8,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface RoomOwnerRepository extends CrudRepository<RoomOwner, Long> {
-    @Query(value = "SELECT ro.* FROM room_owners ro" +
-            " INNER JOIN (SELECT MAX(r.period) as period" +
-            "             FROM room_owners r" +
-            "             WHERE r.key_room_id =:KeyRoomId) maxPeriod" +
-            " ON ro.period = maxPeriod.period" +
-            " AND ro.key_room_id =:KeyRoomId",
-    nativeQuery = true)
-    Optional<RoomOwner> getLastByKeyRoom(@Param("KeyRoomId") long keyRoomId);
+    @Query(value = "SELECT c" +
+            " FROM RoomOwner c" +
+            " WHERE c.keyRoom = :keyRoomId" +
+            " AND c.period = (  SELECT MAX(c.period)" +
+            "                   FROM RoomOwner c" +
+            "                   WHERE c.keyRoom =:keyRoomId)")
+    Optional<RoomOwner> getLastByKeyRoom(@Param("keyRoomId") long keyRoomId);
 
     Iterable<RoomOwner> findAllByKeyRoomId(long keyRoomId);
 }

@@ -55,5 +55,4 @@ public class KeyRoomController {
                             this.entityService.findAll(buildingId, roomId)),HttpStatus.OK);
         }
     }
-
 }
