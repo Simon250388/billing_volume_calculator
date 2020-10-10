@@ -7,10 +7,12 @@ import com.best.billing.volumecalculator.repositories.catalog.AccountingPointRep
 import com.best.billing.volumecalculator.services.BaseEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AccountingPointServiceImpl implements BaseEntityService<AccountingPoint, AccountingPointDTO> {
     private final AccountingPointRepository repository;
     private final AccountingPointMapper mapper;

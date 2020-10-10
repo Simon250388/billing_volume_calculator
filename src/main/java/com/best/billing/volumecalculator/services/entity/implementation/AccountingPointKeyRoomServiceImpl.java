@@ -5,17 +5,21 @@ import com.best.billing.volumecalculator.mappers.entity.AccountingPointKeyRoomMa
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoom;
 import com.best.billing.volumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
 import com.best.billing.volumecalculator.services.entity.AccountingPointKeyRoomServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoomServiceService {
 
     private final AccountingPointKeyRoomRepository repository;
     private final AccountingPointKeyRoomMapper mapper;
 
+    @Autowired
     public AccountingPointKeyRoomServiceImpl(AccountingPointKeyRoomRepository repository, AccountingPointKeyRoomMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;

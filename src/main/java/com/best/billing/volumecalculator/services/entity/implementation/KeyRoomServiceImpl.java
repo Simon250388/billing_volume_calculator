@@ -7,10 +7,12 @@ import com.best.billing.volumecalculator.repositories.entity.KeyRoomRepository;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class KeyRoomServiceImpl implements KeyRoomService {
     private final KeyRoomRepository repository;
     private final KeyRoomMapper mapper;

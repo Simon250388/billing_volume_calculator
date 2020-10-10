@@ -1,14 +1,15 @@
 package com.best.billing.volumecalculator.mappers;
 
 
-import com.best.billing.volumecalculator.basemodels.BaseEntity;
+import com.best.billing.volumecalculator.models.BaseEntity;
 import com.best.billing.volumecalculator.dto.BaseEntityDTO;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@MapperConfig
+@MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BaseEntityMapper<E extends BaseEntity, D extends BaseEntityDTO> {
     @Mapping(source = "id", target = "id")
     D fromEntity(E source);

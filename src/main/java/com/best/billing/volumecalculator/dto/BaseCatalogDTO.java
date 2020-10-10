@@ -1,13 +1,10 @@
 package com.best.billing.volumecalculator.dto;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class BaseCatalogDTO extends BaseEntityDTO {
     private String present;
-
-    public String getPresent() {
-        return present;
-    }
-
-    public void setPresent(String present) {
-        this.present = present;
-    }
 }

@@ -1,6 +1,6 @@
 package com.best.billing.volumecalculator.mappers;
 
-import com.best.billing.volumecalculator.basemodels.BaseHistory;
+import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.dto.BaseHistoryDTO;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.MapperConfig;

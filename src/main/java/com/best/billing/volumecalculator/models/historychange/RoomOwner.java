@@ -1,13 +1,17 @@
 package com.best.billing.volumecalculator.models.historychange;
 
-import com.best.billing.volumecalculator.basemodels.BaseHistory;
+import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 /**
  * История изменения количества собственников
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_owners")
 public class RoomOwner extends BaseHistory {
@@ -17,24 +21,4 @@ public class RoomOwner extends BaseHistory {
     private KeyRoom keyRoom;
     @Column(nullable = false)
     private int ownerCount;
-
-    public RoomOwner() {
-        super();
-    }
-
-    public KeyRoom getKeyRoom() {
-        return keyRoom;
-    }
-
-    public void setKeyRoom(KeyRoom keyRoom) {
-        this.keyRoom = keyRoom;
-    }
-
-    public int getOwnerCount() {
-        return ownerCount;
-    }
-
-    public void setOwnerCount(int ownerCount) {
-        this.ownerCount = ownerCount;
-    }
 }

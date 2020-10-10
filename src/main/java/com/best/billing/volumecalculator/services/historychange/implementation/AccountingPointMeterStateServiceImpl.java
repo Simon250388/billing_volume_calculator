@@ -6,9 +6,13 @@ import com.best.billing.volumecalculator.models.historychange.AccountingPointMet
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointMeterStateRepository;
 import com.best.billing.volumecalculator.services.historychange.AccountingPointMeterStateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
+@Transactional
 public class AccountingPointMeterStateServiceImpl implements AccountingPointMeterStateService {
     private final AccountingPointMeterStateRepository repository;
     private final AccountingPointMeterStateMapper mapper;
@@ -30,12 +34,17 @@ public class AccountingPointMeterStateServiceImpl implements AccountingPointMete
     }
 
     @Override
-    public Iterable<AccountingPointMeterStateDTO> doGetHistoryByAccountingPointKeyRoomService(long accountingPointKeyRoomService, long meterId) {
-        return mapper.fromEntity(repository.findAllByAccountingPointKeyRoomServiceIdAndMeterId(accountingPointKeyRoomService, meterId));
+    public Iterable<AccountingPointMeterStateDTO> doGetHistoryByAccountingPointKeyRoomService(long accountingPointKeyRoomServiceEntityId, long meterId) {
+        return mapper.fromEntity(repository.findAllByAccountingPointKeyRoomServiceEntityIdAndMeterId(accountingPointKeyRoomServiceEntityId, meterId));
     }
 
     @Override
-    public Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(long accountingPointKeyRoomServiceId, long meterId) {
-        return repository.findLastByAccountingPointKeyRoomServiceIdAndMeterId(accountingPointKeyRoomServiceId, meterId).map(mapper::fromEntity);
+    public Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(long accountingPointKeyRoomServiceEntityId, long meterId) {
+        return repository.findLastAccountingPointKeyRoomServiceEntityIdAndMeterId(accountingPointKeyRoomServiceEntityId, meterId).map(mapper::fromEntity);
+    }
+
+    @Override
+    public Iterable<AccountingPointMeterStateDTO> doGetLastByKeyRoomId(long keyRoomId) {
+        return null;
     }
 }

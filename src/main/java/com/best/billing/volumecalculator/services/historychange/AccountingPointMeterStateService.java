@@ -11,4 +11,6 @@ public interface AccountingPointMeterStateService extends BaseEntityService<Acco
     Iterable<AccountingPointMeterStateDTO> doGetHistoryByAccountingPointKeyRoomService(long accountingPointKeyRoomService, long meterId);
 
     Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(long accountingPointKeyRoomServiceId, long meterId);
+
+    Iterable<AccountingPointMeterStateDTO> doGetLastByKeyRoomId(long keyRoomId);
 }

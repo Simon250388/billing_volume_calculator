@@ -1,20 +1,30 @@
 package com.best.billing.volumecalculator.models.entity;
 
-import com.best.billing.volumecalculator.basemodels.BaseEntity;
+import com.best.billing.volumecalculator.models.BaseEntity;
 import com.best.billing.volumecalculator.models.catalog.Building;
 import com.best.billing.volumecalculator.models.catalog.Room;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 /**
  * Ключ помещения
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "key_rooms")
 public class KeyRoom extends BaseEntity {
+    /**
+     * Строение
+     */
     @ManyToOne
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
+    /**
+     * Помещение
+     */
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -23,28 +33,4 @@ public class KeyRoom extends BaseEntity {
      */
     @Column(nullable = false)
     private boolean privateSector;
-
-    public Building getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(Building building) {
-        this.building = building;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public boolean isPrivateSector() {
-        return privateSector;
-    }
-
-    public void setPrivateSector(boolean privateSector) {
-        this.privateSector = privateSector;
-    }
 }

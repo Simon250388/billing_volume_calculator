@@ -1,14 +1,18 @@
 package com.best.billing.volumecalculator.models.historychange;
 
-import com.best.billing.volumecalculator.basemodels.BaseHistory;
+import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import com.best.billing.volumecalculator.models.enums.SquareType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 /**
  * История изменения площадей помещения
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_squares")
 public class RoomSquare extends BaseHistory {
@@ -29,28 +33,4 @@ public class RoomSquare extends BaseHistory {
      */
     @Column(nullable = false)
     private int value;
-
-    public KeyRoom getKeyRoom() {
-        return keyRoom;
-    }
-
-    public void setKeyRoom(KeyRoom keyRoom) {
-        this.keyRoom = keyRoom;
-    }
-
-    public SquareType getSquareType() {
-        return squareType;
-    }
-
-    public void setSquareType(SquareType squareType) {
-        this.squareType = squareType;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
 }

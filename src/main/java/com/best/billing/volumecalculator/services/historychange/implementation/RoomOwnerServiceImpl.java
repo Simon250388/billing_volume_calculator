@@ -7,10 +7,12 @@ import com.best.billing.volumecalculator.repositories.historychange.RoomOwnerRep
 import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RoomOwnerServiceImpl implements RoomOwnerService {
     private final RoomOwnerRepository repository;
     private final RoomOwnerMapper mapper;

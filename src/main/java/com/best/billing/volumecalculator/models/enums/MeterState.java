@@ -1,6 +1,8 @@
 package com.best.billing.volumecalculator.models.enums;
 
-import com.best.billing.volumecalculator.basemodels.BaseCatalog;
+import com.best.billing.volumecalculator.models.BaseCatalog;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,6 +10,8 @@ import javax.persistence.Table;
 /**
  * Значение состояния прибора учета
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "meter_states" )
 public class MeterState extends BaseCatalog {
