@@ -1,8 +1,10 @@
 package com.best.billing.volumecalculator.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
-public abstract class BaseEntityDTO {
+@Getter
+@AllArgsConstructor
+public class BaseEntityDTO {
     private Long id;
 }

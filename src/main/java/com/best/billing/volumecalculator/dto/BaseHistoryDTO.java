@@ -1,10 +1,15 @@
 package com.best.billing.volumecalculator.dto;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
 @EqualsAndHashCode(callSuper = true)
-public abstract class BaseHistoryDTO extends BaseEntityDTO {
+public class BaseHistoryDTO extends BaseEntityDTO {
     private String period;
+
+    public BaseHistoryDTO(Long id, String period) {
+        super(id);
+        this.period = period;
+    }
 }

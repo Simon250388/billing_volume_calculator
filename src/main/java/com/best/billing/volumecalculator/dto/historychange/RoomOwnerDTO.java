@@ -3,9 +3,15 @@ package com.best.billing.volumecalculator.dto.historychange;
 import com.best.billing.volumecalculator.dto.BaseHistoryDTO;
 import lombok.*;
 
-@Data
+@Value
 @EqualsAndHashCode(callSuper = true)
 public class RoomOwnerDTO extends BaseHistoryDTO {
     private Long keyRoomId;
     private Integer ownerCount;
+
+    public RoomOwnerDTO(Long id, String period, Long keyRoomId, Integer ownerCount) {
+        super(id, period);
+        this.keyRoomId = keyRoomId;
+        this.ownerCount = ownerCount;
+    }
 }
