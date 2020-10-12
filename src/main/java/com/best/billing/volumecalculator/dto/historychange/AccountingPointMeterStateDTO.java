@@ -1,13 +1,12 @@
 package com.best.billing.volumecalculator.dto.historychange;
 
 import com.best.billing.volumecalculator.dto.BaseHistoryDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AccountingPointMeterStateDTO extends BaseHistoryDTO {
-    private long accountingPointKeyRoomServiceEntityId;
-    private long meterId;
-    private long meterStateId;
+    private Long accountingPointKeyRoomServiceEntityId;
+    private Long meterId;
+    private Long meterStateId;
 }

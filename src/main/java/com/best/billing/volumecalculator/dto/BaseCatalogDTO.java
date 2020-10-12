@@ -5,6 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BaseCatalogDTO extends BaseEntityDTO {
+public abstract class BaseCatalogDTO extends BaseEntityDTO {
     private String present;
 }

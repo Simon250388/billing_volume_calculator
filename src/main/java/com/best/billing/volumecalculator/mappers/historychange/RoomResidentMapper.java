@@ -1,24 +1,23 @@
 package com.best.billing.volumecalculator.mappers.historychange;
 
-import com.best.billing.volumecalculator.dto.historychange.RoomPrescribedDTO;
+import com.best.billing.volumecalculator.dto.historychange.RoomResidentdDTO;
 import com.best.billing.volumecalculator.mappers.BaseHistoryMapper;
-import com.best.billing.volumecalculator.models.historychange.RoomPrescribed;
+import com.best.billing.volumecalculator.models.historychange.RoomResident;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", config = BaseHistoryMapper.class)
-public interface RoomPrescribedMapper extends BaseHistoryMapper<RoomPrescribed, RoomPrescribedDTO> {
+public interface RoomResidentMapper extends BaseHistoryMapper<RoomResident, RoomResidentdDTO> {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "keyRoom.id", target = "keyRoomId")
-    @Mapping(source = "prescribedCount", target = "prescribedCount")
+    @Mapping(source = "residentCount", target = "residentCount")
     @Override
-    RoomPrescribedDTO
-    fromEntity(RoomPrescribed source);
+    RoomResidentdDTO fromEntity(RoomResident source);
 
     @InheritConfiguration( name= "toEntity" )
     @Mapping(source = "keyRoomId", target = "keyRoom.id")
-    @Mapping(source = "prescribedCount", target = "prescribedCount")
+    @Mapping(source = "residentCount", target = "residentCount")
     @Override
-    RoomPrescribed toEntity(RoomPrescribedDTO source);
+    RoomResident toEntity(RoomResidentdDTO source);
 }

@@ -5,7 +5,7 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RoomPrescribedDTO extends BaseHistoryDTO {
+public class RoomResidentdDTO extends BaseHistoryDTO{
     private Long keyRoomId;
-    private Integer prescribedCount;
+    private Integer residentCount;
 }

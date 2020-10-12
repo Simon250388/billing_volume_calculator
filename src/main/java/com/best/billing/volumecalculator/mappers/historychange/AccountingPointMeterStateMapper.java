@@ -7,7 +7,7 @@ import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", config = BaseHistoryMapper.class)
 public interface AccountingPointMeterStateMapper extends BaseHistoryMapper<AccountingPointMeterState, AccountingPointMeterStateDTO>  {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "accountingPointKeyRoomServiceEntity.id", target = "accountingPointKeyRoomServiceEntityId")
