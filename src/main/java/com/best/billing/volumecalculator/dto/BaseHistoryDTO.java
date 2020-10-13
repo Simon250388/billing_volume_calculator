@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public class BaseHistoryDTO extends BaseEntityDTO {
-    private String period;
+    private final String period;
 
     public BaseHistoryDTO(Long id, String period) {
         super(id);

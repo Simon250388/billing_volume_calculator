@@ -5,7 +5,7 @@ import com.best.billing.volumecalculator.dto.BaseEntityDTO;
 import java.util.Optional;
 
 public interface BaseEntityService<D extends BaseEntityDTO> {
-    D save(D entity);
+    D save(D dto);
 
     Optional<D> findById(long id);
 }

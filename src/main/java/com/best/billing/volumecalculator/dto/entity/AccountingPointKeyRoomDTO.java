@@ -6,8 +6,8 @@ import lombok.*;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class AccountingPointKeyRoomDTO extends BaseEntityDTO {
-    private Long keyRoomId;
-    private Long accountingPointId;
+    Long keyRoomId;
+    Long accountingPointId;
 
     public AccountingPointKeyRoomDTO(Long id, Long keyRoomId, Long accountingPointId) {
         super(id);

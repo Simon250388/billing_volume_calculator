@@ -6,8 +6,8 @@ import lombok.*;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class RoomResidentdDTO extends BaseHistoryDTO{
-    private Long keyRoomId;
-    private Integer residentCount;
+    Long keyRoomId;
+    Integer residentCount;
 
     public RoomResidentdDTO(Long id, String period, Long keyRoomId, Integer residentCount) {
         super(id, period);

@@ -26,7 +26,7 @@ public class AccountingPointServiceStateController {
     @GetMapping("/active-all/{keyRoomId}")
     public ResponseEntity<ResponseListDTO<AccountingPointServiceStateDTO>> doGetAllActiveByKeyRoomId(@PathVariable @NotNull final long keyRoomId) {
         return new ResponseEntity<>(
-                new ResponseListDTO<>(entityService.doGetAllActiveByKeyRoomId(keyRoomId)),
+                new ResponseListDTO<>(entityService.doGetAllActiveAccountingPointDetailByKeyRoomId(keyRoomId)),
                 HttpStatus.OK);
 
     }

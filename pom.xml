@@ -18,6 +18,7 @@
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.0.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.12</org.projectlombok.version>
+        <com.google.guava.version>29.0-jre</com.google.guava.version>
     </properties>
 
     <dependencies>
@@ -70,6 +71,14 @@
             <version>${org.projectlombok.version}</version>
             <scope>provided</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
+        </dependency>
+
 
     </dependencies>
 

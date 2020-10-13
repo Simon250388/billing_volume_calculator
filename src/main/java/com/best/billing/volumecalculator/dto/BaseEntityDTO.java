@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BaseEntityDTO {
-    private Long id;
+    private final Long id;
 }

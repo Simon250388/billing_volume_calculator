@@ -4,5 +4,5 @@ import com.best.billing.volumecalculator.dto.historychange.AccountingPointServic
 import com.best.billing.volumecalculator.services.BaseEntityService;
 
 public interface AccountingPointServiceStateService extends BaseEntityService<AccountingPointServiceStateDTO> {
-    Iterable<AccountingPointServiceStateDTO> doGetAllActiveByKeyRoomId(long keyRoomId);
+    Iterable<AccountingPointServiceStateDTO> doGetAllActiveAccountingPointDetailByKeyRoomId(long keyRoomId);
 }

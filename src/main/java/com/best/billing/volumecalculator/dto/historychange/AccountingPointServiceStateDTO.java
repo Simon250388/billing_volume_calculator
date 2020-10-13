@@ -7,11 +7,11 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class AccountingPointServiceStateDTO extends BaseHistoryDTO {
-    private Long accountingPointKeyRoomServiceEntityId;
-    private Boolean active;
-    private Long meterId;
-    private Long serviceId;
-    private String meterStatePeriod;
+    Long accountingPointKeyRoomServiceEntityId;
+    Boolean active;
+    Long meterId;
+    Long serviceId;
+    String meterStatePeriod;
 
     public AccountingPointServiceStateDTO(Long id, String period, Long accountingPointKeyRoomServiceEntityId, boolean active, long meterId, Long serviceId, String meterStatePeriod) {
         super(id, period);
