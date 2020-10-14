@@ -3,8 +3,8 @@ package com.best.billing.volumecalculator.models.entity;
 import com.best.billing.volumecalculator.models.BaseEntity;
 import com.best.billing.volumecalculator.models.catalog.Building;
 import com.best.billing.volumecalculator.models.catalog.Room;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,6 +12,7 @@ import javax.persistence.*;
  * Ключ помещения
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "key_rooms")

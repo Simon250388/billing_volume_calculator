@@ -6,21 +6,20 @@ import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoomSer
 import com.best.billing.volumecalculator.models.enums.MeterState;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Состояние прибора учета на точке учета
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_meter_states")
 public class AccountingPointMeterState extends BaseHistory {
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "accounting_point_key_room_service_id" )
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne

@@ -5,6 +5,7 @@ import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import com.best.billing.volumecalculator.models.enums.SquareType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
  * История изменения площадей помещения
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_squares")

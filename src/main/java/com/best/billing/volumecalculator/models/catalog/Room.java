@@ -1,8 +1,8 @@
 package com.best.billing.volumecalculator.models.catalog;
 
 import com.best.billing.volumecalculator.models.BaseCatalog;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,6 +13,7 @@ import javax.persistence.Table;
  * Помещение
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "rooms")

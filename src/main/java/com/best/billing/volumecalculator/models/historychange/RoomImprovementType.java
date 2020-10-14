@@ -6,6 +6,7 @@ import com.best.billing.volumecalculator.models.catalog.Service;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
  * Вид благоустройства для услуг помещения
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_improvement_types")

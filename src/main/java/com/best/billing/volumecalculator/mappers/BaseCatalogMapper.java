@@ -5,8 +5,9 @@ import com.best.billing.volumecalculator.dto.BaseCatalogDTO;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@MapperConfig
+@MapperConfig(unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface BaseCatalogMapper<E extends BaseCatalog, D extends BaseCatalogDTO> extends BaseEntityMapper<E, D> {
     @InheritConfiguration( name= "fromEntity" )
     @Mapping(source = "description", target = "present")

@@ -2,8 +2,8 @@ package com.best.billing.volumecalculator.models.entity;
 
 import com.best.billing.volumecalculator.models.BaseEntity;
 import com.best.billing.volumecalculator.models.catalog.AccountingPoint;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,6 +14,7 @@ import javax.persistence.Table;
  * Токи учета ключа помещения
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_key_room")

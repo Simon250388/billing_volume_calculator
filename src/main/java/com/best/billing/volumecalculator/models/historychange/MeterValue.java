@@ -5,6 +5,7 @@ import com.best.billing.volumecalculator.models.catalog.Meter;
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
  * История показаний прибора учета
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "meter_values")
