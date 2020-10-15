@@ -7,13 +7,14 @@ import org.springframework.data.repository.query.Param;
 
 public interface AccountingPointServiceStateRepository extends CrudRepository<AccountingPointServiceState, Long>  {
 
-    @Query(value = "from AccountingPointServiceState c" +
-            " where (c.accountingPointKeyRoomServiceEntity, c.period) IN (" +
-            "   select " +
+    @Query(value = "FROM AccountingPointServiceState c" +
+            " WHERE (c.accountingPointKeyRoomServiceEntity, c.period) IN (" +
+            "   SELECT " +
             "   c.accountingPointKeyRoomServiceEntity" +
-            "   ,Max(c.period)" +
-            "   from AccountingPointServiceState c" +
-            "   where c.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id =:keyRoomId" +
+            "   ,MAX(c.period)" +
+            "   FROM AccountingPointServiceState c" +
+            "   WHERE c.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id =:keyRoomId" +
+            "   GROUP BY c.accountingPointKeyRoomServiceEntity" +
             ")" +
             " AND c.active = true")
     Iterable<AccountingPointServiceState> findAllActiveByKeyRoomId(@Param("keyRoomId") long keyRoomId);
