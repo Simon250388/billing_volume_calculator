@@ -12,8 +12,10 @@ import javax.persistence.Table;
 /**
  * Помещение
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "rooms")

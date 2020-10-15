@@ -10,8 +10,10 @@ import javax.persistence.Table;
 /**
  * Точка учета
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_points")

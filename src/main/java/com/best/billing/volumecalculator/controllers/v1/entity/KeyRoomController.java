@@ -1,9 +1,10 @@
-package com.best.billing.volumecalculator.controllers.v1.catalog;
+package com.best.billing.volumecalculator.controllers.v1.entity;
 
 import com.best.billing.volumecalculator.dto.ResponseDTO;
 import com.best.billing.volumecalculator.dto.ResponseListDTO;
 import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
+import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,13 @@ public class KeyRoomController {
                         Collections.emptyMap(),
                         Collections.singletonList(String.format("Key room with key %o not found", keyRoomId))),
                 HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/last-details/{keyRoomId}")
+    public ResponseEntity doGetLastDetails(@PathVariable(name = "keyRoomId") @NotNull Long keyRoomId) {
+        // entityService.doGetLastDetails(keyRoomId);
+        return new ResponseEntity(HttpStatus.OK);
+
     }
 
     @GetMapping()

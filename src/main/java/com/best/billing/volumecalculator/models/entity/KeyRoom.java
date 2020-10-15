@@ -11,8 +11,10 @@ import javax.persistence.*;
 /**
  * Ключ помещения
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "key_rooms")

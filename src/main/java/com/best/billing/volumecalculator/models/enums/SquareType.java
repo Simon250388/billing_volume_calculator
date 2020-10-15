@@ -1,15 +1,16 @@
 package com.best.billing.volumecalculator.models.enums;
 
 import com.best.billing.volumecalculator.models.BaseCatalog;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "square_types")

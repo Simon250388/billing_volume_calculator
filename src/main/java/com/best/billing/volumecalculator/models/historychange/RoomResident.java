@@ -2,8 +2,7 @@ package com.best.billing.volumecalculator.models.historychange;
 
 import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -11,8 +10,10 @@ import javax.persistence.*;
 /**
  * История изменения проживающих
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_residents")

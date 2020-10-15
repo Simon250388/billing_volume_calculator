@@ -10,8 +10,10 @@ import javax.persistence.*;
 /**
  * Состояние услуги на точке учета
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_service_state")

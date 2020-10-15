@@ -4,8 +4,7 @@ import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.catalog.RateGroup;
 import com.best.billing.volumecalculator.models.catalog.Service;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -16,8 +15,10 @@ import javax.persistence.Table;
 /**
  * Тарифные группы услуг помещения
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_rate_groups")

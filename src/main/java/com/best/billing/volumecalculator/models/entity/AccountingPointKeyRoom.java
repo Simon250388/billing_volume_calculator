@@ -13,8 +13,10 @@ import javax.persistence.Table;
 /**
  * Токи учета ключа помещения
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_key_room")

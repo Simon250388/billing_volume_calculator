@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface RoomPrescribedService extends BaseEntityService<RoomPrescribedDTO> {
     Optional<RoomPrescribedDTO> doGetLastByKeyRoomId(long keyRoomId);
-
     Iterable<RoomPrescribedDTO> doGetHistoryByKeyRoomId(long keyRoomId);
+
 }

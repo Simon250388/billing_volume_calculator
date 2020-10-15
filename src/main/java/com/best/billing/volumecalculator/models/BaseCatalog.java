@@ -4,13 +4,19 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
-@Data
+@Getter
+@Setter
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
-public class BaseCatalog extends BaseEntity {
+public abstract class BaseCatalog extends BaseEntity {
+    public BaseCatalog() {
+        super();
+    }
+
     @Column(name = "description", nullable = false, length = 50)
     private String description;
 }

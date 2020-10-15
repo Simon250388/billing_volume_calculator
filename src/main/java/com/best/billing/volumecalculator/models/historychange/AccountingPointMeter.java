@@ -3,8 +3,7 @@ package com.best.billing.volumecalculator.models.historychange;
 import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.catalog.Meter;
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -15,8 +14,10 @@ import javax.persistence.Table;
 /**
  * Прибор установленный на точке учета (без учета состояния прибора)
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_meters")

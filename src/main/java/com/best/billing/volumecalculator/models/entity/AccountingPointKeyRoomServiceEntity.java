@@ -11,8 +11,10 @@ import javax.persistence.*;
 /**
  * Услуга точки учета (без учета состояния)
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_key_room_services")

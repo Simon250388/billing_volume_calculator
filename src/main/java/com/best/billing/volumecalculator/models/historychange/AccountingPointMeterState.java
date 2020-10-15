@@ -4,8 +4,7 @@ import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.catalog.Meter;
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.volumecalculator.models.enums.MeterState;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -13,8 +12,10 @@ import javax.persistence.*;
 /**
  * Состояние прибора учета на точке учета
  */
-@Data
+@Getter
+@Setter
 @SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_meter_states")
