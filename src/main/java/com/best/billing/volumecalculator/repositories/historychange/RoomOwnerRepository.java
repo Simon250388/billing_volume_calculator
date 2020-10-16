@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;

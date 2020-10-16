@@ -13,5 +13,4 @@ public interface KeyRoomService extends BaseEntityService<KeyRoomDTO> {
     Iterable<KeyRoomDTO> findAll();
     Iterable<KeyRoomDTO> findAll(long buildingId);
     Iterable<KeyRoomDTO> findAll(long buildingId, long roomId);
-    Optional<KeyRoomDTO> doGetLastDetails(Long keyRoomId);
 }

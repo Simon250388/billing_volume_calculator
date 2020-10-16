@@ -6,15 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface RoomResidentRepository extends CrudRepository<RoomResident, Long> {
-    @Query(value = "" +
-            " FROM RoomPrescribed c" +
-            " WHERE c.keyRoom = :keyRoomId" +
-            " AND c.period = (SELECT MAX(c.period)" +
-            "                 FROM RoomOwner c" +
-            "                 WHERE c.keyRoom =:keyRoomId)")
     Optional<RoomResident> findOneLastByKeyRoomId(@Param("keyRoomId") long keyRoomId);
-
+    @Query(name = RoomResident.FIND_ONE_LAST_BY_KEY_ROOM_ID)
+    CompletableFuture<RoomResident> findOneLastByKeyRoomIdAsync(Long keyRoomId);
     Iterable<RoomResident> findAllByKeyRoomId(long keyRoomId);
 }

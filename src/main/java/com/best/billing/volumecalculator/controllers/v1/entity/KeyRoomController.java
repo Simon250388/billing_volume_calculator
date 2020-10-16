@@ -4,7 +4,7 @@ import com.best.billing.volumecalculator.dto.ResponseDTO;
 import com.best.billing.volumecalculator.dto.ResponseListDTO;
 import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
-import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
+import com.best.billing.volumecalculator.services.helpers.KeyRoomDetailProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,12 @@ import java.util.Optional;
 @RequestMapping("/key-room")
 public class KeyRoomController {
     private final KeyRoomService entityService;
+    private final KeyRoomDetailProperty detailPropertyService;
 
     @Autowired
-    public KeyRoomController(@NotNull KeyRoomService entityService) {
+    public KeyRoomController(KeyRoomService entityService, KeyRoomDetailProperty detailPropertyService) {
         this.entityService = entityService;
+        this.detailPropertyService = detailPropertyService;
     }
 
     @GetMapping("/{keyRoomId}")
@@ -37,9 +39,9 @@ public class KeyRoomController {
                 HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/last-details/{keyRoomId}")
+    @GetMapping("/last-details-property/{keyRoomId}")
     public ResponseEntity doGetLastDetails(@PathVariable(name = "keyRoomId") @NotNull Long keyRoomId) {
-        // entityService.doGetLastDetails(keyRoomId);
+        detailPropertyService.doGetLastDetails(keyRoomId);
         return new ResponseEntity(HttpStatus.OK);
 
     }
