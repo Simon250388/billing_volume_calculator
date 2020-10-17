@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public interface RoomSquareRepository extends CrudRepository<RoomSquare, Long> {
+    @Query(name = RoomSquare.FIND_ONE_LAST_COMMON_SQUARE_BY_KEY_ROOM_ID)
     Optional<RoomSquare> findOneLastCommonSquareByKeyRoomId(Long keyRoomId);
     @Query(name = RoomSquare.FIND_ONE_LAST_COMMON_SQUARE_BY_KEY_ROOM_ID)
     CompletableFuture<RoomSquare> findOneLastCommonSquareByKeyRoomIdAsync(Long keyRoomId);

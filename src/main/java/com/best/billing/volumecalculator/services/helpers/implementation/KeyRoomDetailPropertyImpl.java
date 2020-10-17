@@ -11,10 +11,12 @@ import com.best.billing.volumecalculator.repositories.historychange.RoomResident
 import com.best.billing.volumecalculator.repositories.historychange.RoomSquareRepository;
 import com.best.billing.volumecalculator.services.helpers.KeyRoomDetailProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+@Service
 public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
     private final RoomOwnerRepository ownerRepository;
     private final RoomPrescribedRepository prescribedRepository;
