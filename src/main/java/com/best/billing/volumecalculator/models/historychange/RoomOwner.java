@@ -19,10 +19,10 @@ import javax.persistence.*;
 @Table(name = "room_owners")
 @NamedQuery(name = RoomOwner.FIND_ONE_LAST_BY_KEY_ROOM_ID,
         query = "FROM RoomOwner c" +
-                " WHERE c.keyRoom = :keyRoomId" +
+                " WHERE c.keyRoom.id = :keyRoomId" +
                 " AND c.period = (  SELECT MAX(c.period)" +
                 "                   FROM RoomOwner c" +
-                "                   WHERE c.keyRoom =:keyRoomId)")
+                "                   WHERE c.keyRoom.id =:keyRoomId)")
 public class RoomOwner extends BaseHistory {
     public static final String FIND_ONE_LAST_BY_KEY_ROOM_ID = "RoomOwner.findOneLastByKeyRoomId";
 

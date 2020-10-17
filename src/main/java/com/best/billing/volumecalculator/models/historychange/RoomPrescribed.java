@@ -2,7 +2,10 @@ package com.best.billing.volumecalculator.models.historychange;
 
 import com.best.billing.volumecalculator.models.BaseHistory;
 import com.best.billing.volumecalculator.models.entity.KeyRoom;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -19,11 +22,11 @@ import javax.persistence.*;
 @Table(name = "room_prescribers")
 @NamedQuery(name = RoomPrescribed.FIND_ONE_LAST_BY_KEY_ROOM_ID,
         query = "FROM RoomPrescribed c" +
-                " WHERE c.keyRoom = :keyRoomId" +
+                " WHERE c.keyRoom.id = :keyRoomId" +
                 " AND c.period = (  SELECT MAX(c.period)" +
                 "                   FROM RoomPrescribed c" +
-                "                   WHERE c.keyRoom =:keyRoomId)")
-public class RoomPrescribed  extends BaseHistory {
+                "                   WHERE c.keyRoom.id =:keyRoomId)")
+public class RoomPrescribed extends BaseHistory {
     public static final String FIND_ONE_LAST_BY_KEY_ROOM_ID = "RoomPrescribed.findOneLastByKeyRoomId";
     @ManyToOne
     @JoinColumn(name = "key_room_id")
