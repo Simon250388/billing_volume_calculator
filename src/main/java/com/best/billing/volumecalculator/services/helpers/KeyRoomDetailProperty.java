@@ -1,9 +1,7 @@
 package com.best.billing.volumecalculator.services.helpers;
 
-import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
-
-import java.util.Optional;
+import com.best.billing.volumecalculator.dto.helpers.KeyRoomDetailPropertyDTO;
 
 public interface KeyRoomDetailProperty {
-    Optional<KeyRoomDTO> doGetLastDetails(Long keyRoomId);
+    KeyRoomDetailPropertyDTO doGetLastDetails(Long keyRoomId);
 }

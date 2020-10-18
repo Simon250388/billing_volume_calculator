@@ -15,7 +15,7 @@ public interface RoomOwnerRepository extends CrudRepository<RoomOwner, Long> {
 
     @Async
     @Query(name = RoomOwner.FIND_ONE_LAST_BY_KEY_ROOM_ID)
-    CompletableFuture<RoomOwner> findOneLastByKeyRoomIdAsync(@NonNull Long keyRoomId);
+    CompletableFuture<Optional<RoomOwner>> findOneLastByKeyRoomIdAsync(@NonNull Long keyRoomId);
 
-    Iterable<RoomOwner> findAllByKeyRoom_Id(@NonNull Long keyRoomId);
+    Iterable<RoomOwner> findAllByKeyRoomId(@NonNull Long keyRoomId);
 }

@@ -42,6 +42,6 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
 
     @Override
     public Iterable<RoomOwnerDTO> doGetHistoryByKeyRoomId(final long keyRoomId) {
-        return mapper.fromEntity(this.repository.findAllByKeyRoom_Id(keyRoomId));
+        return mapper.fromEntity(this.repository.findAllByKeyRoomId(keyRoomId));
     }
 }

@@ -13,7 +13,7 @@ public interface RoomSquareRepository extends CrudRepository<RoomSquare, Long> {
     Optional<RoomSquare> findOneLastCommonSquareByKeyRoomId(@NonNull Long keyRoomId);
 
     @Query(name = RoomSquare.FIND_ONE_LAST_COMMON_SQUARE_BY_KEY_ROOM_ID)
-    CompletableFuture<RoomSquare> findOneLastCommonSquareByKeyRoomIdAsync(@NonNull Long keyRoomId);
+    CompletableFuture<Optional<RoomSquare>> findOneLastCommonSquareByKeyRoomIdAsync(@NonNull Long keyRoomId);
 
-    Iterable<RoomSquare> findAllByKeyRoom_Id(@NonNull Long keyRoomId);
+    Iterable<RoomSquare> findAllByKeyRoomId(@NonNull Long keyRoomId);
 }

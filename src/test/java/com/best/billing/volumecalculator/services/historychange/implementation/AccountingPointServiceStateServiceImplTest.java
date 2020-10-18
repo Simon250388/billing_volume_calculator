@@ -34,16 +34,10 @@ class AccountingPointServiceStateServiceImplTest {
     @InjectMocks
     private AccountingPointServiceStateServiceImpl service;
 
-    @BeforeEach
-    void setUp() {
-        service = new AccountingPointServiceStateServiceImpl(repository, mapper, meterStateRepository);
-    }
-
     @Test
     void doGetAllActiveAccountingPointDetailByKeyRoomId() {
 
         long KeyRoomId = anyLong();
-
         AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity = AccountingPointKeyRoomServiceEntity.builder().build();
 
         AccountingPointServiceState accountingPointServiceStateMock = AccountingPointServiceState.builder()
@@ -53,6 +47,8 @@ class AccountingPointServiceStateServiceImplTest {
                 .build();
 
         Mockito.when(repository.findAllActiveByKeyRoomId(KeyRoomId)).thenReturn(Collections.singletonList(accountingPointServiceStateMock));
+
+        service = new AccountingPointServiceStateServiceImpl(repository, mapper, meterStateRepository);
 
         Mockito.when(meterStateRepository.findAllLastByKeyRoomId(KeyRoomId)).thenReturn(Collections.singletonList(
                 AccountingPointMeterState.builder()

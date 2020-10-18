@@ -15,7 +15,7 @@ public interface RoomPrescribedRepository extends CrudRepository<RoomPrescribed,
 
     @Async
     @Query(name = RoomPrescribed.FIND_ONE_LAST_BY_KEY_ROOM_ID)
-    CompletableFuture<RoomPrescribed> findOneLastByKeyRoomIdAsync(@NonNull long keyRoomId);
+    CompletableFuture<Optional<RoomPrescribed>> findOneLastByKeyRoomIdAsync(@NonNull long keyRoomId);
 
-    Iterable<RoomPrescribed> findAllByKeyRoom_Id(@NonNull long keyRoomId);
+    Iterable<RoomPrescribed> findAllByKeyRoomId(@NonNull long keyRoomId);
 }

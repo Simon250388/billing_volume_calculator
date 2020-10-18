@@ -143,7 +143,7 @@ class RoomOwnerRepositoryTest {
                 .ownerCount(15)
                 .build());
 
-        Iterable<RoomOwner> roomOwners = repository.findAllByKeyRoom_Id(keyRoom.getId());
+        Iterable<RoomOwner> roomOwners = repository.findAllByKeyRoomId(keyRoom.getId());
         ImmutableList<RoomOwner> roomOwnersList = ImmutableList.copyOf(roomOwners);
         assertEquals(2, roomOwnersList.size());
     }

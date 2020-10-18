@@ -3,6 +3,7 @@ package com.best.billing.volumecalculator.controllers.v1.entity;
 import com.best.billing.volumecalculator.dto.ResponseDTO;
 import com.best.billing.volumecalculator.dto.ResponseListDTO;
 import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
+import com.best.billing.volumecalculator.dto.helpers.KeyRoomDetailPropertyDTO;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
 import com.best.billing.volumecalculator.services.helpers.KeyRoomDetailProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class KeyRoomController {
     }
 
     @GetMapping("/last-details-property/{keyRoomId}")
-    public ResponseEntity doGetLastDetails(@PathVariable(name = "keyRoomId") @NotNull Long keyRoomId) {
-        detailPropertyService.doGetLastDetails(keyRoomId);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<ResponseDTO<KeyRoomDetailPropertyDTO>> doGetLastDetails(@PathVariable(name = "keyRoomId") @NotNull Long keyRoomId) {
+        return new ResponseEntity<>(
+                new ResponseDTO<>(detailPropertyService.doGetLastDetails(keyRoomId)),HttpStatus.OK);
 
     }
 

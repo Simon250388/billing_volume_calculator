@@ -22,7 +22,7 @@ public class RoomResidentServiceImpl implements RoomResidentService {
 
     @Override
     public Iterable<RoomResidentdDTO> doGetHistoryByKeyRoomId(long keyRoomId) {
-        return mapper.fromEntity(repository.findAllByKeyRoom_Id(keyRoomId));
+        return mapper.fromEntity(repository.findAllByKeyRoomId(keyRoomId));
     }
 
     @Override

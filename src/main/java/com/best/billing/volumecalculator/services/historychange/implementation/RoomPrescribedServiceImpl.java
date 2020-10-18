@@ -29,7 +29,7 @@ public class RoomPrescribedServiceImpl implements RoomPrescribedService {
 
     @Override
     public Iterable<RoomPrescribedDTO> doGetHistoryByKeyRoomId(long keyRoomId) {
-        return mapper.fromEntity(repository.findAllByKeyRoom_Id(keyRoomId));
+        return mapper.fromEntity(repository.findAllByKeyRoomId(keyRoomId));
     }
 
     @Override

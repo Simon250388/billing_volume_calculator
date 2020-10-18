@@ -1,6 +1,6 @@
 package com.best.billing.volumecalculator.services.helpers.implementation;
 
-import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
+import com.best.billing.volumecalculator.dto.helpers.KeyRoomDetailPropertyDTO;
 import com.best.billing.volumecalculator.models.historychange.RoomOwner;
 import com.best.billing.volumecalculator.models.historychange.RoomPrescribed;
 import com.best.billing.volumecalculator.models.historychange.RoomResident;
@@ -13,6 +13,7 @@ import com.best.billing.volumecalculator.services.helpers.KeyRoomDetailProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -36,12 +37,28 @@ public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
     }
 
     @Override
-    public Optional<KeyRoomDTO> doGetLastDetails(Long keyRoomId) {
-        CompletableFuture<RoomOwner> roomOwnerLastRow = ownerRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<RoomPrescribed> prescribedLastRow = prescribedRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<RoomResident> residentLastRow = residentRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<RoomSquare> commonSquareLastRow = squareRepository.findOneLastCommonSquareByKeyRoomIdAsync(keyRoomId);
+    public KeyRoomDetailPropertyDTO doGetLastDetails(Long keyRoomId) {
+        CompletableFuture<Optional<RoomOwner>> roomOwnerLastRow = ownerRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
+        CompletableFuture<Optional<RoomPrescribed>> prescribedLastRow = prescribedRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
+        CompletableFuture<Optional<RoomResident>> residentLastRow = residentRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
+        CompletableFuture<Optional<RoomSquare>> commonSquareLastRow = squareRepository.findOneLastCommonSquareByKeyRoomIdAsync(keyRoomId);
+
         CompletableFuture.allOf(roomOwnerLastRow, prescribedLastRow, residentLastRow, commonSquareLastRow).join();
-        return Optional.empty();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, 1 , 1);
+
+        return KeyRoomDetailPropertyDTO.builder()
+                .id(keyRoomId)
+                .ownerCount(roomOwnerLastRow.join().map(RoomOwner::getOwnerCount).orElse(0))
+                .prescribedCount(prescribedLastRow.join().map(RoomPrescribed::getPrescribedCount).orElse(0))
+                .residentCount(residentLastRow.join().map(RoomResident::getResidentCount).orElse(0))
+                .commonSquare(commonSquareLastRow.join().map(RoomSquare::getValue).orElse(0))
+                .lsStateAt(calendar.getTime())
+                .lsIsActive(true)
+                .address("address")
+                .lsNumber("lsNUmber")
+                .debt(0)
+                .build();
     }
 }

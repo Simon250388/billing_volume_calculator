@@ -13,7 +13,7 @@ public interface RoomResidentRepository extends CrudRepository<RoomResident, Lon
     Optional<RoomResident> findOneLastByKeyRoomId(@NonNull Long keyRoomId);
 
     @Query(name = RoomResident.FIND_ONE_LAST_BY_KEY_ROOM_ID)
-    CompletableFuture<RoomResident> findOneLastByKeyRoomIdAsync(@NonNull Long keyRoomId);
+    CompletableFuture<Optional<RoomResident>> findOneLastByKeyRoomIdAsync(@NonNull Long keyRoomId);
 
-    Iterable<RoomResident> findAllByKeyRoom_Id(@NonNull Long keyRoomId);
+    Iterable<RoomResident> findAllByKeyRoomId(@NonNull Long keyRoomId);
 }
