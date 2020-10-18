@@ -1,7 +1,8 @@
 package com.best.billing.volumecalculator.controllers.v1.historychange;
 
 import com.best.billing.volumecalculator.dto.ResponseListDTO;
-import com.best.billing.volumecalculator.dto.historychange.AccountingPointServiceStateDTO;
+import com.best.billing.volumecalculator.dto.helpers.ActiveAccountingPointDetailsDTO;
+import com.best.billing.volumecalculator.services.helpers.ActiveAccountingPointDetails;
 import com.best.billing.volumecalculator.services.historychange.AccountingPointServiceStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,17 +18,18 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("v1/service-state")
 public class AccountingPointServiceStateController {
     private final AccountingPointServiceStateService entityService;
+    private final ActiveAccountingPointDetails detailsService;
 
     @Autowired
-    public AccountingPointServiceStateController(AccountingPointServiceStateService entityService) {
+    public AccountingPointServiceStateController(AccountingPointServiceStateService entityService, ActiveAccountingPointDetails detailsService) {
         this.entityService = entityService;
+        this.detailsService = detailsService;
     }
 
     @GetMapping("/active-all/{keyRoomId}")
-    public ResponseEntity<ResponseListDTO<AccountingPointServiceStateDTO>> doGetAllActiveByKeyRoomId(@PathVariable @NotNull final long keyRoomId) {
+    public ResponseEntity<ResponseListDTO<ActiveAccountingPointDetailsDTO>> doGetAllActiveByKeyRoomId(@PathVariable @NotNull final long keyRoomId) {
         return new ResponseEntity<>(
-                new ResponseListDTO<>(entityService.doGetAllActiveAccountingPointDetailByKeyRoomId(keyRoomId)),
+                new ResponseListDTO<>(detailsService.doGetAllActiveByKeyRoomId(keyRoomId)),
                 HttpStatus.OK);
-
     }
 }

@@ -49,7 +49,7 @@ public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
         calendar.set(2020, 1 , 1);
 
         return KeyRoomDetailPropertyDTO.builder()
-                .id(keyRoomId)
+                .keyRoomId(keyRoomId)
                 .ownerCount(roomOwnerLastRow.join().map(RoomOwner::getOwnerCount).orElse(0))
                 .prescribedCount(prescribedLastRow.join().map(RoomPrescribed::getPrescribedCount).orElse(0))
                 .residentCount(residentLastRow.join().map(RoomResident::getResidentCount).orElse(0))

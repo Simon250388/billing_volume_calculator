@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ResponseDTO<T extends BaseEntityDTO> {
+public class ResponseDTO<T extends Object> {
     private T data;
     private Map<String, List<BaseCatalogDTO>> views;
     private List<String> errors;

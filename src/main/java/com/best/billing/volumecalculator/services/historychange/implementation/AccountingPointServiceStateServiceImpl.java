@@ -1,5 +1,6 @@
 package com.best.billing.volumecalculator.services.historychange.implementation;
 
+import com.best.billing.volumecalculator.dto.helpers.ActiveAccountingPointDetailsDTO;
 import com.best.billing.volumecalculator.dto.historychange.AccountingPointServiceStateDTO;
 import com.best.billing.volumecalculator.mappers.historychange.AccountingPointServiceStateMapper;
 import com.best.billing.volumecalculator.models.historychange.AccountingPointMeterState;
@@ -10,36 +11,18 @@ import com.best.billing.volumecalculator.services.historychange.AccountingPointS
 import com.google.common.collect.ImmutableList;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class AccountingPointServiceStateServiceImpl implements AccountingPointServiceStateService {
     private final AccountingPointServiceStateRepository repository;
     private final AccountingPointServiceStateMapper mapper;
-    private final AccountingPointMeterStateRepository meterStateRepository;
 
-    public AccountingPointServiceStateServiceImpl(AccountingPointServiceStateRepository repository, AccountingPointServiceStateMapper mapper, AccountingPointMeterStateRepository meterStateRepository) {
+    public AccountingPointServiceStateServiceImpl(AccountingPointServiceStateRepository repository, AccountingPointServiceStateMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
-        this.meterStateRepository = meterStateRepository;
-    }
-
-    @Override
-    public Iterable<AccountingPointServiceStateDTO> doGetAllActiveAccountingPointDetailByKeyRoomId(long keyRoomId) {
-        Stream<AccountingPointServiceState> activeAccountingPoint = ImmutableList.copyOf(repository.findAllActiveByKeyRoomId(keyRoomId)).stream();
-        Stream<AccountingPointMeterState> activeMeters = ImmutableList.copyOf(meterStateRepository.findAllLastByKeyRoomId(keyRoomId)).stream();
-
-        return activeAccountingPoint
-                .map(row ->
-                        activeMeters
-                                .filter(activeMeter -> activeMeter.getAccountingPointKeyRoomServiceEntity() == row.getAccountingPointKeyRoomServiceEntity())
-                                .findFirst()
-                                .map(activeMeter -> mapper.fromEntityAndMeterState(row, activeMeter))
-                                .orElse(mapper.fromEntity(row))
-                )
-                .collect(Collectors.toList());
     }
 
     @Override
