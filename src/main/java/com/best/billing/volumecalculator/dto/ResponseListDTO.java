@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ResponseListDTO<T extends Object> {
+public class ResponseListDTO<T> {
     private Iterable<T> data;
     private Map<String, List<BaseCatalogDTO>> views;
     private List<String> errors;

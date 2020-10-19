@@ -1,19 +1,12 @@
 package com.best.billing.volumecalculator.services.historychange.implementation;
 
-import com.best.billing.volumecalculator.dto.helpers.ActiveAccountingPointDetailsDTO;
 import com.best.billing.volumecalculator.dto.historychange.AccountingPointServiceStateDTO;
 import com.best.billing.volumecalculator.mappers.historychange.AccountingPointServiceStateMapper;
-import com.best.billing.volumecalculator.models.historychange.AccountingPointMeterState;
-import com.best.billing.volumecalculator.models.historychange.AccountingPointServiceState;
-import com.best.billing.volumecalculator.repositories.historychange.AccountingPointMeterStateRepository;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointServiceStateRepository;
 import com.best.billing.volumecalculator.services.historychange.AccountingPointServiceStateService;
-import com.google.common.collect.ImmutableList;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class AccountingPointServiceStateServiceImpl implements AccountingPointServiceStateService {
