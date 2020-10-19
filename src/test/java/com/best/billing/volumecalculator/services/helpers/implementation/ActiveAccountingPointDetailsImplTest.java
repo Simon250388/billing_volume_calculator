@@ -6,6 +6,7 @@ import com.best.billing.volumecalculator.models.catalog.DirectionOfUse;
 import com.best.billing.volumecalculator.models.catalog.Service;
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoom;
 import com.best.billing.volumecalculator.models.entity.AccountingPointKeyRoomServiceEntity;
+import com.best.billing.volumecalculator.models.entity.KeyRoom;
 import com.best.billing.volumecalculator.models.historychange.AccountingPointServiceState;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointMeterStateRepository;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointServiceStateRepository;
@@ -20,10 +21,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityManager;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 @SpringBootTest
@@ -50,10 +51,15 @@ class ActiveAccountingPointDetailsImplTest {
     @Test
     void when_Active_AccountingPoint_Exist_And_Active_Meters_Is_Empty_Then_DoGetAllActiveByKeyRoomId_Should_Be_Meter_State_False() {
 
+        final Long accountingPointId = new Random().nextLong();
+        final Long keyRoomId = new Random().nextLong();
+        final Long serviceId = new Random().nextLong();
+        final Long providerId = new Random().nextLong();
+        final Long directionOfUseId = new Random().nextLong();
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.FEBRUARY, 1);
-        Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(new Random().nextLong())).thenReturn(
+        Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(anyLong())).thenReturn(
                 Collections.singletonList(
                         AccountingPointServiceState.builder()
                                 .id(new Random().nextLong())
@@ -62,19 +68,24 @@ class ActiveAccountingPointDetailsImplTest {
                                                 .id(new Random().nextLong())
                                                 .accountingPointKeyRoom(
                                                         AccountingPointKeyRoom.builder()
+                                                                .keyRoom(
+                                                                        KeyRoom.builder()
+                                                                                .id(keyRoomId)
+                                                                                .build()
+                                                                )
                                                                 .accountingPoint(
                                                                         AccountingPoint.builder()
-                                                                                .id(new Random().nextLong())
+                                                                                .id(accountingPointId)
                                                                                 .build()
                                                                 ).build()
                                                 )
                                                 .service(
                                                         Service.builder()
-                                                                .id(new Random().nextLong())
+                                                                .id(serviceId)
                                                                 .build())
                                                 .directionOfUse(
                                                         DirectionOfUse.builder()
-                                                                .id(new Random().nextLong())
+                                                                .id(directionOfUseId)
                                                                 .build()
                                                 )
                                                 .build()
@@ -83,9 +94,24 @@ class ActiveAccountingPointDetailsImplTest {
                                 .period(calendar.getTime())
                                 .build())
         );
-        Mockito.when(meterStateRepository.findAllLastByKeyRoomId(new Random().nextLong())).thenReturn(Collections.emptyList());
 
-        Iterable<ActiveAccountingPointDetailsDTO> activeAccountingPointDetailsDTOS = service.doGetAllActiveByKeyRoomId(new Random().nextLong());
-        assertTrue(activeAccountingPointDetailsDTOS.iterator().hasNext());
+        Calendar emptyDate = Calendar.getInstance();
+        emptyDate.set(1, Calendar.JANUARY, 1);
+
+        Mockito.when(meterStateRepository.findAllLastByKeyRoomId(new Random().nextLong())).thenReturn(Collections.emptyList());
+        Iterator<ActiveAccountingPointDetailsDTO> iterator = service.doGetAllActiveByKeyRoomId(new Random().nextLong()).iterator();
+        assertTrue(iterator.hasNext());
+        final ActiveAccountingPointDetailsDTO next = iterator.next();
+        assertEquals(keyRoomId, next.getKeyRoomId());
+        assertEquals(accountingPointId, next.getAccountingPointId());
+        assertEquals(serviceId, next.getServiceId());
+        assertEquals(providerId, next.getProviderId());
+        assertEquals(directionOfUseId, next.getDirectionOfUseId());
+        assertTrue(next.getIsActive());
+        assertEquals(-1L, next.getMeterId());
+        assertFalse(next.getMeterIsActive());
+        assertEquals(emptyDate.getTime(), next.getMeterStateChangeAt());
+        assertEquals(-1L, next.getDifferentiationTypeId());
+        assertEquals(0, next.getLastMeterValue());
     }
 }

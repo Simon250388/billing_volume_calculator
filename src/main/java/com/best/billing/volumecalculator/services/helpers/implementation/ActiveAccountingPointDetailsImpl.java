@@ -62,7 +62,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
 
     private void doSetServiceProperty(@NotNull Long keyRoomId, @NotNull AccountingPointServiceState activeService, @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder) {
         builder
-                .keyRoomId(keyRoomId)
+                .keyRoomId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getId())
                 .serviceId(activeService.getAccountingPointKeyRoomServiceEntity().getService().getId())
                 .accountingPointId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getAccountingPoint().getId())
                 //.providerId()

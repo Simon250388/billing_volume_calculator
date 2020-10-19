@@ -3,10 +3,16 @@ package com.best.billing.volumecalculator.models.entity;
 import com.best.billing.volumecalculator.models.BaseEntity;
 import com.best.billing.volumecalculator.models.catalog.DirectionOfUse;
 import com.best.billing.volumecalculator.models.catalog.Service;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Услуга точки учета (без учета состояния)
