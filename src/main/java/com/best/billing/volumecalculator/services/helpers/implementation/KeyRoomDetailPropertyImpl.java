@@ -46,7 +46,7 @@ public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
         CompletableFuture.allOf(roomOwnerLastRow, prescribedLastRow, residentLastRow, commonSquareLastRow).join();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, 1 , 1);
+        calendar.set(2020, Calendar.FEBRUARY, 1);
 
         return KeyRoomDetailPropertyDTO.builder()
                 .keyRoomId(keyRoomId)

@@ -10,6 +10,7 @@ import com.best.billing.volumecalculator.services.helpers.ActiveAccountingPointD
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @Service
 @Slf4j
 public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDetails {
@@ -43,14 +43,13 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
                     .findFirst();
 
             doSetServiceProperty(keyRoomId, activeService, builder);
-            doSetMeterProperty(builder, activeMeterOptional);
+            doSetMeterProperty(builder, activeMeterOptional.orElse(null));
             return builder.build();
         }).collect(Collectors.toList());
     }
 
-    private void doSetMeterProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, Optional<AccountingPointMeterState> activeMeterOptional) {
-        if (activeMeterOptional.isPresent()) {
-            AccountingPointMeterState activeMeter = activeMeterOptional.get();
+    private void doSetMeterProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, @Nullable AccountingPointMeterState activeMeter) {
+        if (activeMeter != null) {
             builder.meterId(activeMeter.getMeter().getId());
             builder.meterIsActive(activeMeter.getMeterState().getId() == MeterState.ACTIVE_STATE_ID);
             builder.meterStateChangeAt(activeMeter.getPeriod());

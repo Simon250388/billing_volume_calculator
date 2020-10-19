@@ -53,7 +53,7 @@ class RoomSquareRepositoryTest {
         Calendar calendar;
 
         calendar = Calendar.getInstance();
-        calendar.set(2019, 1, 1);
+        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)
@@ -90,7 +90,7 @@ class RoomSquareRepositoryTest {
         Calendar calendar;
 
         calendar = Calendar.getInstance();
-        calendar.set(2019, 1, 1);
+        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)
@@ -102,7 +102,7 @@ class RoomSquareRepositoryTest {
                 .build());
 
         calendar = Calendar.getInstance();
-        calendar.set(2020, 1, 1);
+        calendar.set(2020, Calendar.JANUARY, 1);
 
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)

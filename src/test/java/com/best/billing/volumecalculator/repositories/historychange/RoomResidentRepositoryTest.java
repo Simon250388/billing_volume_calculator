@@ -51,7 +51,7 @@ class RoomResidentRepositoryTest {
         em.persist(keyRoom);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, 1, 1);
+        calendar.set(2020, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
@@ -83,7 +83,7 @@ class RoomResidentRepositoryTest {
         em.persist(keyRoom);
         Calendar calendar;
         calendar = Calendar.getInstance();
-        calendar.set(2019, 1, 1);
+        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
@@ -92,7 +92,7 @@ class RoomResidentRepositoryTest {
                 .build());
 
         calendar = Calendar.getInstance();
-        calendar.set(2020, 1, 1);
+        calendar.set(2020, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
@@ -124,7 +124,7 @@ class RoomResidentRepositoryTest {
         em.persist(keyRoom);
         Calendar calendar;
         calendar = Calendar.getInstance();
-        calendar.set(2019, 1, 1);
+        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
@@ -133,7 +133,7 @@ class RoomResidentRepositoryTest {
                 .build());
 
         calendar = Calendar.getInstance();
-        calendar.set(2020, 1, 1);
+        calendar.set(2020, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)

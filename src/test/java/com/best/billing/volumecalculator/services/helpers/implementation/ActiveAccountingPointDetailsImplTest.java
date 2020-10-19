@@ -24,6 +24,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -39,11 +40,10 @@ class ActiveAccountingPointDetailsImplTest {
 
     @Test
     void when_Table_Is_Empty_DoGetAllActiveByKeyRoomId_Should_Be_Size_0() {
-        Long keyRoomId = new Random().nextLong();
-        Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(keyRoomId)).thenReturn(Collections.emptyList());
-        Mockito.when(meterStateRepository.findAllLastByKeyRoomId(keyRoomId)).thenReturn(Collections.emptyList());
+        Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(anyLong())).thenReturn(Collections.emptyList());
+        Mockito.when(meterStateRepository.findAllLastByKeyRoomId(anyLong())).thenReturn(Collections.emptyList());
 
-        Iterable<ActiveAccountingPointDetailsDTO> activeAccountingPointDetailsDTOS = service.doGetAllActiveByKeyRoomId(keyRoomId);
+        Iterable<ActiveAccountingPointDetailsDTO> activeAccountingPointDetailsDTOS = service.doGetAllActiveByKeyRoomId(new Random().nextLong());
         assertFalse(activeAccountingPointDetailsDTOS.iterator().hasNext());
     }
 
@@ -52,7 +52,7 @@ class ActiveAccountingPointDetailsImplTest {
 
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, 1, 1);
+        calendar.set(2020, Calendar.FEBRUARY, 1);
         Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(new Random().nextLong())).thenReturn(
                 Collections.singletonList(
                         AccountingPointServiceState.builder()
