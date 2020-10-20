@@ -4,6 +4,7 @@ import com.best.billing.volumecalculator.dto.historychange.RoomOwnerDTO;
 import com.best.billing.volumecalculator.mappers.historychange.RoomOwnerMapper;
 import com.best.billing.volumecalculator.repositories.historychange.RoomOwnerRepository;
 import com.best.billing.volumecalculator.services.historychange.RoomOwnerService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,22 +27,22 @@ public class RoomOwnerServiceImpl implements RoomOwnerService {
     }
 
     @Override
-    public Optional<RoomOwnerDTO> doGetLastByKeyRoomId(final long keyRoomId) {
+    public Optional<RoomOwnerDTO> doGetLastByKeyRoomId(@NotNull final Long keyRoomId) {
         return this.repository.findOneLastByKeyRoomId(keyRoomId).map(mapper::fromEntity);
     }
 
     @Override
-    public RoomOwnerDTO save(RoomOwnerDTO dto) {
+    public RoomOwnerDTO save(@NotNull RoomOwnerDTO dto) {
         return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<RoomOwnerDTO> findById(final long id) {
+    public Optional<RoomOwnerDTO> findById(@NotNull final Long id) {
         return this.repository.findById(id).map(mapper::fromEntity);
     }
 
     @Override
-    public Iterable<RoomOwnerDTO> doGetHistoryByKeyRoomId(final long keyRoomId) {
+    public Iterable<RoomOwnerDTO> doGetHistoryByKeyRoomId(@NotNull final Long keyRoomId) {
         return mapper.fromEntity(this.repository.findAllByKeyRoomId(keyRoomId));
     }
 }

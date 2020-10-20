@@ -4,6 +4,7 @@ import com.best.billing.volumecalculator.dto.entity.AccountingPointKeyRoomDTO;
 import com.best.billing.volumecalculator.mappers.entity.AccountingPointKeyRoomMapper;
 import com.best.billing.volumecalculator.repositories.entity.AccountingPointKeyRoomRepository;
 import com.best.billing.volumecalculator.services.entity.AccountingPointKeyRoomServiceService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,17 +26,17 @@ public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoom
     }
 
     @Override
-    public AccountingPointKeyRoomDTO save(AccountingPointKeyRoomDTO dto) {
+    public AccountingPointKeyRoomDTO save(@NotNull final AccountingPointKeyRoomDTO dto) {
         return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<AccountingPointKeyRoomDTO> findById(long id) {
+    public Optional<AccountingPointKeyRoomDTO> findById(@NotNull final Long id) {
         return this.repository.findById(id).map(mapper::fromEntity);
     }
 
     @Override
-    public List<AccountingPointKeyRoomDTO> findByKeyRoomId(long keyRoomId) {
+    public List<AccountingPointKeyRoomDTO> findByKeyRoomId(@NotNull final Long keyRoomId) {
         return this.mapper.fromEntity(this.repository.findAllByKeyRoom(keyRoomId));
     }
 }

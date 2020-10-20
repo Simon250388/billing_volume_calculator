@@ -21,12 +21,12 @@ import javax.persistence.*;
 @Table(name = "accounting_point_meter_states")
 public class AccountingPointMeterState extends BaseHistory {
     @ManyToOne()
-    @JoinColumn(name = "accounting_point_key_room_service_id" )
+    @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false )
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne
-    @JoinColumn(name = "meter_id" )
+    @JoinColumn(name = "meter_id", nullable = false )
     private Meter meter;
     @ManyToOne
-    @JoinColumn(name = "meter_state_id" )
+    @JoinColumn(name = "meter_state_id", nullable = false )
     private MeterState meterState;
 }

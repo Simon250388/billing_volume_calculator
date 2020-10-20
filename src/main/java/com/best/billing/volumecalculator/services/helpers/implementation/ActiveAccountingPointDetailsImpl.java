@@ -3,19 +3,19 @@ package com.best.billing.volumecalculator.services.helpers.implementation;
 import com.best.billing.volumecalculator.dto.helpers.ActiveAccountingPointDetailsDTO;
 import com.best.billing.volumecalculator.models.enums.MeterState;
 import com.best.billing.volumecalculator.models.historychange.AccountingPointMeterState;
+import com.best.billing.volumecalculator.models.historychange.AccountingPointServiceProvider;
 import com.best.billing.volumecalculator.models.historychange.AccountingPointServiceState;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointMeterStateRepository;
+import com.best.billing.volumecalculator.repositories.historychange.AccountingPointServiceProviderRepository;
 import com.best.billing.volumecalculator.repositories.historychange.AccountingPointServiceStateRepository;
 import com.best.billing.volumecalculator.services.helpers.ActiveAccountingPointDetails;
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,31 +24,40 @@ import java.util.stream.Stream;
 public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDetails {
     private final AccountingPointServiceStateRepository accountingPointRepository;
     private final AccountingPointMeterStateRepository meterStateRepository;
+    private final AccountingPointServiceProviderRepository pointProviderRepository;
 
     @Autowired
-    public ActiveAccountingPointDetailsImpl(AccountingPointServiceStateRepository accountingPointRepository, AccountingPointMeterStateRepository meterStateRepository) {
+    public ActiveAccountingPointDetailsImpl(AccountingPointServiceStateRepository accountingPointRepository, AccountingPointMeterStateRepository meterStateRepository, AccountingPointServiceProviderRepository pointProviderRepository) {
         this.accountingPointRepository = accountingPointRepository;
         this.meterStateRepository = meterStateRepository;
+        this.pointProviderRepository = pointProviderRepository;
     }
 
     @Override
     public Iterable<ActiveAccountingPointDetailsDTO> doGetAllActiveByKeyRoomId(@NotNull Long keyRoomId) {
         Stream<AccountingPointServiceState> activeAccountingPoint = ImmutableList.copyOf(accountingPointRepository.findAllActiveByKeyRoomId(keyRoomId)).stream();
         Stream<AccountingPointMeterState> activeMeters = ImmutableList.copyOf(meterStateRepository.findAllLastByKeyRoomId(keyRoomId)).stream();
+        Stream<AccountingPointServiceProvider> currentProviders = ImmutableList.copyOf(pointProviderRepository.findAllLastByKeyRoomId(keyRoomId)).stream();
 
         return activeAccountingPoint.map(activeService -> {
             ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder = ActiveAccountingPointDetailsDTO.builder();
-            Optional<AccountingPointMeterState> activeMeterOptional = activeMeters
-                    .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == activeService.getAccountingPointKeyRoomServiceEntity().getId())
-                    .findFirst();
 
             doSetServiceProperty(keyRoomId, activeService, builder);
-            doSetMeterProperty(builder, activeMeterOptional.orElse(null));
+            doSetProviderProperty(builder, activeService.getAccountingPointKeyRoomServiceEntity().getId(), currentProviders);
+            doSetMeterProperty(builder, activeService.getAccountingPointKeyRoomServiceEntity().getId(), activeMeters);
             return builder.build();
         }).collect(Collectors.toList());
     }
 
-    private void doSetMeterProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, @Nullable AccountingPointMeterState activeMeter) {
+    private void doSetProviderProperty(ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, long id, Stream<AccountingPointServiceProvider> currentProviders) {
+        //builder.providerId();
+    }
+
+    private void doSetMeterProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, @NotNull Long accountingPointKeyRoomServiceEntityId, @NotNull Stream<AccountingPointMeterState> activeMetersStream) {
+        AccountingPointMeterState activeMeter = activeMetersStream
+                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == accountingPointKeyRoomServiceEntityId)
+                .findFirst().orElse(null);
+
         if (activeMeter != null) {
             builder.meterId(activeMeter.getMeter().getId());
             builder.meterIsActive(activeMeter.getMeterState().getId() == MeterState.ACTIVE_STATE_ID);
@@ -65,7 +74,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
                 .keyRoomId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getId())
                 .serviceId(activeService.getAccountingPointKeyRoomServiceEntity().getService().getId())
                 .accountingPointId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getAccountingPoint().getId())
-                //.providerId()
+
                 .isActive(activeService.isActive())
                 .directionOfUseId(activeService.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse().getId());
     }

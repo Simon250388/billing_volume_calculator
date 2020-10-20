@@ -4,6 +4,7 @@ import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billing.volumecalculator.mappers.entity.KeyRoomMapper;
 import com.best.billing.volumecalculator.repositories.entity.KeyRoomRepository;
 import com.best.billing.volumecalculator.services.entity.KeyRoomService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +24,12 @@ public class KeyRoomServiceImpl implements KeyRoomService {
     }
 
     @Override
-    public KeyRoomDTO save(KeyRoomDTO dto) {
+    public KeyRoomDTO save(@NotNull final KeyRoomDTO dto) {
         return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<KeyRoomDTO> findById(final long id) {
+    public Optional<KeyRoomDTO> findById(@NotNull final Long id) {
         return this.repository.findById(id).map(mapper::fromEntity);
     }
 
@@ -38,12 +39,12 @@ public class KeyRoomServiceImpl implements KeyRoomService {
     }
 
     @Override
-    public Iterable<KeyRoomDTO> findAll(final long buildingId) {
+    public Iterable<KeyRoomDTO> findAll(@NotNull final Long buildingId) {
         return mapper.fromEntity(this.repository.findAllByBuildingId(buildingId));
     }
 
     @Override
-    public Iterable<KeyRoomDTO> findAll(final long buildingId, final long roomId) {
+    public Iterable<KeyRoomDTO> findAll(@NotNull final Long buildingId, @NotNull final Long roomId) {
         return mapper.fromEntity(this.repository.findAllByBuildingIdAndRoomId(buildingId, roomId));
     }
 }
