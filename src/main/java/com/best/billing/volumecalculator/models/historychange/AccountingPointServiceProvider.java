@@ -41,7 +41,7 @@ public class AccountingPointServiceProvider extends BaseHistory {
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne
-    @JoinColumn(name = "service_part_id", nullable = true)
+    @JoinColumn(name = "service_part_id")
     private Service servicePart;
 
     @ManyToOne()

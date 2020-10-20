@@ -18,9 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
-@Transactional
 class RoomResidentRepositoryTest {
     @Autowired
     private RoomResidentRepository repository;

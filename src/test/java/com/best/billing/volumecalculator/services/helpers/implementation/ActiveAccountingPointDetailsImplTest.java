@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class ActiveAccountingPointDetailsImplTest {
     @MockBean
     private AccountingPointServiceStateRepository accountingPointRepository;
@@ -51,11 +50,11 @@ class ActiveAccountingPointDetailsImplTest {
     @Test
     void when_Active_AccountingPoint_Exist_And_Active_Meters_Is_Empty_Then_DoGetAllActiveByKeyRoomId_Should_Be_Meter_State_False() {
 
-        final Long accountingPointId = new Random().nextLong();
-        final Long keyRoomId = new Random().nextLong();
-        final Long serviceId = new Random().nextLong();
-        final Long providerId = new Random().nextLong();
-        final Long directionOfUseId = new Random().nextLong();
+        final long accountingPointId = new Random().nextLong();
+        final long keyRoomId = new Random().nextLong();
+        final long serviceId = new Random().nextLong();
+        final long providerId = new Random().nextLong();
+        final long directionOfUseId = new Random().nextLong();
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.FEBRUARY, 1);

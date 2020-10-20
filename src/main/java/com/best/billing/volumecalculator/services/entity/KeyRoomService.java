@@ -4,8 +4,6 @@ import com.best.billing.volumecalculator.dto.entity.KeyRoomDTO;
 import com.best.billing.volumecalculator.services.BaseEntityService;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-
 public interface KeyRoomService extends BaseEntityService<KeyRoomDTO> {
     Iterable<KeyRoomDTO> findAll();
     Iterable<KeyRoomDTO> findAll(@NotNull final Long buildingId);
