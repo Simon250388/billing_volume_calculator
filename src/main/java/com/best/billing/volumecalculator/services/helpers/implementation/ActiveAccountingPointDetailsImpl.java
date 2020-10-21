@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,39 +41,41 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
         return activeAccountingPoint.map(activeService -> {
             ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder = ActiveAccountingPointDetailsDTO.builder();
 
-            doSetServiceProperty(keyRoomId, activeService, builder);
+            doSetServiceProperty(activeService, builder);
             doSetProviderProperty(builder, activeService.getAccountingPointKeyRoomServiceEntity().getId(), currentProviders);
             doSetMeterProperty(builder, activeService.getAccountingPointKeyRoomServiceEntity().getId(), activeMeters);
             return builder.build();
         }).collect(Collectors.toList());
     }
 
-    private void doSetProviderProperty(ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, long id, Stream<AccountingPointServiceProvider> currentProviders) {
-        //builder.providerId();
+    private void doSetProviderProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, @NotNull Long accountingPointKeyRoomServiceEntityId, @NotNull Stream<AccountingPointServiceProvider> currentProviders) {
+        currentProviders
+                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == accountingPointKeyRoomServiceEntityId)
+                .forEach(value -> {
+                    if (value.getServicePart() == null) {
+                        builder.providerId(value.getProvider().getId());
+                    } else {
+                        builder.addServicePart(value.getServicePart().getId(), value.getProvider().getId());
+                    }
+                });
     }
 
     private void doSetMeterProperty(@NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder, @NotNull Long accountingPointKeyRoomServiceEntityId, @NotNull Stream<AccountingPointMeterState> activeMetersStream) {
-        AccountingPointMeterState activeMeter = activeMetersStream
+        activeMetersStream
                 .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == accountingPointKeyRoomServiceEntityId)
-                .findFirst().orElse(null);
-
-        if (activeMeter != null) {
-            builder.meterId(activeMeter.getMeter().getId());
-            builder.meterIsActive(activeMeter.getMeterState().getId() == MeterState.ACTIVE_STATE_ID);
-            builder.meterStateChangeAt(activeMeter.getPeriod());
-        } else {
-            builder.meterId(-1L);
-            builder.meterIsActive(false);
-            builder.meterStateChangeAt(new Date(0));
-        }
+                .findFirst()
+                .ifPresent(value -> {
+                    builder.meterId(value.getMeter().getId());
+                    builder.meterIsActive(value.getMeterState().getId() == MeterState.ACTIVE_STATE_ID);
+                    builder.meterStateChangeAt(value.getPeriod());
+                });
     }
 
-    private void doSetServiceProperty(@NotNull Long keyRoomId, @NotNull AccountingPointServiceState activeService, @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder) {
+    private void doSetServiceProperty(@NotNull AccountingPointServiceState activeService, @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder) {
         builder
                 .keyRoomId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getId())
                 .serviceId(activeService.getAccountingPointKeyRoomServiceEntity().getService().getId())
                 .accountingPointId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getAccountingPoint().getId())
-
                 .isActive(activeService.isActive())
                 .directionOfUseId(activeService.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse().getId());
     }
