@@ -27,7 +27,7 @@ class RoomResidentRepositoryTest {
 
     @Test
     void when_Table_Is_Empty_Then_FindOneLastByKeyRoomId_Should_Be_Empty() {
-        Optional<RoomResident> roomOwners = repository.findOneLastByKeyRoomId(anyLong());
+        Optional<RoomResident> roomOwners = repository.findOneLastByKeyRoomId(new Random().nextLong());
         assertTrue(roomOwners.isEmpty());
     }
 
@@ -43,7 +43,7 @@ class RoomResidentRepositoryTest {
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();
@@ -68,14 +68,17 @@ class RoomResidentRepositoryTest {
 
     @Test
     void when_Table_Contains_Many_Rows_Then_FindOneLastByKeyRoomId_Should_Be_Return_Row_Which_Have_Max_Period() {
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();
@@ -109,14 +112,17 @@ class RoomResidentRepositoryTest {
 
     @Test
     void when_Table_Contains_Many_Rows_Then_FindAllByKeyRoom_Id_Should_Be_Return_All_Rows() {
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();

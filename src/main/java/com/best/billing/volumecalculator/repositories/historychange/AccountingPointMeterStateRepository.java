@@ -1,6 +1,7 @@
 package com.best.billing.volumecalculator.repositories.historychange;
 
 import com.best.billing.volumecalculator.models.historychange.AccountingPointMeterState;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,13 +22,12 @@ public interface AccountingPointMeterStateRepository extends CrudRepository<Acco
             "       AND c.meter =:meterId" +
             ")")
     Optional<AccountingPointMeterState> findOneLastAccountingPointKeyRoomServiceEntityIdAndMeterId(
-            @Param("accountingPointKeyRoomServiceEntityId") long accountingPointKeyRoomServiceEntityId,
-            @Param("meterId") long meterId);
+            @NotNull @Param("accountingPointKeyRoomServiceEntityId") Long accountingPointKeyRoomServiceEntityId,
+            @NotNull @Param("meterId") Long meterId);
 
     @Query(value = "SELECT c" +
             " FROM AccountingPointMeterState c" +
-            " WHERE" +
-            "   (c.accountingPointKeyRoomServiceEntity, c.meter, c.period) IN  (" +
+            " WHERE (c.accountingPointKeyRoomServiceEntity, c.meter, c.period) IN  (" +
             "       SELECT" +
             "           c.accountingPointKeyRoomServiceEntity" +
             "           ,c.meter" +
@@ -37,9 +37,8 @@ public interface AccountingPointMeterStateRepository extends CrudRepository<Acco
             "           c.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom =:keyRoomId" +
             "       GROUP BY" +
             "           c.accountingPointKeyRoomServiceEntity" +
-            "           ,c.meter" +
-            ")")
-    Iterable<AccountingPointMeterState> findAllLastByKeyRoomId(@Param("keyRoomId") long keyRoomId);
+            "           ,c.meter)")
+    Iterable<AccountingPointMeterState> findAllLastByKeyRoomId(@NotNull @Param("keyRoomId") Long keyRoomId);
 
-    Iterable<AccountingPointMeterState> findAllByAccountingPointKeyRoomServiceEntityIdAndMeterId(long accountingPointKeyRoomServiceEntityId, long meterId);
+    Iterable<AccountingPointMeterState> findAllByAccountingPointKeyRoomServiceEntityIdAndMeterId(Long accountingPointKeyRoomServiceEntityId, Long meterId);
 }

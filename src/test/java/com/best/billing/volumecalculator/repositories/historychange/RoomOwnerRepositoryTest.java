@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
+import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -25,21 +27,24 @@ class RoomOwnerRepositoryTest {
 
     @Test
     void when_Table_Is_Empty_Then_FindOneLastByKeyRoomId_Should_Be_Empty() {
-        Optional<RoomOwner> roomOwners = repository.findOneLastByKeyRoomId(anyLong());
+        Optional<RoomOwner> roomOwners = repository.findOneLastByKeyRoomId(new Random().nextLong());
         assertTrue(roomOwners.isEmpty());
     }
 
     @Test
     void when_Table_Contains_One_Row_Then_FindOneLastByKeyRoomId_Be_Return_Existing_Row() {
 
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();
@@ -64,14 +69,17 @@ class RoomOwnerRepositoryTest {
 
     @Test
     void when_Table_Contains_Many_Rows_Then_FindOneLastByKeyRoomId_Should_Be_Return_Row_Which_Have_Max_Period() {
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();
@@ -105,14 +113,17 @@ class RoomOwnerRepositoryTest {
 
     @Test
     void when_Table_Contains_Many_Rows_Then_FindAllByKeyRoom_Id_Should_Be_Return_All_Rows() {
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);
 
         KeyRoom keyRoom = KeyRoom.builder()
-                .privateSector(anyBoolean())
+                .privateSector(new Random().nextBoolean())
                 .room(null)
                 .building(building)
                 .build();
