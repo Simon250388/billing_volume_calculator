@@ -9,4 +9,10 @@ import lombok.Value;
 public class MeterValueDTO extends BaseHistoryDTO {
     Long MeterId;
     Integer Value;
+
+    public MeterValueDTO(Long id, String period, Long meterId, Integer value) {
+        super(id, period);
+        MeterId = meterId;
+        Value = value;
+    }
 }

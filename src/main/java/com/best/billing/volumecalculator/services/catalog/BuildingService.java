@@ -7,5 +7,5 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public interface BuildingService extends BaseEntityService<BuildingDTO> {
-    List<BuildingDTO> findByDescriptionContaining(@NotNull final String subStr);
+    Iterable<BuildingDTO> findByDescriptionContaining(@NotNull final String subStr);
 }

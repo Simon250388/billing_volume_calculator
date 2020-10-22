@@ -10,14 +10,14 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", config = BaseHistoryMapper.class)
 public interface MeterValueMapper extends BaseHistoryMapper<MeterValue, MeterValueDTO> {
     @InheritConfiguration( name= "fromEntity" )
-    @Mapping(source = "accountingPointKeyRoomServiceEntity.id", target = "accountingPointKeyRoomServiceEntityId")
-    @Mapping(source = "meter.id", target = "meterId")
+    //@Mapping(source = "accountingPointKeyRoomServiceEntity.id", target = "accountingPointKeyRoomServiceEntityId")
+    //@Mapping(source = "meter.id", target = "meterId")
     @Override
     MeterValueDTO fromEntity(MeterValue source);
 
     @InheritConfiguration( name= "toEntity" )
-    @Mapping(source = "accountingPointKeyRoomServiceEntityId", target = "accountingPointKeyRoomServiceEntity.id")
-    @Mapping(source = "meterId", target = "meter.id")
+    //@Mapping(source = "accountingPointKeyRoomServiceEntityId", target = "accountingPointKeyRoomServiceEntity.id")
+    //@Mapping(source = "meterId", target = "meter.id")
     @Override
     MeterValue toEntity(MeterValueDTO source);
 }

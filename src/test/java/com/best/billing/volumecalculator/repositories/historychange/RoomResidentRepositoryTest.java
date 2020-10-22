@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
+import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -31,8 +33,11 @@ class RoomResidentRepositoryTest {
 
     @Test
     void when_Table_Contains_One_Row_Then_FindOneLastByKeyRoomId_Be_Return_Existing_Row() {
+        byte[] array = new byte[50];
+        new Random().nextBytes(array);
+
         Building building = Building.builder()
-                .description(anyString())
+                .description(new String(array, Charset.forName("UTF-8")))
                 .build();
 
         em.persist(building);

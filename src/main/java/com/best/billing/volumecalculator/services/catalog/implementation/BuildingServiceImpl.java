@@ -25,7 +25,7 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public List<BuildingDTO> findByDescriptionContaining(@NotNull final String subStr) {
+    public Iterable<BuildingDTO> findByDescriptionContaining(@NotNull final String subStr) {
         return mapper.fromEntity(repository.findByDescriptionContaining(subStr));
     }
 

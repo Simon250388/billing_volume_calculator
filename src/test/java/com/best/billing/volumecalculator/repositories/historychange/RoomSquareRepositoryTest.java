@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.EntityManager;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -25,7 +26,7 @@ class RoomSquareRepositoryTest {
 
     @Test
     void when_Table_Is_Empty_Then_FindOneLastCommonSquareByKeyRoomId_Should_Be_Empty() {
-        Optional<RoomSquare> commonSquare = repository.findOneLastCommonSquareByKeyRoomId(anyLong());
+        Optional<RoomSquare> commonSquare = repository.findOneLastCommonSquareByKeyRoomId(new Random().nextLong());
         assertTrue(commonSquare.isEmpty());
     }
 

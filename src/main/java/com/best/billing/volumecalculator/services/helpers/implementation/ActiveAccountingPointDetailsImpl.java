@@ -62,7 +62,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
 
         currentProviders
                 .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == accountingPointKeyRoomServiceEntityId)
-                .forEach(value -> Optional.of(value.getServicePart())
+                .forEach(value -> Optional.ofNullable(value.getServicePart())
                         .ifPresentOrElse(
                                 (servicePart) -> builder.addServicePart(value.getServicePart().getId(), value.getProvider().getId()),
                                 () -> builder.providerId(value.getProvider().getId())));

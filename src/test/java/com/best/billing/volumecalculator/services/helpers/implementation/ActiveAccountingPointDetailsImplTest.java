@@ -115,7 +115,7 @@ class ActiveAccountingPointDetailsImplTest {
                         )
                         .build()
         ));
-        Iterator<ActiveAccountingPointDetailsDTO> iterator = service.doGetAllActiveByKeyRoomId(random.nextLong()).iterator();
+        Iterator<ActiveAccountingPointDetailsDTO> iterator = service.doGetAllActiveByKeyRoomId(keyRoomId).iterator();
         assertTrue(iterator.hasNext());
         final ActiveAccountingPointDetailsDTO next = iterator.next();
         assertEquals(keyRoomId, next.getKeyRoomId());
