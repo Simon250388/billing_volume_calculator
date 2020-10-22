@@ -21,6 +21,6 @@ import javax.persistence.Table;
 @Table(name = "meters")
 public class Meter extends BaseCatalog {
     @ManyToOne
-    @JoinColumn(name = "meter_type_id")
+    @JoinColumn(name = "meter_type_id", nullable = false)
     private MeterType meterType;
 }

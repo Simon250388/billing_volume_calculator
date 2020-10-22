@@ -20,10 +20,10 @@ import javax.persistence.*;
 @Table(name = "meter_values")
 public class MeterValue extends BaseHistory {
     @ManyToOne
-    @JoinColumn(name = "accounting_point_key_room_service_id" )
+    @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false )
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne
-    @JoinColumn(name = "meter_id" )
+    @JoinColumn(name = "meter_id", nullable = false )
     private Meter meter;
     @Column(nullable = false)
     private int value;

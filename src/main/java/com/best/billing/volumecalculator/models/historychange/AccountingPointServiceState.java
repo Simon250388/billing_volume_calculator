@@ -22,7 +22,7 @@ public class AccountingPointServiceState extends BaseHistory {
      * Ключ услуги на точке учета
      */
     @ManyToOne()
-    @JoinColumn(name = "accounting_point_Key_room_service_id")
+    @JoinColumn(name = "accounting_point_Key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     /**
      * Состояние услуги

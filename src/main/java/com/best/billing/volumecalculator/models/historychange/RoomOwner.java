@@ -27,7 +27,7 @@ public class RoomOwner extends BaseHistory {
     public static final String FIND_ONE_LAST_BY_KEY_ROOM_ID = "RoomOwner.findOneLastByKeyRoomId";
 
     @ManyToOne
-    @JoinColumn(name = "key_room_id")
+    @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
     @Column(nullable = false)
     private int ownerCount;

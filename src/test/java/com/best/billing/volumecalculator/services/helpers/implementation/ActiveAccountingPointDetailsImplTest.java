@@ -36,7 +36,6 @@ class ActiveAccountingPointDetailsImplTest {
     private AccountingPointMeterStateRepository meterStateRepository;
     @MockBean
     private AccountingPointServiceProviderRepository pointProviderRepository;
-    ;
     @Autowired
     private ActiveAccountingPointDetailsImpl service;
     @Autowired
@@ -135,15 +134,14 @@ class ActiveAccountingPointDetailsImplTest {
     @DisplayName("Когда на точке учета установлен прибора учета тогда состояние прибора должны быть установлен")
     @Test
     void when_Active_AccountingPoint_Exist_And_Active_Meters_Is_Empty_Then_DoGetAllActiveByKeyRoomId_Should_Be_Meter_State_Is_Active() {
-        final Random random = new Random();
 
+        final Random random = new Random();
         final long accountingPointId = random.nextLong();
         final long keyRoomId = random.nextLong();
         final long serviceId = random.nextLong();
         final long providerId = random.nextLong();
         final long directionOfUseId = random.nextLong();
         final long meterId = random.nextLong();
-
 
         AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity =
                 AccountingPointKeyRoomServiceEntity.builder()
