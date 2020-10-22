@@ -5,7 +5,6 @@ import com.best.billing.volumecalculator.mappers.BaseHistoryMapper;
 import com.best.billing.volumecalculator.models.historychange.MeterValue;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", config = BaseHistoryMapper.class)
 public interface MeterValueMapper extends BaseHistoryMapper<MeterValue, MeterValueDTO> {
