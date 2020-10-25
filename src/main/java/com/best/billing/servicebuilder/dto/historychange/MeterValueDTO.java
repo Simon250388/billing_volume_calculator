@@ -7,12 +7,16 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class MeterValueDTO extends BaseHistoryDTO {
-    Long MeterId;
-    Integer Value;
+    Long meterId;
+    Integer value;
 
     public MeterValueDTO(Long id, String period, Long meterId, Integer value) {
         super(id, period);
-        MeterId = meterId;
-        Value = value;
+        this.meterId = meterId;
+        this.value = value;
     }
+
+
+
+
 }
