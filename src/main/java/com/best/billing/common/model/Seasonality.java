@@ -1,14 +1,17 @@
-package com.best.billing.servicebuilder.models.catalog;
+package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Вид диффиринцированности
+ * Сезонность
  */
 @Getter
 @Setter
@@ -16,6 +19,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "differentiation_types")
-public class DifferentiationType extends BaseCatalog {
+@Table(name = "seasonality")
+public class Seasonality extends BaseCatalog {
 }

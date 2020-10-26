@@ -1,6 +1,6 @@
 package com.best.billing.servicebuilder.repositories.historychange;
 
-import com.best.billing.servicebuilder.models.catalog.Building;
+import com.best.billing.common.model.Building;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.servicebuilder.models.enums.SquareType;
 import com.best.billing.servicebuilder.models.historychange.RoomSquare;

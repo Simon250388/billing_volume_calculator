@@ -1,4 +1,4 @@
-package com.best.billing.servicebuilder.models.catalog;
+package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
 import lombok.*;

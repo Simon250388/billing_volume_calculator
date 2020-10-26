@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.models.historychange;
 
 import com.best.billing.base.model.BaseHistory;
-import com.best.billing.servicebuilder.models.catalog.Provider;
-import com.best.billing.servicebuilder.models.catalog.Service;
+import com.best.billing.common.model.Provider;
+import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

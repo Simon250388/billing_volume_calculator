@@ -1,9 +1,9 @@
 package com.best.billing.servicebuilder.repositories.historychange;
 
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
-import com.best.billing.servicebuilder.models.catalog.Building;
-import com.best.billing.servicebuilder.models.catalog.DirectionOfUse;
-import com.best.billing.servicebuilder.models.catalog.Service;
+import com.best.billing.common.model.Building;
+import com.best.billing.common.model.DirectionOfUse;
+import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoom;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;

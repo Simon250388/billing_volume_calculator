@@ -1,6 +1,8 @@
 package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
+import com.best.billing.common.model.DirectionOfUse;
+import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.catalog.*;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.servicebuilder.models.historychange.*;
@@ -34,6 +36,7 @@ import java.util.Date;
 public class StabPeriod extends BaseEntity {
 
     public static final String FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD = "StabPeriod.findAllByCurrentCalculationPeriod";
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;

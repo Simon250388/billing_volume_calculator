@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.models.entity;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.servicebuilder.models.catalog.DirectionOfUse;
-import com.best.billing.servicebuilder.models.catalog.Service;
+import com.best.billing.common.model.DirectionOfUse;
+import com.best.billing.common.model.Service;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
