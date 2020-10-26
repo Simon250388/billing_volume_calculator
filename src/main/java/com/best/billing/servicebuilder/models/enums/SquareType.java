@@ -8,6 +8,9 @@ import org.springframework.data.annotation.Immutable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Тип площади помещения
+ */
 @Getter
 @Setter
 @SuperBuilder

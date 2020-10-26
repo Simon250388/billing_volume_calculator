@@ -1,4 +1,4 @@
-package com.best.billing.servicebuilder.models.catalog;
+package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Направление использования точек учета
+ * Контрагент
  */
 @Getter
 @Setter
@@ -16,6 +16,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "direction_of_uses")
-public class DirectionOfUse extends BaseCatalog {
+@Table(name = "customers")
+public class Customer extends BaseCatalog {
 }

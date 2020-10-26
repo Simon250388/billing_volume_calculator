@@ -1,7 +1,7 @@
 package com.best.billing.volumecalculator.service;
 
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
-import com.best.billing.servicebuilder.models.catalog.Service;
+import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointMeterState;
 import com.best.billing.volumecalculator.model.StabPeriod;
 import com.best.billing.volumecalculator.repository.StabPeriodRepository;

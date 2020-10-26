@@ -1,4 +1,4 @@
-package com.best.billing.servicebuilder.models.catalog;
+package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Контрагент
+ * Вид благоустройства помещения
  */
 @Getter
 @Setter
@@ -16,6 +16,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "customers")
-public class Customer extends BaseCatalog {
+@Table(name = "improvement_types")
+public class ImprovementType extends BaseCatalog {
 }

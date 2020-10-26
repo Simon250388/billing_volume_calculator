@@ -1,4 +1,4 @@
-package com.best.billing.servicebuilder.models.catalog;
+package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Тарифная группа
+ * Вид диффиринцированности
  */
 @Getter
 @Setter
@@ -16,6 +16,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "rate_groups")
-public class RateGroup extends BaseCatalog {
+@Table(name = "differentiation_types")
+public class DifferentiationType extends BaseCatalog {
 }

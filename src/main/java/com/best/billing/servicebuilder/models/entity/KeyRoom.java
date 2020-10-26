@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.models.entity;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.servicebuilder.models.catalog.Building;
-import com.best.billing.servicebuilder.models.catalog.Room;
+import com.best.billing.common.model.Building;
+import com.best.billing.common.model.Room;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
