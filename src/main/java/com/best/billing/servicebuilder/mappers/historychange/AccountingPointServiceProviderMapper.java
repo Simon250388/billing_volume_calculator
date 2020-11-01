@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.mappers.historychange;
 
 import com.best.billing.servicebuilder.dto.historychange.AccountingPointServiceProviderDTO;
-import com.best.billing.servicebuilder.mappers.BaseEntityMapper;
-import com.best.billing.servicebuilder.mappers.BaseHistoryMapper;
+import com.best.billing.base.mappers.BaseEntityMapper;
+import com.best.billing.base.mappers.BaseHistoryMapper;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceProvider;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;

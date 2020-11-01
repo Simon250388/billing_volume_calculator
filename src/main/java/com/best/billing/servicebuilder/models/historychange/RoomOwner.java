@@ -2,7 +2,10 @@ package com.best.billing.servicebuilder.models.historychange;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;

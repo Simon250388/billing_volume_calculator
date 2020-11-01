@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.entity.implementation;
 
 import com.best.billing.servicebuilder.dto.entity.KeyRoomDTO;
 import com.best.billing.servicebuilder.mappers.entity.KeyRoomMapper;
-import com.best.billing.servicebuilder.repositories.entity.KeyRoomRepository;
+import com.best.billing.servicebuilder.repository.entity.KeyRoomRepository;
 import com.best.billing.servicebuilder.services.entity.KeyRoomService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

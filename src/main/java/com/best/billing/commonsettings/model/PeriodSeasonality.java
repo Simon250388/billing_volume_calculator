@@ -1,6 +1,6 @@
 package com.best.billing.commonsettings.model;
 
-import com.best.billing.base.model.BaseEntity;
+import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.Seasonality;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "period_seasonality")
-public class PeriodSeasonality extends BaseEntity {
+public class PeriodSeasonality extends BaseHistory {
 
     @Column(nullable = false)
     private Integer year;

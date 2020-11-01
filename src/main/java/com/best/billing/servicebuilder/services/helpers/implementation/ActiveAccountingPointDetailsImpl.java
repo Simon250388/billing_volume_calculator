@@ -1,9 +1,9 @@
 package com.best.billing.servicebuilder.services.helpers.implementation;
 
 import com.best.billing.servicebuilder.dto.helpers.ActiveAccountingPointDetailsDTO;
-import com.best.billing.servicebuilder.models.enums.MeterState;
+import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.servicebuilder.models.historychange.*;
-import com.best.billing.servicebuilder.repositories.historychange.*;
+import com.best.billing.servicebuilder.repository.historychange.*;
 import com.best.billing.servicebuilder.services.helpers.ActiveAccountingPointDetails;
 import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;

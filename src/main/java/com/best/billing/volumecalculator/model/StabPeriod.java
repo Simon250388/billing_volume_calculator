@@ -3,8 +3,7 @@ package com.best.billing.volumecalculator.model;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.common.model.DirectionOfUse;
 import com.best.billing.common.model.Service;
-import com.best.billing.servicebuilder.models.catalog.*;
-import com.best.billing.servicebuilder.models.entity.KeyRoom;
+import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.historychange.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -25,7 +24,7 @@ import java.util.Date;
         name = StabPeriod.FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD,
         query = " FROM StabPeriod stb" +
                 " WHERE (stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod, stb.registrationPeriod) IN" +
-                "   (SELECT stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod, MAX(stb.registrationPeriod" +
+                "   (SELECT stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod, MAX(stb.registrationPeriod)" +
                 "   FROM StabPeriod stb" +
                 "   WHERE (stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod) IN " +
                 "       (SELECT stb.keyRoom, stb.accountingPoint, stb.service, MAX(stb.calculationPeriod)" +
@@ -37,57 +36,57 @@ public class StabPeriod extends BaseEntity {
 
     public static final String FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD = "StabPeriod.findAllByCurrentCalculationPeriod";
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "key_room_id", nullable = false)
-    private KeyRoom keyRoom;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "accounting_point_id")
-    private AccountingPoint accountingPoint;
+    private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "service_id")
     private Service service;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "accounting_point_service_state_id", nullable = false)
     private AccountingPointServiceState accountingPointServiceState;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "direction_of_use_id",nullable = false)
     private DirectionOfUse directionOfUse;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "accounting_point_service_provider_id")
     private AccountingPointServiceProvider accountingPointServiceProvider;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "room_rate_group_id")
     private RoomRateGroup roomRateGroup;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "accounting_point_meter_state_id")
     private AccountingPointMeterState accountingPointMeterState;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "meter_differentiation_type_id")
     private MeterDifferentiationType meterDifferentiationType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "room_owner_id")
     private RoomOwner roomOwner;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "room_prescribed_id")
     private RoomPrescribed roomPrescribed;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "room_resident_id")
     private RoomResident roomResident;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "room_common_square_id")
     private RoomSquare roomCommonSquare;
+
+    @ManyToOne()
+    @JoinColumn(name = "room_common_square_id")
+    private RoomServiceKeyNorm roomServiceKeyNorm;
 
     /**
      * Период начисления в котором появилась запись
@@ -107,7 +106,7 @@ public class StabPeriod extends BaseEntity {
     @Column(nullable = false)
     private Date registrationPeriod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "previous_id")
-    private StabPeriod previous;
+    @ManyToOne()
+    @JoinColumn(name = "next_row_id")
+    private StabPeriod nextRow;
 }

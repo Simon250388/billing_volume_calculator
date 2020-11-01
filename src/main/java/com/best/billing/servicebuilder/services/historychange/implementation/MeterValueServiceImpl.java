@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.historychange.implementation;
 
 import com.best.billing.servicebuilder.dto.historychange.MeterValueDTO;
 import com.best.billing.servicebuilder.mappers.historychange.MeterValueMapper;
-import com.best.billing.servicebuilder.repositories.historychange.MeterValueRepository;
+import com.best.billing.servicebuilder.repository.historychange.MeterValueRepository;
 import com.best.billing.servicebuilder.services.historychange.MeterValueService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

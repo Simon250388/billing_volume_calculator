@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.mappers.catalog;
 
 import com.best.billing.servicebuilder.dto.catalog.AccountingPointDTO;
-import com.best.billing.servicebuilder.mappers.BaseCatalogMapper;
-import com.best.billing.servicebuilder.mappers.BaseEntityMapper;
+import com.best.billing.base.mappers.BaseCatalogMapper;
+import com.best.billing.base.mappers.BaseEntityMapper;
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
 import org.mapstruct.Mapper;
 

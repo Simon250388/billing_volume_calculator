@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.historychange.implementation;
 
 import com.best.billing.servicebuilder.dto.historychange.MeterDifferentiationTypeDTO;
 import com.best.billing.servicebuilder.mappers.historychange.MeterDifferentiationTypeMapper;
-import com.best.billing.servicebuilder.repositories.historychange.MeterDifferentiationTypeRepository;
+import com.best.billing.servicebuilder.repository.historychange.MeterDifferentiationTypeRepository;
 import com.best.billing.servicebuilder.services.historychange.MeterDifferentiationTypeService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

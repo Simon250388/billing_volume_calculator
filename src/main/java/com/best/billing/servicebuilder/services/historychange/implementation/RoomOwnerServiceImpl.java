@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.historychange.implementation;
 
 import com.best.billing.servicebuilder.dto.historychange.RoomOwnerDTO;
 import com.best.billing.servicebuilder.mappers.historychange.RoomOwnerMapper;
-import com.best.billing.servicebuilder.repositories.historychange.RoomOwnerRepository;
+import com.best.billing.servicebuilder.repository.historychange.RoomOwnerRepository;
 import com.best.billing.servicebuilder.services.historychange.RoomOwnerService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

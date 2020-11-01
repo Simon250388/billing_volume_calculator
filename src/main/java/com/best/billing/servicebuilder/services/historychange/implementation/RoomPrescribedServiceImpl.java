@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.historychange.implementation;
 
 import com.best.billing.servicebuilder.dto.historychange.RoomPrescribedDTO;
 import com.best.billing.servicebuilder.mappers.historychange.RoomPrescribedMapper;
-import com.best.billing.servicebuilder.repositories.historychange.RoomPrescribedRepository;
+import com.best.billing.servicebuilder.repository.historychange.RoomPrescribedRepository;
 import com.best.billing.servicebuilder.services.historychange.RoomPrescribedService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

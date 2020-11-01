@@ -21,7 +21,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "room_prescribers")
 @NamedQuery(name = RoomPrescribed.FIND_ONE_LAST_BY_KEY_ROOM_ID,
-        query = "FROM RoomPrescribed c" +
+        query = " FROM RoomPrescribed c" +
                 " WHERE c.keyRoom.id = :keyRoomId" +
                 " AND c.period = (  SELECT MAX(c.period)" +
                 "                   FROM RoomPrescribed c" +

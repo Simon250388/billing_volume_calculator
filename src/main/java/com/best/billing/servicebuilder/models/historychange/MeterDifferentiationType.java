@@ -11,10 +11,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.NamedQuery;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * История изменения вида диффиринцироованности
@@ -27,9 +24,23 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "meter_differentiation_type")
+@NamedEntityGraph(
+        name = "meter-differentiation-type-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode(value = "accountingPointKeyRoomServiceEntity", subgraph = "accounting-point-Key-room-entity-graph" )
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "accounting-point-Key-room-entity-graph",
+                        attributeNodes = {
+                                @NamedAttributeNode("accountingPointKeyRoom")
+                        }
+                )
+        }
+)
 @NamedQuery(
         name = MeterDifferentiationType.FIND_ALL_LAST_BY_KEY_ROOM_ID,
-        query =" FROM MeterDifferentiationType difType" +
+        query = " FROM MeterDifferentiationType difType" +
                 " WHERE (difType.accountingPointKeyRoomServiceEntity, difType.meter, difType.period) IN (" +
                 "       SELECT difType.accountingPointKeyRoomServiceEntity, difType.meter, MAX(difType.period)" +
                 "       FROM MeterDifferentiationType difType" +

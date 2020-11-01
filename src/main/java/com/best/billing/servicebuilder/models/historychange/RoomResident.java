@@ -2,7 +2,10 @@ package com.best.billing.servicebuilder.models.historychange;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -17,11 +20,13 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_residents")
-@NamedQuery(name = RoomResident.FIND_ONE_LAST_BY_KEY_ROOM_ID,  query = " FROM RoomResident c" +
-        " WHERE c.keyRoom.id = :keyRoomId" +
-        " AND c.period = (SELECT MAX(c.period)" +
-        "                 FROM RoomResident c" +
-        "                 WHERE c.keyRoom.id =:keyRoomId)")
+@NamedQuery(
+        name = RoomResident.FIND_ONE_LAST_BY_KEY_ROOM_ID,
+        query = " FROM RoomResident c" +
+                " WHERE c.keyRoom.id = :keyRoomId" +
+                " AND c.period = (SELECT MAX(c.period)" +
+                "                 FROM RoomResident c" +
+                "                 WHERE c.keyRoom.id =:keyRoomId)")
 public class RoomResident extends BaseHistory {
     public static final String FIND_ONE_LAST_BY_KEY_ROOM_ID = "RoomResident.findOneLastByKeyRoomId";
     @ManyToOne

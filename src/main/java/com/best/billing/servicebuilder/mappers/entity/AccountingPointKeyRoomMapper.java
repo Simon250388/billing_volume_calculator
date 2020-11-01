@@ -1,7 +1,7 @@
 package com.best.billing.servicebuilder.mappers.entity;
 
 import com.best.billing.servicebuilder.dto.entity.AccountingPointKeyRoomDTO;
-import com.best.billing.servicebuilder.mappers.BaseEntityMapper;
+import com.best.billing.base.mappers.BaseEntityMapper;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoom;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;

@@ -2,7 +2,7 @@ package com.best.billing.servicebuilder.services.historychange.implementation;
 
 import com.best.billing.servicebuilder.dto.historychange.AccountingPointServiceStateDTO;
 import com.best.billing.servicebuilder.mappers.historychange.AccountingPointServiceStateMapper;
-import com.best.billing.servicebuilder.repositories.historychange.AccountingPointServiceStateRepository;
+import com.best.billing.servicebuilder.repository.historychange.AccountingPointServiceStateRepository;
 import com.best.billing.servicebuilder.services.historychange.AccountingPointServiceStateService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

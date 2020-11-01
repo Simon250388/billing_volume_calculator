@@ -22,6 +22,20 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_service_provider")
+@NamedEntityGraph(
+        name = "accounting-point-service-provider-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("accountingPointKeyRoomServiceEntity")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "accounting-pointKey-room-entity-graph",
+                        attributeNodes = {
+                                @NamedAttributeNode("accountingPointKeyRoom")
+                        }
+                )
+        }
+)
 @NamedQuery(name = AccountingPointServiceProvider.FIND_ALL_LAST_BY_KEY_ROOM_ID,
         query = " FROM AccountingPointServiceProvider" +
                 " WHERE (accountingPointKeyRoomServiceEntity, servicePart, period)  IN (" +

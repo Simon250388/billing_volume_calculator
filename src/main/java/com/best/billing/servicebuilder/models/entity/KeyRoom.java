@@ -28,7 +28,7 @@ public class KeyRoom extends BaseEntity {
     /**
      * Помещение
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
     /**

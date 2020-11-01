@@ -1,7 +1,7 @@
 package com.best.billing.servicebuilder.mappers.historychange;
 
 import com.best.billing.servicebuilder.dto.historychange.MeterDifferentiationTypeDTO;
-import com.best.billing.servicebuilder.mappers.BaseHistoryMapper;
+import com.best.billing.base.mappers.BaseHistoryMapper;
 import com.best.billing.servicebuilder.models.historychange.MeterDifferentiationType;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
