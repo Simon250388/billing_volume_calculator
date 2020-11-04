@@ -11,10 +11,12 @@ import com.best.billing.volumecalculator.model.StabPeriod;
 import com.best.billing.volumecalculator.repository.AccountingPointServiceAvgVolumeRepository;
 import com.best.billing.volumecalculator.repository.StabPeriodRepository;
 import com.google.common.collect.ImmutableList;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class VolumeCalculationService {
 
     private final PeriodSeasonalityRepository periodSeasonalityRepository;
@@ -24,6 +26,7 @@ public class VolumeCalculationService {
     private final RateValueRepository rateValueRepository;
     private final KeyNormValueRepository keyNormValueRepository;
     private final StabPeriodRepository stabPeriodRepository;
+    private final Calculator calculator;
 
     public VolumeCalculationService(
             PeriodSeasonalityRepository periodSeasonalityRepository,
@@ -32,7 +35,7 @@ public class VolumeCalculationService {
             AccountingPointServiceAvgVolumeRepository accountingPointServiceAvgVolumeRepository,
             RateValueRepository rateValueRepository,
             KeyNormValueRepository keyNormValueRepository,
-            StabPeriodRepository stabPeriodRepository) {
+            StabPeriodRepository stabPeriodRepository, Calculator calculator) {
         this.periodSeasonalityRepository = periodSeasonalityRepository;
         this.calculationMethodByDirectionOfUseRepository = calculationMethodByDirectionOfUseRepository;
         this.seasonalitySettingsRepository = seasonalitySettingsRepository;
@@ -40,6 +43,7 @@ public class VolumeCalculationService {
         this.rateValueRepository = rateValueRepository;
         this.keyNormValueRepository = keyNormValueRepository;
         this.stabPeriodRepository = stabPeriodRepository;
+        this.calculator = calculator;
     }
 
     public List<ServiceVolumeValue> calculate(Date calculationPeriod) {
@@ -49,7 +53,8 @@ public class VolumeCalculationService {
         Iterable<RateValue> rateValuesIterable = rateValueRepository.findAllLastByPeriod(calculationPeriod);
         Iterable<KeyNormValue> keyNormValuesIterable = keyNormValueRepository.findAllLastByPeriod(calculationPeriod);
 
-        List<StabPeriod> stabPeriods = ImmutableList.copyOf(stabPeriodRepository.findAllByCalculationPeriod(calculationPeriod)).asList();;
+        List<StabPeriod> stabPeriods = ImmutableList.copyOf(stabPeriodRepository.findAllByCalculationPeriod(calculationPeriod)).asList();
+        ;
         List<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUses = ImmutableList.copyOf(calculationMethodByDirectionOfUse).asList();
         List<SeasonalitySetting> seasonalitySettings = ImmutableList.copyOf(seasonalitySettingsSeasonalitySetting).asList();
         List<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolumes = ImmutableList.copyOf(accountingPointServiceAvgVolumesIterable).asList();
@@ -57,7 +62,7 @@ public class VolumeCalculationService {
 
         List<KeyNormValue> keyNormValues = ImmutableList.copyOf(keyNormValuesIterable).asList();
 
-        return new CalculatorImpl().calculate(stabPeriods.stream()
+        return calculator.calculate(stabPeriods.stream()
                 .map(stabPeriodItem ->
                         CalculationItem.builder()
                                 .stabPeriod(stabPeriodItem)

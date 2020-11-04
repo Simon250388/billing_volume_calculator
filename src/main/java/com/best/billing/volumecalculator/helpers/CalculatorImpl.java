@@ -1,12 +1,17 @@
 package com.best.billing.volumecalculator.helpers;
 
 import com.best.billing.volumecalculator.model.ServiceVolumeValue;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
+@Scope("prototype")
+@Slf4j
 public class CalculatorImpl implements Calculator {
 
     @Override
