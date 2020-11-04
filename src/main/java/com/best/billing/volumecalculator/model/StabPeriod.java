@@ -7,7 +7,6 @@ import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServi
 import com.best.billing.servicebuilder.models.historychange.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Immutable;
 
 import javax.persistence.*;
 import java.util.Date;

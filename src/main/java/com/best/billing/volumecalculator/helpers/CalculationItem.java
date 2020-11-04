@@ -9,21 +9,31 @@ import com.best.billing.volumecalculator.model.AccountingPointServiceAvgVolume;
 import com.best.billing.volumecalculator.model.StabPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NonNull;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
 @Builder
 @AllArgsConstructor
 class CalculationItem {
-    @NonNull final private StabPeriod stabPeriod;
-    @NonNull final private Optional<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse;
-    @NonNull final private Optional<SeasonalitySetting> seasonalitySettingsByBuilding;
-    @NonNull final private Optional<SeasonalitySetting> seasonalitySetting;
-    @NonNull final private Optional<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolume;
-    @NonNull final private Optional<RateValue> rateValue;
-    @NonNull final private Optional<KeyNormValue> keyNormValue;
-    @NonNull final List<MeterValue> meterValuesStart;
-    @NonNull final List<MeterValue> meterValuesEnd;
+    @NotNull
+    private final StabPeriod stabPeriod;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    @NotNull
+    private final Optional<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse;
+    @NotNull
+    private final Optional<SeasonalitySetting> seasonalitySettingsByBuilding;
+    @NotNull
+    private final Optional<SeasonalitySetting> seasonalitySetting;
+    @NotNull
+    private final Optional<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolume;
+    @NotNull
+    private final Optional<RateValue> rateValue;
+    @NotNull
+    private final Optional<KeyNormValue> keyNormValue;
+    @NotNull
+    private final List<MeterValue> meterValuesStart;
+    @NotNull
+    private final List<MeterValue> meterValuesEnd;
 }

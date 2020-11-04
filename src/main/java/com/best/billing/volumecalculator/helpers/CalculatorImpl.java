@@ -1,10 +1,13 @@
 package com.best.billing.volumecalculator.helpers;
 
 import com.best.billing.volumecalculator.model.ServiceVolumeValue;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,20 +17,28 @@ import java.util.stream.Stream;
 @Slf4j
 public class CalculatorImpl implements Calculator {
 
+    private final CalculationItemBuilder calculationItemBuilder;
+
+    @Autowired
+    public CalculatorImpl(CalculationItemBuilder calculationItemBuilder) {
+        this.calculationItemBuilder = calculationItemBuilder;
+    }
+
     @Override
-    public List<ServiceVolumeValue> calculate(Stream<CalculationItem> items) {
-        return items.flatMap(item -> Stream.of(
-                volumeByMeterValues(item),
-                volumeFactByMeterValues(item),
-                volumeByNormValue(item),
-                volumeFactByNormValue(item),
-                volumeByAvgNormValueOnLastYear(item),
-                volumeByAvgNormValue(item),
-                volumeFactByAvgNormValue(item),
-                volumeByAvgValueOnLastYear(item),
-                volumeByAvgValue(item),
-                volumeFactByAvgValue(item)
-        )).collect(Collectors.toList());
+    public List<ServiceVolumeValue> calculate(@NonNull Date calculationPeriod) {
+        return calculationItemBuilder.buildStream(calculationPeriod)
+                .flatMap(item -> Stream.of(
+                        volumeByMeterValues(item),
+                        volumeFactByMeterValues(item),
+                        volumeByNormValue(item),
+                        volumeFactByNormValue(item),
+                        volumeByAvgNormValueOnLastYear(item),
+                        volumeByAvgNormValue(item),
+                        volumeFactByAvgNormValue(item),
+                        volumeByAvgValueOnLastYear(item),
+                        volumeByAvgValue(item),
+                        volumeFactByAvgValue(item)
+                )).collect(Collectors.toList());
     }
 
     private ServiceVolumeValue volumeFactByAvgValue(CalculationItem item) {
