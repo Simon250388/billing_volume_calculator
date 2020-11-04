@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface SeasonalitySettingsRepository extends CrudRepository<SeasonalitySetting, Long> {
     CompletableFuture<Iterable<SeasonalitySetting>> findAllLastByPeriodAsync(Date calculationPeriod);
+    Iterable<SeasonalitySetting> findAllLastByPeriod(Date calculationPeriod);
 }

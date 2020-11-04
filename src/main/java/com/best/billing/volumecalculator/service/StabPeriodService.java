@@ -14,8 +14,4 @@ public class StabPeriodService {
     public StabPeriodService(StabPeriodRepository repository) {
         this.repository = repository;
     }
-
-    public void calculateVolume() {
-
-    }
 }

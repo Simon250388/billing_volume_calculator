@@ -19,7 +19,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "stability_periods")
-@Immutable
 @NamedQuery(
         name = StabPeriod.FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD,
         query = " FROM StabPeriod stb" +

@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface AccountingPointServiceAvgVolumeRepository extends CrudRepository<AccountingPointServiceAvgVolume, Long> {
     CompletableFuture<Iterable<AccountingPointServiceAvgVolume>> findAllLastByPeriodAsync(Date calculationPeriod);
+    Iterable<AccountingPointServiceAvgVolume> findAllLastByPeriod(Date calculationPeriod);
 }

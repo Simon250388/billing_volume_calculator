@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface RateValueRepository extends CrudRepository<RateValue, Long> {
     CompletableFuture<Iterable<RateValue>> findAllLastByPeriodAsync(Date calculationPeriod);
+    Iterable<RateValue> findAllLastByPeriod(Date calculationPeriod);
 }

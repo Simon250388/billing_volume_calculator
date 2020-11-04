@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface CalculationMethodByDirectionOfUseRepository extends CrudRepository<CalculationMethodByDirectionOfUse,Long> {
     CompletableFuture<Iterable<CalculationMethodByDirectionOfUse>> findAllLastByPeriodAsync(Date calculationPeriod);
+    Iterable<CalculationMethodByDirectionOfUse> findAllLastByPeriod(Date calculationPeriod);
 }

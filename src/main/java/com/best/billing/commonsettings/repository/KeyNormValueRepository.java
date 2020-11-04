@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface KeyNormValueRepository extends CrudRepository<KeyNormValue, Long> {
     CompletableFuture<Iterable<KeyNormValue>> findAllLastByPeriodAsync(Date calculationPeriod);
+    Iterable<KeyNormValue> findAllLastByPeriod(Date calculationPeriod);
 }
