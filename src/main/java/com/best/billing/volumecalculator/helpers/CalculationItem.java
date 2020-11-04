@@ -16,10 +16,9 @@ import java.util.Optional;
 
 @Builder
 @AllArgsConstructor
-class CalculationItem {
+public class CalculationItem {
     @NotNull
     private final StabPeriod stabPeriod;
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @NotNull
     private final Optional<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse;
     @NotNull
