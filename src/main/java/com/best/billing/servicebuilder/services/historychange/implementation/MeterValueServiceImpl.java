@@ -4,7 +4,7 @@ import com.best.billing.servicebuilder.dto.historychange.MeterValueDTO;
 import com.best.billing.servicebuilder.mappers.historychange.MeterValueMapper;
 import com.best.billing.servicebuilder.repository.historychange.MeterValueRepository;
 import com.best.billing.servicebuilder.services.historychange.MeterValueService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -20,17 +20,17 @@ public class MeterValueServiceImpl implements MeterValueService {
     }
 
     @Override
-    public Iterable<MeterValueDTO> doGetLastByKeyRoomId(@NotNull Long keyRoomId) {
+    public Iterable<MeterValueDTO> doGetLastByKeyRoomId(@NonNull Long keyRoomId) {
         return mapper.fromEntity(repository.findAllLastByKeyRoomId(keyRoomId));
     }
 
     @Override
-    public MeterValueDTO save(@NotNull MeterValueDTO dto) {
+    public MeterValueDTO save(@NonNull MeterValueDTO dto) {
         return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<MeterValueDTO> findById(@NotNull Long id) {
+    public Optional<MeterValueDTO> findById(@NonNull Long id) {
         return repository.findById(id).map(mapper::fromEntity);
     }
 }

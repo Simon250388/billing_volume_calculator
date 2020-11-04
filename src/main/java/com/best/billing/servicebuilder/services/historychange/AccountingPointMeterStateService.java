@@ -2,15 +2,15 @@ package com.best.billing.servicebuilder.services.historychange;
 
 import com.best.billing.servicebuilder.dto.historychange.AccountingPointMeterStateDTO;
 import com.best.billing.base.service.BaseEntityService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 
 import java.util.Optional;
 
 public interface AccountingPointMeterStateService extends BaseEntityService<AccountingPointMeterStateDTO> {
 
-    Iterable<AccountingPointMeterStateDTO> doGetHistoryByAccountingPointKeyRoomService(@NotNull final Long accountingPointKeyRoomService, @NotNull final Long meterId);
+    Iterable<AccountingPointMeterStateDTO> doGetHistoryByAccountingPointKeyRoomService(@NonNull final Long accountingPointKeyRoomService, @NonNull final Long meterId);
 
-    Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(@NotNull final Long accountingPointKeyRoomServiceId, @NotNull final Long meterId);
+    Optional<AccountingPointMeterStateDTO> doGetLastByAccountingPointKeyRoomServiceIdAndMeterId(@NonNull final Long accountingPointKeyRoomServiceId, @NonNull final Long meterId);
 
-    Iterable<AccountingPointMeterStateDTO> doGetLastByKeyRoomId(@NotNull final Long keyRoomId);
+    Iterable<AccountingPointMeterStateDTO> doGetLastByKeyRoomId(@NonNull final Long keyRoomId);
 }

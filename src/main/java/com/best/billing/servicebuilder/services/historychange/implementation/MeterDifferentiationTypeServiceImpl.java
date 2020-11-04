@@ -4,7 +4,7 @@ import com.best.billing.servicebuilder.dto.historychange.MeterDifferentiationTyp
 import com.best.billing.servicebuilder.mappers.historychange.MeterDifferentiationTypeMapper;
 import com.best.billing.servicebuilder.repository.historychange.MeterDifferentiationTypeRepository;
 import com.best.billing.servicebuilder.services.historychange.MeterDifferentiationTypeService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +22,17 @@ public class MeterDifferentiationTypeServiceImpl implements MeterDifferentiation
     }
 
     @Override
-    public Iterable<MeterDifferentiationTypeDTO> doGetLastByKeyRoomId(@NotNull Long keyRoomId) {
+    public Iterable<MeterDifferentiationTypeDTO> doGetLastByKeyRoomId(@NonNull Long keyRoomId) {
         return mapper.fromEntity(repository.findAllLastByKeyRoomId(keyRoomId));
     }
 
     @Override
-    public MeterDifferentiationTypeDTO save(@NotNull MeterDifferentiationTypeDTO dto) {
+    public MeterDifferentiationTypeDTO save(@NonNull MeterDifferentiationTypeDTO dto) {
         return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<MeterDifferentiationTypeDTO> findById(@NotNull Long id) {
+    public Optional<MeterDifferentiationTypeDTO> findById(@NonNull Long id) {
         return repository.findById(id).map(mapper::fromEntity);
     }
 }

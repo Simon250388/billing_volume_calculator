@@ -4,7 +4,7 @@ import com.best.billing.common.dto.BuildingDTO;
 import com.best.billing.common.repository.catalog.BuildingRepository;
 import com.best.billing.common.services.catalog.BuildingService;
 import com.best.billing.common.mappers.catalog.BuildingMapper;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,18 +24,18 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public Iterable<BuildingDTO> findByDescriptionContaining(@NotNull final String subStr) {
+    public Iterable<BuildingDTO> findByDescriptionContaining(@NonNull final String subStr) {
         return mapper.fromEntity(repository.findByDescriptionContaining(subStr));
     }
 
     @Override
-    public BuildingDTO save(@NotNull final BuildingDTO dto) {
+    public BuildingDTO save(@NonNull final BuildingDTO dto) {
 
         return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<BuildingDTO> findById(@NotNull final Long id) {
+    public Optional<BuildingDTO> findById(@NonNull final Long id) {
         return repository.findById(id).map(mapper::fromEntity);
     }
 }

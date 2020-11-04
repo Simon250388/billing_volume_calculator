@@ -6,8 +6,8 @@ import com.best.billing.servicebuilder.models.historychange.*;
 import com.best.billing.servicebuilder.repository.historychange.*;
 import com.best.billing.servicebuilder.services.helpers.ActiveAccountingPointDetails;
 import com.google.common.collect.ImmutableList;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
     }
 
     @Override
-    public Iterable<ActiveAccountingPointDetailsDTO> doGetAllActiveByKeyRoomId(@NotNull Long keyRoomId) {
+    public Iterable<ActiveAccountingPointDetailsDTO> doGetAllActiveByKeyRoomId(@NonNull Long keyRoomId) {
         Stream<AccountingPointServiceState> activeAccountingPoint = ImmutableList.copyOf(accountingPointRepository.findAllActiveByKeyRoomId(keyRoomId)).stream();
         Stream<AccountingPointMeterState> activeMeters = ImmutableList.copyOf(meterStateRepository.findAllLastByKeyRoomId(keyRoomId)).stream();
         Stream<AccountingPointServiceProvider> currentProviders = ImmutableList.copyOf(pointProviderRepository.findAllLastByKeyRoomId(keyRoomId)).stream();
@@ -56,9 +56,9 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
     }
 
     private void doSetProviderProperty(
-            @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder,
-            @NotNull Long accountingPointKeyRoomServiceEntityId,
-            @NotNull Stream<AccountingPointServiceProvider> currentProviders) {
+            @NonNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder,
+            @NonNull Long accountingPointKeyRoomServiceEntityId,
+            @NonNull Stream<AccountingPointServiceProvider> currentProviders) {
 
         currentProviders
                 .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId().equals(accountingPointKeyRoomServiceEntityId))
@@ -69,11 +69,11 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
     }
 
     private void doSetMeterProperty(
-            @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder,
-            @NotNull Long accountingPointKeyRoomServiceEntityId,
-            @NotNull Stream<AccountingPointMeterState> activeMetersStream,
-            @NotNull Stream<MeterDifferentiationType> currentDifferentiationTypes,
-            @NotNull Stream<MeterValue> currentMeterValues) {
+            @NonNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder,
+            @NonNull Long accountingPointKeyRoomServiceEntityId,
+            @NonNull Stream<AccountingPointMeterState> activeMetersStream,
+            @NonNull Stream<MeterDifferentiationType> currentDifferentiationTypes,
+            @NonNull Stream<MeterValue> currentMeterValues) {
 
         activeMetersStream
                 .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId().equals(accountingPointKeyRoomServiceEntityId))
@@ -86,8 +86,8 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
     }
 
     private void doSetServiceProperty(
-            @NotNull AccountingPointServiceState activeService,
-            @NotNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder) {
+            @NonNull AccountingPointServiceState activeService,
+            @NonNull ActiveAccountingPointDetailsDTO.ActiveAccountingPointDetailsDTOBuilder builder) {
 
         builder
                 .keyRoomId(activeService.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getId())

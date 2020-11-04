@@ -1,12 +1,12 @@
 package com.best.billing.base.service;
 
 import com.best.billing.base.dto.BaseEntityDTO;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 
 import java.util.Optional;
 
 public interface BaseEntityService<D extends BaseEntityDTO> {
-    D save(@NotNull final D dto);
+    D save(@NonNull final D dto);
 
-    Optional<D> findById(@NotNull final Long id);
+    Optional<D> findById(@NonNull final Long id);
 }

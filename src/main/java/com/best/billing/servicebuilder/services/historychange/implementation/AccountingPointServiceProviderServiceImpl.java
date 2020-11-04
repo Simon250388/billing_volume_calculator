@@ -4,7 +4,7 @@ import com.best.billing.servicebuilder.dto.historychange.AccountingPointServiceP
 import com.best.billing.servicebuilder.mappers.historychange.AccountingPointServiceProviderMapper;
 import com.best.billing.servicebuilder.repository.historychange.AccountingPointServiceProviderRepository;
 import com.best.billing.servicebuilder.services.historychange.AccountingPointServiceProviderService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +22,12 @@ public class AccountingPointServiceProviderServiceImpl implements AccountingPoin
     }
 
     @Override
-    public AccountingPointServiceProviderDTO save(@NotNull AccountingPointServiceProviderDTO dto) {
+    public AccountingPointServiceProviderDTO save(@NonNull AccountingPointServiceProviderDTO dto) {
         return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<AccountingPointServiceProviderDTO> findById(@NotNull Long id) {
+    public Optional<AccountingPointServiceProviderDTO> findById(@NonNull Long id) {
         return repository.findById(id).map(mapper::fromEntity);
     }
 }

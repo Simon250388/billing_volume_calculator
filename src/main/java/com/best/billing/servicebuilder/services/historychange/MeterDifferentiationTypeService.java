@@ -2,8 +2,8 @@ package com.best.billing.servicebuilder.services.historychange;
 
 import com.best.billing.servicebuilder.dto.historychange.MeterDifferentiationTypeDTO;
 import com.best.billing.base.service.BaseEntityService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 
 public interface MeterDifferentiationTypeService extends BaseEntityService<MeterDifferentiationTypeDTO> {
-    Iterable<MeterDifferentiationTypeDTO> doGetLastByKeyRoomId(@NotNull final Long keyRoomId);
+    Iterable<MeterDifferentiationTypeDTO> doGetLastByKeyRoomId(@NonNull final Long keyRoomId);
 }

@@ -4,7 +4,7 @@ import com.best.billing.servicebuilder.dto.historychange.RoomPrescribedDTO;
 import com.best.billing.servicebuilder.mappers.historychange.RoomPrescribedMapper;
 import com.best.billing.servicebuilder.repository.historychange.RoomPrescribedRepository;
 import com.best.billing.servicebuilder.services.historychange.RoomPrescribedService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,22 +24,22 @@ public class RoomPrescribedServiceImpl implements RoomPrescribedService {
     }
 
     @Override
-    public Optional<RoomPrescribedDTO> doGetLastByKeyRoomId(@NotNull final Long keyRoomId) {
+    public Optional<RoomPrescribedDTO> doGetLastByKeyRoomId(@NonNull final Long keyRoomId) {
         return repository.findOneLastByKeyRoomId(keyRoomId).map(mapper::fromEntity);
     }
 
     @Override
-    public Iterable<RoomPrescribedDTO> doGetHistoryByKeyRoomId(@NotNull final Long keyRoomId) {
+    public Iterable<RoomPrescribedDTO> doGetHistoryByKeyRoomId(@NonNull final Long keyRoomId) {
         return mapper.fromEntity(repository.findAllByKeyRoomId(keyRoomId));
     }
 
     @Override
-    public RoomPrescribedDTO save(@NotNull final RoomPrescribedDTO dto) {
+    public RoomPrescribedDTO save(@NonNull final RoomPrescribedDTO dto) {
         return mapper.fromEntity(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<RoomPrescribedDTO> findById(@NotNull final Long id) {
+    public Optional<RoomPrescribedDTO> findById(@NonNull final Long id) {
         return repository.findById(id).map(mapper::fromEntity);
     }
 }

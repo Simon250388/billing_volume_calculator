@@ -4,7 +4,7 @@ import com.best.billing.servicebuilder.dto.entity.AccountingPointKeyRoomDTO;
 import com.best.billing.servicebuilder.mappers.entity.AccountingPointKeyRoomMapper;
 import com.best.billing.servicebuilder.repository.entity.AccountingPointKeyRoomRepository;
 import com.best.billing.servicebuilder.services.entity.AccountingPointKeyRoomServiceService;
-import org.jetbrains.annotations.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,17 +26,17 @@ public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoom
     }
 
     @Override
-    public AccountingPointKeyRoomDTO save(@NotNull final AccountingPointKeyRoomDTO dto) {
+    public AccountingPointKeyRoomDTO save(@NonNull final AccountingPointKeyRoomDTO dto) {
         return mapper.fromEntity(this.repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Optional<AccountingPointKeyRoomDTO> findById(@NotNull final Long id) {
+    public Optional<AccountingPointKeyRoomDTO> findById(@NonNull final Long id) {
         return this.repository.findById(id).map(mapper::fromEntity);
     }
 
     @Override
-    public List<AccountingPointKeyRoomDTO> findByKeyRoomId(@NotNull final Long keyRoomId) {
+    public List<AccountingPointKeyRoomDTO> findByKeyRoomId(@NonNull final Long keyRoomId) {
         return this.mapper.fromEntity(this.repository.findAllByKeyRoom(keyRoomId));
     }
 }

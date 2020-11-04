@@ -1,10 +1,11 @@
 package com.best.billing.servicebuilder.dto.helpers;
 
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.Value;
-import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class ActiveAccountingPointDetailsDTO {
     public static class ActiveAccountingPointDetailsDTOBuilder {
 
-        public ActiveAccountingPointDetailsDTOBuilder addServicePart(@NotNull Long partServiceId, @NotNull Long providerId){
+        public ActiveAccountingPointDetailsDTOBuilder addServicePart(@NonNull Long partServiceId, @NonNull Long providerId){
             if (this.servicePartProviders == null) {
                 this.servicePartProviders = new HashMap<>();
             }
@@ -22,21 +23,17 @@ public class ActiveAccountingPointDetailsDTO {
             return this;
         }
     }
-    Long keyRoomId;
-    Long accountingPointId;
-    Long serviceId;
-    Long providerId;
-    Long directionOfUseId;
-    Boolean isActive;
-    Long meterId;
-    @Nullable
-    Boolean meterIsActive;
-    @Nullable
-    Date meterStateChangeAt;
-    @Nullable
-    Long differentiationTypeId;
-    @Nullable
-    Integer lastMeterValue;
-    @Nullable
-    Map<Long, Long> servicePartProviders;
+
+    @NotNull Long keyRoomId;
+    @NotNull Long accountingPointId;
+    @NotNull Long serviceId;
+    @NotNull Long providerId;
+    @NotNull Long directionOfUseId;
+    @NotNull Boolean isActive;
+    @NotNull Long meterId;
+    @Null Boolean meterIsActive;
+    @Null Date meterStateChangeAt;
+    @Null Long differentiationTypeId;
+    @Null Integer lastMeterValue;
+    @Null Map<Long, Long> servicePartProviders;
 }
