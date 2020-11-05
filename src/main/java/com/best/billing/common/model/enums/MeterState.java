@@ -21,6 +21,7 @@ import javax.persistence.Table;
 @Immutable
 public class MeterState extends BaseCatalog {
     public static final long ACTIVE_STATE_ID = 1;
+    public static final MeterState ACTIVE_STATE = MeterState.builder().id(MeterState.ACTIVE_STATE_ID).build();
     public static final long DISABLE_STATE_ID = 2;
     public static final long VERIFICATION_STATE_ID = 2;
 }

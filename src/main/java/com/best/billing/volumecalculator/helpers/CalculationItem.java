@@ -9,30 +9,37 @@ import com.best.billing.volumecalculator.model.AccountingPointServiceAvgVolume;
 import com.best.billing.volumecalculator.model.StabPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 
+@Getter
 @Builder
 @AllArgsConstructor
 public class CalculationItem {
     @NotNull
     private final StabPeriod stabPeriod;
-    @NotNull
-    private final Optional<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse;
-    @NotNull
-    private final Optional<SeasonalitySetting> seasonalitySettingsByBuilding;
-    @NotNull
-    private final Optional<SeasonalitySetting> seasonalitySetting;
-    @NotNull
-    private final Optional<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolume;
-    @NotNull
-    private final Optional<RateValue> rateValue;
-    @NotNull
-    private final Optional<KeyNormValue> keyNormValue;
+    @Nullable
+    private final CalculationMethodByDirectionOfUse calculationMethodByDirectionOfUse;
+    @Nullable
+    private final SeasonalitySetting seasonalitySettingsByBuilding;
+    @Nullable
+    private final SeasonalitySetting seasonalitySetting;
+    @Nullable
+    private final AccountingPointServiceAvgVolume accountingPointServiceAvgVolume;
+    @Nullable
+    private final RateValue rateValue;
+    @Nullable
+    private final KeyNormValue keyNormValue;
     @NotNull
     private final List<MeterValue> meterValuesStart;
     @NotNull
     private final List<MeterValue> meterValuesEnd;
+    /**
+     * Показания приборов представлены
+     */
+    @NotNull
+    private final Boolean meterValueIsProvide;
 }

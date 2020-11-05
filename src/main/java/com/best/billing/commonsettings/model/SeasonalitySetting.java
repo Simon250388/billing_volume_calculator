@@ -41,6 +41,11 @@ public class SeasonalitySetting extends BaseHistory {
     @Column(nullable = false)
     private Boolean correctAnnualVolume;
     /**
+     * Начислять объем среднего за прошлый гож
+     */
+    @Column(nullable = false)
+    private Boolean volumeByLastYear;
+    /**
      * Коэффициент норматива
      */
     @Column(nullable = false)

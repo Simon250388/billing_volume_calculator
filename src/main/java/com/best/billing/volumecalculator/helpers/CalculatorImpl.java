@@ -1,5 +1,7 @@
 package com.best.billing.volumecalculator.helpers;
 
+import com.best.billing.common.model.enums.MeterState;
+import com.best.billing.volumecalculator.model.CalculationMethod;
 import com.best.billing.volumecalculator.model.ServiceVolumeValue;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nullable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,45 +45,118 @@ public class CalculatorImpl implements Calculator {
                 )).collect(Collectors.toList());
     }
 
-    private ServiceVolumeValue volumeFactByAvgValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeFactByAvgValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeByAvgValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeByAvgValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeByAvgValueOnLastYear(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeByAvgValueOnLastYear(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeByAvgNormValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeByAvgNormValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeByAvgNormValueOnLastYear(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeByAvgNormValueOnLastYear(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeFactByNormValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeFactByNormValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeByNormValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeByNormValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeFactByAvgNormValue(CalculationItem item) {
+    @Nullable
+    private ServiceVolumeValue volumeFactByAvgNormValue(@NonNull CalculationItem item) {
         return null;
     }
 
-    private ServiceVolumeValue volumeFactByMeterValues(CalculationItem item) {
-        return null;
+    @Nullable
+    private ServiceVolumeValue volumeFactByMeterValues(@NonNull CalculationItem item) {
+
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)) {
+            return null;
+        }
+
+        if (!item.getMeterValueIsProvide()) {
+            return null;
+        }
+
+        int volume = getVolumeByMeterValue(item);
+
+        if (getDuration(item) < 86400 && volume == 0) {
+            return null;
+        }
+
+        return buildVolumeValue(item, 0, volume);
     }
 
-    private ServiceVolumeValue volumeByMeterValues(CalculationItem item) {
-        return null;
+    @Nullable
+    private ServiceVolumeValue volumeByMeterValues(@NonNull CalculationItem item) {
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)) {
+            return null;
+        }
+
+        if (!item.getMeterValueIsProvide()) {
+            return null;
+        }
+
+        boolean volumeByLastYear = false;
+
+        if (item.getSeasonalitySetting() != null ) {
+            volumeByLastYear = item.getSeasonalitySetting().getVolumeByLastYear();
+        }
+
+        if (volumeByLastYear) {
+            return null;
+        }
+
+        int volume = getVolumeByMeterValue(item);
+
+        if (getDuration(item) < 86400 && volume == 0) {
+            return null;
+        }
+
+        return buildVolumeValue(item, volume, 0);
     }
 
+    private ServiceVolumeValue buildVolumeValue(@NonNull CalculationItem item, @NonNull Integer volume, @NonNull Integer volumeFact) {
+        return ServiceVolumeValue.builder()
+                .calculationMethod(CalculationMethod.METHOD_BY_METER)
+                .stabPeriod(item.getStabPeriod())
+                .volume(volume)
+                .factVolume(volumeFact)
+                .build();
+    }
+
+    private int getVolumeByMeterValue(@NonNull CalculationItem item) {
+        return item.getMeterValuesEnd().get(0).getValue() - item.getMeterValuesStart().get(0).getValue();
+    }
+
+    private long getDuration(@NonNull CalculationItem item) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, Calendar.FEBRUARY, 1);
+        long registrationPeriodEnd = calendar.getTime().getTime();
+
+        if (item.getStabPeriod().getNextRow() != null) {
+            registrationPeriodEnd = item.getStabPeriod().getNextRow().getRegistrationPeriod().getTime();
+        }
+
+        return registrationPeriodEnd - item.getStabPeriod().getRegistrationPeriod().getTime();
+    }
 
 }
