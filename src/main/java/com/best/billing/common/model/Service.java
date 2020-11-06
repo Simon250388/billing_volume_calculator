@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,4 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "services")
 public class Service extends BaseCatalog {
+    @ManyToOne
+    @JoinColumn(name = "depend_on_service_id")
+    private Service dependOnService;
 }

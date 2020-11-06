@@ -68,28 +68,28 @@ public class CalculationItemBuilder {
                                 .calculationMethodByDirectionOfUse(calculationMethodByDirectionOfUses.stream()
                                         .filter(item -> item.getService().equals(stabPeriodItem.getService())
                                                 && item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()))
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .seasonalitySettingsByBuilding(seasonalitySettings.stream().filter(
                                         item -> item.getService().equals(stabPeriodItem.getService()) &&
                                                 item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()) &&
                                                 item.getBuilding().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getBuilding()))
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .seasonalitySetting(seasonalitySettings.stream().filter(
                                         item -> item.getService().equals(stabPeriodItem.getService()) &&
                                                 item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()) &&
                                                 item.getBuilding() == null)
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .accountingPointServiceAvgVolume(accountingPointServiceAvgVolumes.stream().filter(
                                         item -> item.getAccountingPointKeyRoomServiceEntity().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity())
                                                 && item.getServicePart().equals(stabPeriodItem.getService()))
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .rateValue(rateValues.stream().filter(
                                         item -> item.getService().equals(stabPeriodItem.getService())
                                                 && item.getRateGroup().equals(stabPeriodItem.getRoomRateGroup().getRateGroup()))
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .keyNormValue(keyNormValues.stream().filter(
                                         item -> item.getKeyNorm().equals(stabPeriodItem.getRoomServiceKeyNorm().getKeyNorm()))
-                                        .findAny())
+                                        .findAny().orElse(null))
                                 .build()
                 );
     }

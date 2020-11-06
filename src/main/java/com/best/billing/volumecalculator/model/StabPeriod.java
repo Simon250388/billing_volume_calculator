@@ -63,6 +63,10 @@ public class StabPeriod extends BaseEntity {
     private AccountingPointMeterState accountingPointMeterState;
 
     @ManyToOne()
+    @JoinColumn(name = "room_square_id")
+    private RoomSquare roomSquare;
+
+    @ManyToOne()
     @JoinColumn(name = "meter_differentiation_type_id")
     private MeterDifferentiationType meterDifferentiationType;
 

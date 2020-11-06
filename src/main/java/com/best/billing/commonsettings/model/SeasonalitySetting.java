@@ -57,6 +57,12 @@ public class SeasonalitySetting extends BaseHistory {
     @Column(nullable = false)
     private Integer coefficientNormValueDoNotUseSeasonality;
 
+    /**
+     * Не применять настройки настройки сезонности
+     */
+    @Column(nullable = false)
+    private Boolean doNotUseSeasonality;
+
 
 
 

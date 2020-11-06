@@ -41,5 +41,12 @@ public class CalculationItem {
      * Показания приборов представлены
      */
     @NotNull
-    private final Boolean meterValueIsProvide;
+    private final boolean isMeterValueProvide;
+
+    /**
+     * Сейчас сезон услуги
+     */
+    @NotNull
+    private final boolean isSeasonalityActive;
+
 }
