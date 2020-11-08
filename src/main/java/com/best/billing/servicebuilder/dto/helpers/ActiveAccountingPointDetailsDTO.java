@@ -6,6 +6,7 @@ import lombok.Value;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ActiveAccountingPointDetailsDTO {
     @NotNull Boolean isActive;
     @NotNull Long meterId;
     @Null Boolean meterIsActive;
-    @Null Date meterStateChangeAt;
+    @Null LocalDateTime meterStateChangeAt;
     @Null Long differentiationTypeId;
     @Null Integer lastMeterValue;
     @Null Map<Long, Long> servicePartProviders;

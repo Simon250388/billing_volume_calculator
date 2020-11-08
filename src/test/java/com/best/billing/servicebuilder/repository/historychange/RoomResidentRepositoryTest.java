@@ -4,13 +4,14 @@ import com.best.billing.common.model.Building;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.servicebuilder.models.historychange.RoomResident;
 import com.google.common.collect.ImmutableList;
+import org.joda.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import java.nio.charset.Charset;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
@@ -49,19 +50,16 @@ class RoomResidentRepositoryTest {
 
         em.persist(keyRoom);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.JANUARY, 1);
-
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,1,1,0,0,0))
                 .residentCount(1)
                 .build());
 
         Optional<RoomResident> roomResident = repository.findOneLastByKeyRoomId(keyRoom.getId());
         assertFalse(roomResident.isEmpty());
         RoomResident dataRow = roomResident.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2020,1,1,0,0,0), dataRow.getPeriod());
         assertEquals(1, dataRow.getResidentCount());
     }
 
@@ -83,29 +81,23 @@ class RoomResidentRepositoryTest {
                 .build();
 
         em.persist(keyRoom);
-        Calendar calendar;
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019,1,1,0,0,0))
                 .residentCount(1)
                 .build());
 
-        calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.JANUARY, 1);
-
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,1,1,0,0,0))
                 .residentCount(15)
                 .build());
 
         Optional<RoomResident> roomResident = repository.findOneLastByKeyRoomId(keyRoom.getId());
         assertFalse(roomResident.isEmpty());
         RoomResident dataRow = roomResident.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2020,1,1,0,0,0), dataRow.getPeriod());
         assertEquals(15, dataRow.getResidentCount());
     }
 
@@ -127,22 +119,16 @@ class RoomResidentRepositoryTest {
                 .build();
 
         em.persist(keyRoom);
-        Calendar calendar;
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.JANUARY, 1);
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019,1,1,0,0,0))
                 .residentCount(1)
                 .build());
 
-        calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.JANUARY, 1);
-
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,1,1,0,0,0))
                 .residentCount(15)
                 .build());
 

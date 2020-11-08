@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.Random;
@@ -50,19 +51,16 @@ class RoomOwnerRepositoryTest {
 
         em.persist(keyRoom);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
-
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,1,1,0,0,0))
                 .ownerCount(1)
                 .build());
 
         Optional<RoomOwner> roomOwner = repository.findOneLastByKeyRoomId(keyRoom.getId());
         assertFalse(roomOwner.isEmpty());
         RoomOwner dataRow = roomOwner.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2020,1,1,0,0,0), dataRow.getPeriod());
         assertEquals(1, dataRow.getOwnerCount());
     }
 
@@ -84,29 +82,23 @@ class RoomOwnerRepositoryTest {
                 .build();
 
         em.persist(keyRoom);
-        Calendar calendar;
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.FEBRUARY, 1);
 
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019,1,1,0,0,0))
                 .ownerCount(1)
                 .build());
 
-        calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
-
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,2,1,0,0,0))
                 .ownerCount(15)
                 .build());
 
         Optional<RoomOwner> roomOwner = repository.findOneLastByKeyRoomId(keyRoom.getId());
         assertFalse(roomOwner.isEmpty());
         RoomOwner dataRow = roomOwner.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2020,2,1,0,0,0), dataRow.getPeriod());
         assertEquals(15, dataRow.getOwnerCount());
     }
 
@@ -128,22 +120,16 @@ class RoomOwnerRepositoryTest {
                 .build();
 
         em.persist(keyRoom);
-        Calendar calendar;
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.FEBRUARY, 1);
 
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019,2,1,0,0,0))
                 .ownerCount(1)
                 .build());
 
-        calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
-
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020,2,1,0,0,0))
                 .ownerCount(15)
                 .build());
 

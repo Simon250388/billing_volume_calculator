@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Date;
 @Table(name = "accounting_point_service_avg_volume")
 public class AccountingPointServiceAvgVolume extends BaseEntity {
     @Column(nullable = false)
-    private Date calculationPeriod;
+    private LocalDate calculationPeriod;
     @ManyToOne()
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;

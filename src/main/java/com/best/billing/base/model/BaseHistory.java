@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -18,5 +19,5 @@ public abstract class BaseHistory extends BaseEntity {
     }
 
     @Column(name = "period", nullable = false)
-    private Date period;
+    private LocalDateTime period;
 }

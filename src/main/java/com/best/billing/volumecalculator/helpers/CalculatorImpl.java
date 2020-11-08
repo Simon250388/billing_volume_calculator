@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,8 +24,8 @@ import java.util.stream.Stream;
 @Scope("prototype")
 @Slf4j
 public class CalculatorImpl implements Calculator {
-    public static final  long SECOND_IN_DAY = 86400;
-    public static final  int MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME = 3;
+    public static final long SECOND_IN_DAY = 86400;
+    public static final int MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME = 3;
     private final CalculationItemBuilder calculationItemBuilder;
 
     @Autowired
@@ -87,7 +89,7 @@ public class CalculatorImpl implements Calculator {
         }
 
         if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
-                || ChronoUnit.MONTHS.between(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toInstant(), endOfCalculationPeriod().toInstant()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
+                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), endOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
             return null;
         }
 
@@ -98,18 +100,23 @@ public class CalculatorImpl implements Calculator {
 
     @Nullable
     private ServiceVolumeValue volumeByNormValue(@NonNull CalculationItem item) {
+
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
+                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), endOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
+            return null;
+        }
+
         if (!item.isSeasonalityActive()) {
             return null;
         }
 
-        if (Objects.requireNonNull(item.getSeasonalitySetting()).getVolumeByLastYear()
-                && item.getStabPeriod().getAccountingPointKeyRoomServiceEntity().getService().getDependOnService() != null
-                && item.getAccountingPointServiceAvgVolume() == null) {
+        if (item.getSeasonalitySetting() == null) {
             return null;
         }
 
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
-                || ChronoUnit.MONTHS.between(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toInstant(), endOfCalculationPeriod().toInstant()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
+        if (item.getSeasonalitySetting().getVolumeByLastYear()
+                && item.getStabPeriod().getAccountingPointKeyRoomServiceEntity().getService().getDependOnService() != null
+                && item.getAccountingPointServiceAvgVolume() == null) {
             return null;
         }
 
@@ -189,7 +196,7 @@ public class CalculatorImpl implements Calculator {
         /**
          * Зачем нам два коэффициента для норматива если мы либо применяем сезонность либо нет
          */
-        int coefficientNormValue = Objects.requireNonNull(item.getSeasonalitySetting()).getDoNotUseSeasonality()
+        int coefficientNormValue = item.getSeasonalitySetting().getDoNotUseSeasonality()
                 ? item.getSeasonalitySetting().getCoefficientNormValueDoNotUseSeasonality() : item.getSeasonalitySetting().getCoefficientNormValue();
 
         int roomNormIndex = roomNormIndex(item);
@@ -201,27 +208,25 @@ public class CalculatorImpl implements Calculator {
 
     private long getDurationBySecondsForPeriodRegistration(@NonNull CalculationItem item) {
 
-        long registrationPeriodEnd = endOfCalculationPeriod().getTime().getTime();
+        LocalDate registrationPeriodEnd = endOfCalculationPeriod().toLocalDate();
 
         if (item.getStabPeriod().getNextRow() != null) {
-            registrationPeriodEnd = item.getStabPeriod().getNextRow().getRegistrationPeriod().getTime();
+            registrationPeriodEnd = item.getStabPeriod().getNextRow().getRegistrationPeriod();
         }
 
-        return registrationPeriodEnd - item.getStabPeriod().getRegistrationPeriod().getTime();
+        return ChronoUnit.SECONDS.between(registrationPeriodEnd, item.getStabPeriod().getRegistrationPeriod());
     }
 
     private long getDurationByDayPeriodRegistration(@NonNull CalculationItem item) {
-        return ChronoUnit.DAYS.between(endOfCalculationPeriod().toInstant(), item.getStabPeriod().getRegistrationPeriod().toInstant());
+        return ChronoUnit.DAYS.between(endOfCalculationPeriod(), item.getStabPeriod().getRegistrationPeriod());
     }
 
-    private Calendar endOfCalculationPeriod() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
-        return calendar;
+    private LocalDateTime endOfCalculationPeriod() {
+        return LocalDateTime.of(2020, 7, 1, 0, 0, 0);
     }
 
     private int roomNormIndex(@NonNull CalculationItem item) {
-        if (Objects.requireNonNull(item.getCalculationMethodByDirectionOfUse()).getSquareType() != null) {
+        if (item.getCalculationMethodByDirectionOfUse().getSquareType() != null) {
             return item.getStabPeriod().getRoomSquare().getValue();
         } else if (item.getStabPeriod().getRoomResident() != null && item.getStabPeriod().getRoomResident().getResidentCount() != 0) {
             return item.getStabPeriod().getRoomResident().getResidentCount();
@@ -233,9 +238,14 @@ public class CalculatorImpl implements Calculator {
     }
 
     private int getDurationForPeriodRegistration(@NonNull CalculationItem item) {
-        int dayOfMonth = endOfCalculationPeriod().get(Calendar.DAY_OF_MONTH);
-
+        LocalDateTime localDateTime = endOfCalculationPeriod();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth());
+        int dayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         return (int) (getDurationByDayPeriodRegistration(item) / dayOfMonth);
     }
 
+    private long monthBetween(LocalDate start, LocalDate end) {
+        return ChronoUnit.MONTHS.between(start, end);
+    }
 }

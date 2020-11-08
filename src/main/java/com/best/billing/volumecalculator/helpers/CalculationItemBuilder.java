@@ -67,16 +67,16 @@ public class CalculationItemBuilder {
                                 .stabPeriod(stabPeriodItem)
                                 .calculationMethodByDirectionOfUse(calculationMethodByDirectionOfUses.stream()
                                         .filter(item -> item.getService().equals(stabPeriodItem.getService())
-                                                && item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()))
+                                                && item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()))
                                         .findAny().orElse(null))
                                 .seasonalitySettingsByBuilding(seasonalitySettings.stream().filter(
                                         item -> item.getService().equals(stabPeriodItem.getService()) &&
-                                                item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()) &&
+                                                item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()) &&
                                                 item.getBuilding().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getBuilding()))
                                         .findAny().orElse(null))
                                 .seasonalitySetting(seasonalitySettings.stream().filter(
                                         item -> item.getService().equals(stabPeriodItem.getService()) &&
-                                                item.getDirectionOfUse().equals(stabPeriodItem.getDirectionOfUse()) &&
+                                                item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()) &&
                                                 item.getBuilding() == null)
                                         .findAny().orElse(null))
                                 .accountingPointServiceAvgVolume(accountingPointServiceAvgVolumes.stream().filter(

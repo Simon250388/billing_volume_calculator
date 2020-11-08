@@ -1,14 +1,17 @@
 package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.common.model.DirectionOfUse;
 import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.historychange.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -47,10 +50,6 @@ public class StabPeriod extends BaseEntity {
     private AccountingPointServiceState accountingPointServiceState;
 
     @ManyToOne()
-    @JoinColumn(name = "direction_of_use_id",nullable = false)
-    private DirectionOfUse directionOfUse;
-
-    @ManyToOne()
     @JoinColumn(name = "accounting_point_service_provider_id")
     private AccountingPointServiceProvider accountingPointServiceProvider;
 
@@ -87,26 +86,26 @@ public class StabPeriod extends BaseEntity {
     private RoomSquare roomCommonSquare;
 
     @ManyToOne()
-    @JoinColumn(name = "room_common_square_id")
+    @JoinColumn(name = "room_service_key_norm_id")
     private RoomServiceKeyNorm roomServiceKeyNorm;
 
     /**
      * Период начисления в котором появилась запись
      */
     @Column(nullable = false)
-    private Date calculationPeriod;
+    private LocalDate calculationPeriod;
 
     /**
      * Дата регистрации записи которая которая произошла в реальной жизни но мы регистриурем ее задним числом
      */
     @Column(nullable = false)
-    private Date registrationPeriodFact;
+    private LocalDate registrationPeriodFact;
 
     /**
      * Дата регистрации записи
      */
     @Column(nullable = false)
-    private Date registrationPeriod;
+    private LocalDate registrationPeriod;
 
     @ManyToOne()
     @JoinColumn(name = "next_row_id")

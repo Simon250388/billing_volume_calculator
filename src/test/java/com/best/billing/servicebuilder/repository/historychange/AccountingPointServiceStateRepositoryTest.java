@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,7 +53,7 @@ class AccountingPointServiceStateRepositoryTest {
         em.persist(AccountingPointServiceState.builder()
                 .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
                 .active(true)
-                .period(new Date())
+                .period(LocalDateTime.now())
                 .build());
 
         Iterable<AccountingPointServiceState> current = repository.findAllActiveByKeyRoomId(keyRoom.getId());
@@ -84,13 +85,13 @@ class AccountingPointServiceStateRepositoryTest {
         em.persist(AccountingPointServiceState.builder()
                 .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
                 .active(true)
-                .period(new Date())
+                .period(LocalDateTime.now())
                 .build());
 
         em.persist(AccountingPointServiceState.builder()
                 .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
                 .active(false)
-                .period(new Date())
+                .period(LocalDateTime.now())
                 .build());
 
         Iterable<AccountingPointServiceState> current = repository.findAllActiveByKeyRoomId(keyRoom.getId());

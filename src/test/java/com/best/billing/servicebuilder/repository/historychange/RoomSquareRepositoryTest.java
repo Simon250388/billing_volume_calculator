@@ -1,8 +1,8 @@
 package com.best.billing.servicebuilder.repository.historychange;
 
 import com.best.billing.common.model.Building;
-import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.common.model.enums.SquareType;
+import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.servicebuilder.models.historychange.RoomSquare;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import java.nio.charset.Charset;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
@@ -51,14 +51,9 @@ class RoomSquareRepositoryTest {
 
         em.persist(keyRoom);
 
-        Calendar calendar;
-
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.JANUARY, 1);
-
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019, 1, 1, 0, 0, 0))
                 .squareType(squareType)
                 .value(30)
                 .build());
@@ -66,7 +61,7 @@ class RoomSquareRepositoryTest {
         Optional<RoomSquare> commonSquare = repository.findOneLastCommonSquareByKeyRoomId(keyRoom.getId());
         assertFalse(commonSquare.isEmpty());
         RoomSquare dataRow = commonSquare.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2019, 1, 1, 0, 0, 0), dataRow.getPeriod());
         assertEquals(30, dataRow.getValue());
     }
 
@@ -89,26 +84,18 @@ class RoomSquareRepositoryTest {
 
         em.persist(keyRoom);
 
-        Calendar calendar;
-
-        calendar = Calendar.getInstance();
-        calendar.set(2019, Calendar.JANUARY, 1);
-
         SquareType squareType = em.find(SquareType.class, SquareType.COMMON_SQUARE_TYPE_ID);
 
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2019, 1, 1, 0, 0, 0))
                 .squareType(squareType)
                 .value(30)
                 .build());
 
-        calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.JANUARY, 1);
-
         em.persist(RoomSquare.builder()
                 .keyRoom(keyRoom)
-                .period(calendar.getTime())
+                .period(LocalDateTime.of(2020, 1, 1, 0, 0, 0))
                 .squareType(squareType)
                 .value(20)
                 .build());
@@ -116,7 +103,7 @@ class RoomSquareRepositoryTest {
         Optional<RoomSquare> commonSquare = repository.findOneLastCommonSquareByKeyRoomId(keyRoom.getId());
         assertFalse(commonSquare.isEmpty());
         RoomSquare dataRow = commonSquare.get();
-        assertEquals(calendar.getTime(), dataRow.getPeriod());
+        assertEquals(LocalDateTime.of(2020, 1, 1, 0, 0, 0), dataRow.getPeriod());
         assertEquals(20, dataRow.getValue());
     }
 }

@@ -3,12 +3,13 @@ package com.best.billing.servicebuilder.services.helpers.implementation;
 import com.best.billing.common.model.DirectionOfUse;
 import com.best.billing.common.model.Provider;
 import com.best.billing.common.model.Service;
+import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.servicebuilder.dto.helpers.ActiveAccountingPointDetailsDTO;
-import com.best.billing.servicebuilder.models.catalog.*;
+import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
+import com.best.billing.servicebuilder.models.catalog.Meter;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoom;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
-import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointMeterState;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceProvider;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceState;
@@ -23,6 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
@@ -91,15 +93,13 @@ class ActiveAccountingPointDetailsImplTest {
                         )
                         .build();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
         Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(keyRoomId)).thenReturn(
                 Collections.singletonList(
                         AccountingPointServiceState.builder()
                                 .id(random.nextLong())
                                 .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
                                 .active(true)
-                                .period(calendar.getTime())
+                                .period(LocalDateTime.of(2020, 2, 1, 0, 0, 0))
                                 .build())
         );
 
@@ -173,20 +173,16 @@ class ActiveAccountingPointDetailsImplTest {
                         )
                         .build();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020, Calendar.FEBRUARY, 1);
+
         Mockito.when(accountingPointRepository.findAllActiveByKeyRoomId(keyRoomId)).thenReturn(
                 Collections.singletonList(
                         AccountingPointServiceState.builder()
                                 .id(random.nextLong())
                                 .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
                                 .active(true)
-                                .period(calendar.getTime())
+                                .period(LocalDateTime.of(2020, 2, 1, 0, 0, 0))
                                 .build())
         );
-
-        Calendar emptyDate = Calendar.getInstance();
-        emptyDate.set(1, Calendar.JANUARY, 1);
 
         Mockito.when(meterStateRepository.findAllLastByKeyRoomId(keyRoomId)).thenReturn(Collections.singletonList(
                 AccountingPointMeterState.builder()
@@ -202,9 +198,10 @@ class ActiveAccountingPointDetailsImplTest {
                                         .id(MeterState.ACTIVE_STATE_ID)
                                         .build()
                         )
-                        .period(calendar.getTime())
+                        .period(LocalDateTime.of(2020, 2, 1, 0, 0, 0))
                         .build()
         ));
+
         Mockito.when(pointProviderRepository.findAllLastByKeyRoomId(keyRoomId)).thenReturn(Collections.singletonList(
                 AccountingPointServiceProvider.builder()
                         .id(random.nextLong())
@@ -225,9 +222,9 @@ class ActiveAccountingPointDetailsImplTest {
         assertEquals(providerId, next.getProviderId());
         assertEquals(directionOfUseId, next.getDirectionOfUseId());
         assertTrue(next.getIsActive());
-        assertEquals(meterId,next.getMeterId());
+        assertEquals(meterId, next.getMeterId());
         assertTrue(next.getMeterIsActive());
-        assertEquals(calendar.getTime(),next.getMeterStateChangeAt());
+        assertEquals(LocalDateTime.of(2020, 2, 1, 0, 0, 0), next.getMeterStateChangeAt());
         // TODO FIX ME
         // assertNull(next.getDifferentiationTypeId());
         // TODO FIX ME
