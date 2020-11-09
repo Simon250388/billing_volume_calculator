@@ -2,6 +2,8 @@ package com.best.billing.volumecalculator.helpers;
 
 import com.best.billing.common.model.*;
 import com.best.billing.common.model.enums.MeterState;
+import com.best.billing.commonsettings.model.CalculationMethodByDirectionOfUse;
+import com.best.billing.commonsettings.model.KeyNormValue;
 import com.best.billing.commonsettings.model.SeasonalitySetting;
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
 import com.best.billing.servicebuilder.models.catalog.Meter;
@@ -11,21 +13,21 @@ import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointMeterState;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceProvider;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceState;
+import com.best.billing.servicebuilder.models.historychange.RoomOwner;
+import com.best.billing.volumecalculator.model.ServiceVolumeValue;
 import com.best.billing.volumecalculator.model.StabPeriod;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
 
 class CalculatorImplTest {
 
@@ -38,17 +40,39 @@ class CalculatorImplTest {
 
         when(calculationItemBuilder.buildStream(any())).thenReturn(buildFakeStream());
 
-        Calendar calendar = Calendar.getInstance();
-
         Calculator calculator = new CalculatorImpl(calculationItemBuilder);
 
-        assertThat(calculator.calculate(calendar.getTime()));
+        List<ServiceVolumeValue> calculations = calculator.calculate(LocalDate.now());
 
+        assertNotNull(calculations);
+
+        assertEquals(2, calculations.size());
     }
 
     private Stream<CalculationItem> buildFakeStream() {
         long buildingId = new Random().nextLong();
         Calendar calendar = Calendar.getInstance();
+
+        KeyRoom keyRoom = KeyRoom.builder()
+                .building(
+                        Building.builder()
+                                .id(buildingId)
+                                .description("Плотниково п, Юбилейная ул, Дом № 10")
+                                .build()
+                )
+                .room(
+                        Room.builder()
+                                .id(new Random().nextLong())
+                                .building(
+                                        Building.builder()
+                                                .id(buildingId)
+                                                .build()
+                                )
+                                .description("2")
+                                .build()
+                )
+                .privateSector(false)
+                .build();
 
         AccountingPointKeyRoom accountingPointKeyRoom = AccountingPointKeyRoom.builder()
                 .accountingPoint(
@@ -56,27 +80,7 @@ class CalculatorImplTest {
                                 .id(new Random().nextLong())
                                 .description("огород_Холодное водоснабжение")
                                 .build())
-                .keyRoom(
-                        KeyRoom.builder()
-                                .building(
-                                        Building.builder()
-                                                .id(buildingId)
-                                                .description("Плотниково п, Юбилейная ул, Дом № 10")
-                                                .build()
-                                )
-                                .room(
-                                        Room.builder()
-                                                .id(new Random().nextLong())
-                                                .building(
-                                                        Building.builder()
-                                                                .id(buildingId)
-                                                                .build()
-                                                )
-                                                .description("2")
-                                                .build()
-                                )
-                                .privateSector(false)
-                                .build())
+                .keyRoom(keyRoom)
                 .build();
 
         DirectionOfUse directionOfUse = DirectionOfUse.builder()
@@ -136,6 +140,23 @@ class CalculatorImplTest {
                                                         .provider(provider)
                                                         .build())
                                         .registrationPeriod(LocalDate.of(2020, 7, 1))
+                                        .roomOwner(
+                                                RoomOwner.builder()
+                                                        .keyRoom(keyRoom)
+                                                        .ownerCount(1)
+                                                        .build()
+                                        )
+                                        .build()
+                        )
+                        .keyNormValue(
+                                KeyNormValue.builder()
+                                        .id(new Random().nextLong())
+                                        .keyNorm(
+                                                KeyNorm.builder()
+                                                        .id(new Random().nextLong())
+                                                        .build()
+                                        )
+                                        .NormValue(20)
                                         .build()
                         )
                         .seasonalitySetting(
@@ -144,6 +165,14 @@ class CalculatorImplTest {
                                         .doNotUseSeasonality(false)
                                         .coefficientNormValue(1)
                                         .coefficientNormValueDoNotUseSeasonality(1)
+                                        .build()
+                        )
+                        .calculationMethodByDirectionOfUse(
+                                CalculationMethodByDirectionOfUse.builder()
+                                        .normByDay(false)
+                                        .directionOfUse(directionOfUse)
+                                        .id(new Random().nextLong())
+                                        .squareType(null)
                                         .build()
                         )
                         .isMeterValueProvide(false)

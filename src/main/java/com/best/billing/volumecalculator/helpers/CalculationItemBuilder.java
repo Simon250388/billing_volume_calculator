@@ -14,6 +14,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -46,7 +47,7 @@ public class CalculationItemBuilder {
 
     }
 
-    public Stream<CalculationItem> buildStream(@NonNull Date calculationPeriod) {
+    public Stream<CalculationItem> buildStream(@NonNull LocalDate calculationPeriod) {
 
         Iterable<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse = calculationMethodByDirectionOfUseRepository.findAllLastByPeriod(calculationPeriod);
         Iterable<SeasonalitySetting> seasonalitySettingsSeasonalitySetting = seasonalitySettingsRepository.findAllLastByPeriod(calculationPeriod);

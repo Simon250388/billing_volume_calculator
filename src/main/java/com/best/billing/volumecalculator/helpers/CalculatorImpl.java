@@ -14,9 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,7 +32,7 @@ public class CalculatorImpl implements Calculator {
     }
 
     @Override
-    public List<ServiceVolumeValue> calculate(@NonNull Date calculationPeriod) {
+    public List<ServiceVolumeValue> calculate(@NonNull LocalDate calculationPeriod) {
         return calculationItemBuilder.buildStream(calculationPeriod)
                 .flatMap(item -> Stream.of(
                         volumeByMeterValues(item),
@@ -47,7 +45,8 @@ public class CalculatorImpl implements Calculator {
                         volumeByAvgValueOnLastYear(item),
                         volumeByAvgValue(item),
                         volumeFactByAvgValue(item)
-                )).collect(Collectors.toList());
+                ))
+                .filter(value -> value != null).collect(Collectors.toList());
     }
 
     @Nullable
@@ -93,7 +92,7 @@ public class CalculatorImpl implements Calculator {
             return null;
         }
 
-        int volume = volumeValueByNormValue(item);
+        long volume = volumeValueByNormValue(item);
 
         return buildVolumeValue(item, 0, volume);
     }
@@ -120,7 +119,7 @@ public class CalculatorImpl implements Calculator {
             return null;
         }
 
-        int volume = volumeValueByNormValue(item);
+        long volume = volumeValueByNormValue(item);
 
         return buildVolumeValue(item, volume, 0);
     }
@@ -179,7 +178,7 @@ public class CalculatorImpl implements Calculator {
         return buildVolumeValue(item, volume, 0);
     }
 
-    private ServiceVolumeValue buildVolumeValue(@NonNull CalculationItem item, @NonNull Integer volume, @NonNull Integer volumeFact) {
+    private ServiceVolumeValue buildVolumeValue(@NonNull CalculationItem item, long volume, long volumeFact) {
         return ServiceVolumeValue.builder()
                 .calculationMethod(CalculationMethod.METHOD_BY_METER)
                 .stabPeriod(item.getStabPeriod())
@@ -192,7 +191,7 @@ public class CalculatorImpl implements Calculator {
         return item.getMeterValuesEnd().get(0).getValue() - item.getMeterValuesStart().get(0).getValue();
     }
 
-    private int volumeValueByNormValue(@NonNull CalculationItem item) {
+    private long volumeValueByNormValue(@NonNull CalculationItem item) {
         /**
          * Зачем нам два коэффициента для норматива если мы либо применяем сезонность либо нет
          */
@@ -201,9 +200,15 @@ public class CalculatorImpl implements Calculator {
 
         int roomNormIndex = roomNormIndex(item);
 
-        int durationForPeriodRegistration = getDurationForPeriodRegistration(item);
+        double durationForPeriodRegistration = getDurationForPeriodRegistration(item);
 
-        return Objects.requireNonNull(item.getKeyNormValue()).getNormValue() * coefficientNormValue * roomNormIndex * durationForPeriodRegistration;
+        if (item.getKeyNormValue() == null) {
+            // TODO
+            // add log info do not read key norm
+            return 0;
+        }
+
+        return (long) (item.getKeyNormValue().getNormValue() * coefficientNormValue * roomNormIndex * durationForPeriodRegistration);
     }
 
     private long getDurationBySecondsForPeriodRegistration(@NonNull CalculationItem item) {
@@ -217,12 +222,8 @@ public class CalculatorImpl implements Calculator {
         return ChronoUnit.SECONDS.between(registrationPeriodEnd, item.getStabPeriod().getRegistrationPeriod());
     }
 
-    private long getDurationByDayPeriodRegistration(@NonNull CalculationItem item) {
-        return ChronoUnit.DAYS.between(endOfCalculationPeriod(), item.getStabPeriod().getRegistrationPeriod());
-    }
-
     private LocalDateTime endOfCalculationPeriod() {
-        return LocalDateTime.of(2020, 7, 1, 0, 0, 0);
+        return LocalDateTime.of(2020, 8, 1, 0, 0, 0);
     }
 
     private int roomNormIndex(@NonNull CalculationItem item) {
@@ -232,20 +233,35 @@ public class CalculatorImpl implements Calculator {
             return item.getStabPeriod().getRoomResident().getResidentCount();
         } else if (item.getStabPeriod().getRoomPrescribed() != null && item.getStabPeriod().getRoomPrescribed().getPrescribedCount() != 0) {
             return item.getStabPeriod().getRoomPrescribed().getPrescribedCount();
+        } else if (item.getStabPeriod().getRoomOwner() != null) {
+            return item.getStabPeriod().getRoomOwner().getOwnerCount();
         } else {
-            return item.getStabPeriod().getRoomOwner() == null ? 0 : item.getStabPeriod().getRoomOwner().getOwnerCount();
+            return 0;
+            // TODO
+            // add log info
         }
     }
 
-    private int getDurationForPeriodRegistration(@NonNull CalculationItem item) {
+    private double getDurationForPeriodRegistration(@NonNull CalculationItem item) {
         LocalDateTime localDateTime = endOfCalculationPeriod();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth());
+        calendar.set(localDateTime.getYear(), localDateTime.getMonthValue() - 1, 1);
         int dayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        return (int) (getDurationByDayPeriodRegistration(item) / dayOfMonth);
+        LocalDate endOfCalculationPeriod = endOfStabPeriod(item);
+        long days = dayBetween(item.getStabPeriod().getRegistrationPeriod(), endOfCalculationPeriod);
+        return days / dayOfMonth;
+    }
+
+    private LocalDate endOfStabPeriod(@NonNull CalculationItem item) {
+        return item.getStabPeriod().getNextRow() == null ? endOfCalculationPeriod().toLocalDate() : item.getStabPeriod().getNextRow().getRegistrationPeriod();
     }
 
     private long monthBetween(LocalDate start, LocalDate end) {
         return ChronoUnit.MONTHS.between(start, end);
     }
+
+    private long dayBetween(LocalDate start, LocalDate end) {
+        return ChronoUnit.DAYS.between(start, end);
+    }
+
 }

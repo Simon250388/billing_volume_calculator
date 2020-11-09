@@ -34,8 +34,8 @@ public class ServiceVolumeValue extends BaseEntity {
     @JoinColumn(name = "meter_value_end_id")
     private MeterValue meterValueEnd;
     @Column(nullable = false)
-    private Integer volume;
+    private long volume;
     @Column(nullable = false)
-    private Integer factVolume;
+    private long factVolume;
 
 }
