@@ -24,7 +24,9 @@ import java.util.stream.Stream;
 public class CalculatorImpl implements Calculator {
     public static final long SECOND_IN_DAY = 86400;
     public static final int MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME = 3;
+    public static final String CALCULATION_TYPE_BY_NORM = "Начисления по нормативу";
     private final CalculationItemBuilder calculationItemBuilder;
+
 
     @Autowired
     public CalculatorImpl(CalculationItemBuilder calculationItemBuilder) {
@@ -34,103 +36,102 @@ public class CalculatorImpl implements Calculator {
     @Override
     public List<ServiceVolumeValue> calculate(@NonNull LocalDate calculationPeriod) {
         return calculationItemBuilder.buildStream(calculationPeriod)
-                .flatMap(item -> Stream.of(
-                        volumeByMeterValues(item),
-                        volumeFactByMeterValues(item),
-                        volumeByNormValue(item),
-                        volumeFactByNormValue(item),
-                        volumeByAvgNormValueOnLastYear(item),
-                        volumeByAvgNormValue(item),
-                        volumeFactByAvgNormValue(item),
-                        volumeByAvgValueOnLastYear(item),
-                        volumeByAvgValue(item),
-                        volumeFactByAvgValue(item)
-                ))
-                .filter(value -> value != null).collect(Collectors.toList());
+                .flatMap(item -> {
+                            CalculationItemLogger calculationLogger = new CalculationItemLoggerImpl(calculationPeriod);
+
+                            return Stream.of(
+                                    volumeByMeterValues(item, calculationLogger),
+                                    volumeFactByMeterValues(item, calculationLogger),
+                                    volumeByNormValue(item, calculationLogger),
+                                    volumeFactByNormValue(item, calculationLogger),
+                                    volumeByAvgNormValueOnLastYear(item, calculationLogger),
+                                    volumeByAvgNormValue(item, calculationLogger),
+                                    volumeFactByAvgNormValue(item, calculationLogger),
+                                    volumeByAvgValueOnLastYear(item, calculationLogger),
+                                    volumeByAvgValue(item, calculationLogger),
+                                    volumeFactByAvgValue(item, calculationLogger))
+                                    .filter(value -> value != null);
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     @Nullable
-    private ServiceVolumeValue volumeFactByAvgValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeFactByAvgValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByAvgValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByAvgValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByAvgValueOnLastYear(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByAvgValueOnLastYear(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByAvgNormValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByAvgNormValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByAvgNormValueOnLastYear(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByAvgNormValueOnLastYear(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeFactByNormValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeFactByNormValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         if (!item.isSeasonalityActive()) {
+            logger.addStepVolumeFact(CALCULATION_TYPE_BY_NORM, "не применяется", "Не действует сезонность");
             return null;
         }
 
-        assert item.getSeasonalitySetting() != null;
-        if (item.getSeasonalitySetting().getVolumeByLastYear()
-                && item.getStabPeriod().getAccountingPointKeyRoomServiceEntity().getService().getDependOnService() != null
+        if (item.getSeasonalitySetting() != null
+                && item.getSeasonalitySetting().getVolumeByLastYear()
                 && item.getAccountingPointServiceAvgVolume() == null) {
+            logger.addStepVolumeFact(CALCULATION_TYPE_BY_NORM, "не применяется", "В настройках применения сезонности указано применение объема за прошлый год и есть средний объем");
             return null;
         }
 
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
-                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), endOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
-            return null;
-        }
+        if (!isMeterStateIsActiveOrCanCalculateAvgVolume(item, logger)) return null;
 
-        long volume = volumeValueByNormValue(item);
+        long volume = volumeValueByNormValue(item, logger);
 
         return buildVolumeValue(item, 0, volume);
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByNormValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByNormValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
 
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
-                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), endOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
-            return null;
-        }
+        if (!isMeterStateIsActiveOrCanCalculateAvgVolume(item, logger)) return null;
 
         if (!item.isSeasonalityActive()) {
+            logger.addStepVolume(CALCULATION_TYPE_BY_NORM, "не применяется", "Не действует сезонность");
             return null;
         }
 
-        if (item.getSeasonalitySetting() == null) {
-            return null;
-        }
-
-        if (item.getSeasonalitySetting().getVolumeByLastYear()
+        if (item.getSeasonalitySetting() != null &&
+                item.getSeasonalitySetting().getVolumeByLastYear()
                 && item.getStabPeriod().getAccountingPointKeyRoomServiceEntity().getService().getDependOnService() != null
                 && item.getAccountingPointServiceAvgVolume() == null) {
+            logger.addStepVolume(CALCULATION_TYPE_BY_NORM, "не применяется", "В настройках применения сезонности указано применение объема за прошлый год и есть средний объем");
             return null;
         }
 
-        long volume = volumeValueByNormValue(item);
+        long volume = volumeValueByNormValue(item, logger);
 
         return buildVolumeValue(item, volume, 0);
     }
 
     @Nullable
-    private ServiceVolumeValue volumeFactByAvgNormValue(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeFactByAvgNormValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         return null;
     }
 
     @Nullable
-    private ServiceVolumeValue volumeFactByMeterValues(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeFactByMeterValues(@NonNull CalculationItem item, CalculationItemLogger logger) {
 
         if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)) {
             return null;
@@ -150,7 +151,7 @@ public class CalculatorImpl implements Calculator {
     }
 
     @Nullable
-    private ServiceVolumeValue volumeByMeterValues(@NonNull CalculationItem item) {
+    private ServiceVolumeValue volumeByMeterValues(@NonNull CalculationItem item, CalculationItemLogger logger) {
         if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)) {
             return null;
         }
@@ -191,7 +192,7 @@ public class CalculatorImpl implements Calculator {
         return item.getMeterValuesEnd().get(0).getValue() - item.getMeterValuesStart().get(0).getValue();
     }
 
-    private long volumeValueByNormValue(@NonNull CalculationItem item) {
+    private long volumeValueByNormValue(@NonNull CalculationItem item, CalculationItemLogger logger) {
         /**
          * Зачем нам два коэффициента для норматива если мы либо применяем сезонность либо нет
          */
@@ -203,8 +204,7 @@ public class CalculatorImpl implements Calculator {
         double durationForPeriodRegistration = getDurationForPeriodRegistration(item);
 
         if (item.getKeyNormValue() == null) {
-            // TODO
-            // add log info do not read key norm
+            logger.addStepVolume(CALCULATION_TYPE_BY_NORM, "Применяется", "Не удалось определить ключ норматива");
             return 0;
         }
 
@@ -262,6 +262,15 @@ public class CalculatorImpl implements Calculator {
 
     private long dayBetween(LocalDate start, LocalDate end) {
         return ChronoUnit.DAYS.between(start, end);
+    }
+
+    private boolean isMeterStateIsActiveOrCanCalculateAvgVolume(CalculationItem item, CalculationItemLogger logger) {
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
+                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), endOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
+            logger.addStepVolumeFact(CALCULATION_TYPE_BY_NORM, "не применяется", "Прибор учета не введен или с момента вывода прибора учета еще существует возможность начисления по среденму");
+            return false;
+        }
+        return true;
     }
 
 }

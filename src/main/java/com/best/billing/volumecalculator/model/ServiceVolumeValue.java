@@ -2,6 +2,7 @@ package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.servicebuilder.models.historychange.MeterValue;
+import com.best.billing.volumecalculator.helpers.CalculationItemLogger;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Значение рассчитанного объем в периоде начисления
@@ -37,5 +39,4 @@ public class ServiceVolumeValue extends BaseEntity {
     private long volume;
     @Column(nullable = false)
     private long factVolume;
-
 }

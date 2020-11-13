@@ -48,5 +48,4 @@ public class CalculationItem {
      */
     @NotNull
     private final boolean isSeasonalityActive;
-
 }
