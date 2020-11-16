@@ -10,9 +10,12 @@ import com.best.billing.volumecalculator.model.StabPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -48,4 +51,13 @@ public class CalculationItem {
      */
     @NotNull
     private final boolean isSeasonalityActive;
+    /**
+     * Завершение расчетного периода
+     */
+    @NotNull
+    private final LocalDateTime endOfCalculationPeriod;
+
+    public LocalDate getEndOfStabPeriod(@NonNull CalculationItem item) {
+        return item.getStabPeriod().getNextRow() == null ? endOfCalculationPeriod.toLocalDate() : item.getStabPeriod().getNextRow().getRegistrationPeriod();
+    }
 }

@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
 public interface SeasonalitySettingsRepository extends CrudRepository<SeasonalitySetting, Long> {

@@ -53,5 +53,5 @@ public class MeterValue extends BaseHistory {
     @JoinColumn(name = "meter_id", nullable = false)
     private Meter meter;
     @Column(nullable = false)
-    private int value;
+    private long value;
 }

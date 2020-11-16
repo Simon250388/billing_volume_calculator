@@ -16,6 +16,9 @@ import com.best.billing.servicebuilder.models.historychange.AccountingPointServi
 import com.best.billing.servicebuilder.models.historychange.RoomOwner;
 import com.best.billing.volumecalculator.model.ServiceVolumeValue;
 import com.best.billing.volumecalculator.model.StabPeriod;
+import com.best.billing.volumecalculator.resolution.CalculationRule;
+import com.best.billing.volumecalculator.resolution.Resolution;
+import com.best.billing.volumecalculator.resolution.resolution354.Resolution354;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -26,6 +29,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -42,11 +46,25 @@ class CalculatorImplTest {
 
         Calculator calculator = new CalculatorImpl(calculationItemBuilder);
 
-        List<ServiceVolumeValue> calculations = calculator.calculate(LocalDate.now());
+        final Resolution mockResolution = mock(Resolution.class);
 
-        assertNotNull(calculations);
+        CalculationRule mockRule = mock(CalculationRule.class);
 
-        assertEquals(2, calculations.size());
+        long volume = new Random().nextLong();
+
+        long volumeFact = new Random().nextLong();
+
+        when(mockRule.volume(any())).thenReturn(Optional.of(volume));
+
+        when(mockRule.volumeFact(any())).thenReturn(Optional.of(volumeFact));
+
+        when(mockResolution.getRules()).thenReturn(Collections.singletonList(mockRule));
+
+        List<ServiceVolumeValue> calculations = calculator.calculate(LocalDate.now(), mockResolution);
+
+        assertAll(
+                () -> assertNotNull(calculations),
+                () -> assertEquals(2, calculations.size()));
     }
 
     private Stream<CalculationItem> buildFakeStream() {
