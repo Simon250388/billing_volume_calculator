@@ -7,10 +7,7 @@ import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Тарифные группы услуг помещения
@@ -23,13 +20,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "room_rate_groups")
 public class RoomRateGroup  extends BaseHistory {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "rate_group_id", nullable = false)
     private RateGroup rateGroup;
 }

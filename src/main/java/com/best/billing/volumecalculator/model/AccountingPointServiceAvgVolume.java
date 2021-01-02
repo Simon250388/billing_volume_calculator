@@ -23,12 +23,13 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "accounting_point_service_avg_volume")
 public class AccountingPointServiceAvgVolume extends BaseEntity {
+    public static final String QUERY_FIND_ALL_BY_CALCULATION_PERIOD = "AccountingPointServiceAvgVolume.findAllByCalculationPeriod";
     @Column(nullable = false)
     private LocalDate calculationPeriod;
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_part_id")
     private Service servicePart;
     @Column(nullable = false)

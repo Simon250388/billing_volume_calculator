@@ -22,7 +22,7 @@ public class AccountingPointMeterStateController {
         this.entityService = entityService;
     }
 
-    @GetMapping("/history/{accountingPointKeyRoomService}/{meterId}")
+    @GetMapping("/history/{accountingPointKeyRoomServiceId}/{meterId}")
     public ResponseEntity<ResponseListDTO<AccountingPointMeterStateDTO>> doGetHistory(@PathVariable final long accountingPointKeyRoomServiceId, @PathVariable final long meterId) {
         return new ResponseEntity<>(
                 new ResponseListDTO<>(this.entityService.doGetHistoryByAccountingPointKeyRoomService(accountingPointKeyRoomServiceId, meterId)),

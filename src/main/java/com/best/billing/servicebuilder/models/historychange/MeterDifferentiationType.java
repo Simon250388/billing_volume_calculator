@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.NamedQuery;
 
 import javax.persistence.*;
 
@@ -38,25 +37,18 @@ import javax.persistence.*;
                 )
         }
 )
-@NamedQuery(
-        name = MeterDifferentiationType.FIND_ALL_LAST_BY_KEY_ROOM_ID,
-        query = " FROM MeterDifferentiationType difType" +
-                " WHERE (difType.accountingPointKeyRoomServiceEntity, difType.meter, difType.period) IN (" +
-                "       SELECT difType.accountingPointKeyRoomServiceEntity, difType.meter, MAX(difType.period)" +
-                "       FROM MeterDifferentiationType difType" +
-                "       WHERE difType.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id =:keyRoomId" +
-                "       GROUP BY difType.accountingPointKeyRoomServiceEntity, difType.meter)")
+
 public class MeterDifferentiationType extends BaseHistory {
     public static final String FIND_ALL_LAST_BY_KEY_ROOM_ID = "MeterDifferentiationType.findAllLastByKeyRoomId";
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_id", nullable = false)
     private Meter meter;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "differentiation_type_id", nullable = false)
     private DifferentiationType differentiationType;
 

@@ -50,7 +50,7 @@ public class CalculationItemBuilder {
 
         Iterable<CalculationMethodByDirectionOfUse> calculationMethodByDirectionOfUse = calculationMethodByDirectionOfUseRepository.findAllLastByPeriod(calculationPeriod);
         Iterable<SeasonalitySetting> seasonalitySettingsSeasonalitySetting = seasonalitySettingsRepository.findAllLastByPeriod(calculationPeriod);
-        Iterable<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolumesIterable = accountingPointServiceAvgVolumeRepository.findAllLastByPeriod(calculationPeriod);
+        Iterable<AccountingPointServiceAvgVolume> accountingPointServiceAvgVolumesIterable = accountingPointServiceAvgVolumeRepository.findAllByCalculationPeriod(calculationPeriod);
         Iterable<RateValue> rateValuesIterable = rateValueRepository.findAllLastByPeriod(calculationPeriod);
         Iterable<KeyNormValue> keyNormValuesIterable = keyNormValueRepository.findAllLastByPeriod(calculationPeriod);
 
@@ -66,25 +66,25 @@ public class CalculationItemBuilder {
                         CalculationItem.builder()
                                 .stabPeriod(stabPeriodItem)
                                 .calculationMethodByDirectionOfUse(calculationMethodByDirectionOfUses.stream()
-                                        .filter(item -> item.getService().equals(stabPeriodItem.getService())
+                                        .filter(item -> item.getService().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getService())
                                                 && item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()))
                                         .findAny().orElse(null))
                                 .seasonalitySettingsByBuilding(seasonalitySettings.stream().filter(
-                                        item -> item.getService().equals(stabPeriodItem.getService()) &&
+                                        item -> item.getService().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getService()) &&
                                                 item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()) &&
                                                 item.getBuilding().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom().getBuilding()))
                                         .findAny().orElse(null))
                                 .seasonalitySetting(seasonalitySettings.stream().filter(
-                                        item -> item.getService().equals(stabPeriodItem.getService()) &&
+                                        item -> item.getService().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getService()) &&
                                                 item.getDirectionOfUse().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getDirectionOfUse()) &&
                                                 item.getBuilding() == null)
                                         .findAny().orElse(null))
                                 .accountingPointServiceAvgVolume(accountingPointServiceAvgVolumes.stream().filter(
                                         item -> item.getAccountingPointKeyRoomServiceEntity().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity())
-                                                && item.getServicePart().equals(stabPeriodItem.getService()))
+                                                && item.getServicePart().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getService()))
                                         .findAny().orElse(null))
                                 .rateValue(rateValues.stream().filter(
-                                        item -> item.getService().equals(stabPeriodItem.getService())
+                                        item -> item.getService().equals(stabPeriodItem.getAccountingPointKeyRoomServiceEntity().getService())
                                                 && item.getRateGroup().equals(stabPeriodItem.getRoomRateGroup().getRateGroup()))
                                         .findAny().orElse(null))
                                 .keyNormValue(keyNormValues.stream().filter(

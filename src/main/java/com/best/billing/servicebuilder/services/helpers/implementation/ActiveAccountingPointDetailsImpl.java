@@ -1,7 +1,7 @@
 package com.best.billing.servicebuilder.services.helpers.implementation;
 
-import com.best.billing.servicebuilder.dto.helpers.ActiveAccountingPointDetailsDTO;
 import com.best.billing.common.model.enums.MeterState;
+import com.best.billing.servicebuilder.dto.helpers.ActiveAccountingPointDetailsDTO;
 import com.best.billing.servicebuilder.models.historychange.*;
 import com.best.billing.servicebuilder.repository.historychange.*;
 import com.best.billing.servicebuilder.services.helpers.ActiveAccountingPointDetails;
@@ -80,7 +80,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
                 .findFirst()
                 .ifPresent(value -> {
                     builder.meterId(value.getMeter().getId());
-                    builder.meterIsActive(value.getMeterState().getId() == MeterState.ACTIVE_STATE_ID);
+                    builder.meterIsActive(value.getMeterState() == MeterState.active);
                     builder.meterStateChangeAt(value.getPeriod());
                 });
     }

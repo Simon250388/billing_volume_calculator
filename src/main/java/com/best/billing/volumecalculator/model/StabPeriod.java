@@ -1,7 +1,6 @@
 package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.historychange.*;
 import lombok.EqualsAndHashCode;
@@ -20,71 +19,55 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "stability_periods")
-@NamedQuery(
-        name = StabPeriod.FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD,
-        query = " FROM StabPeriod stb" +
-                " WHERE (stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod, stb.registrationPeriod) IN" +
-                "   (SELECT stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod, MAX(stb.registrationPeriod)" +
-                "   FROM StabPeriod stb" +
-                "   WHERE (stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod) IN " +
-                "       (SELECT stb.keyRoom, stb.accountingPoint, stb.service, MAX(stb.calculationPeriod)" +
-                "       FROM StabPeriod stb" +
-                "       WHERE stb.calculationPeriod < :currentCalculationPeriod" +
-                "       GROUP BY stb.keyRoom, stb.accountingPoint, stb.service)" +
-                "   GROUP BY stb.keyRoom, stb.accountingPoint, stb.service, stb.calculationPeriod)")
 public class StabPeriod extends BaseEntity {
 
     public static final String FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD = "StabPeriod.findAllByCurrentCalculationPeriod";
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_id")
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
 
-    @ManyToOne()
-    @JoinColumn(name = "service_id")
-    private Service service;
-
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_service_state_id", nullable = false)
     private AccountingPointServiceState accountingPointServiceState;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_service_provider_id")
     private AccountingPointServiceProvider accountingPointServiceProvider;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_rate_group_id")
     private RoomRateGroup roomRateGroup;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_meter_state_id")
     private AccountingPointMeterState accountingPointMeterState;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_square_id")
     private RoomSquare roomSquare;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_differentiation_type_id")
     private MeterDifferentiationType meterDifferentiationType;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_owner_id")
     private RoomOwner roomOwner;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_prescribed_id")
     private RoomPrescribed roomPrescribed;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_resident_id")
     private RoomResident roomResident;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_common_square_id")
     private RoomSquare roomCommonSquare;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_service_key_norm_id")
     private RoomServiceKeyNorm roomServiceKeyNorm;
 
@@ -106,7 +89,7 @@ public class StabPeriod extends BaseEntity {
     @Column(nullable = false)
     private LocalDate registrationPeriod;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "next_row_id")
     private StabPeriod nextRow;
 }

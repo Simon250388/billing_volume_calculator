@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
@@ -38,22 +37,20 @@ public class KeyRoomDetailPropertyImpl implements KeyRoomDetailProperty {
 
     @Override
     public KeyRoomDetailPropertyDTO doGetLastDetails(Long keyRoomId) {
-        CompletableFuture<Optional<RoomOwner>> roomOwnerLastRow = ownerRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<Optional<RoomPrescribed>> prescribedLastRow = prescribedRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<Optional<RoomResident>> residentLastRow = residentRepository.findOneLastByKeyRoomIdAsync(keyRoomId);
-        CompletableFuture<Optional<RoomSquare>> commonSquareLastRow = squareRepository.findOneLastCommonSquareByKeyRoomIdAsync(keyRoomId);
-
-        CompletableFuture.allOf(roomOwnerLastRow, prescribedLastRow, residentLastRow, commonSquareLastRow).join();
+        Optional<RoomOwner> roomOwnerLastRow = ownerRepository.findOneLastByKeyRoomId(keyRoomId);
+        Optional<RoomPrescribed> prescribedLastRow = prescribedRepository.findOneLastByKeyRoomId(keyRoomId);
+        Optional<RoomResident> residentLastRow = residentRepository.findOneLastByKeyRoomId(keyRoomId);
+        Optional<RoomSquare> commonSquareLastRow = squareRepository.findOneLastCommonSquareByKeyRoomId(keyRoomId);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.FEBRUARY, 1);
 
         return KeyRoomDetailPropertyDTO.builder()
                 .keyRoomId(keyRoomId)
-                .ownerCount(roomOwnerLastRow.join().map(RoomOwner::getOwnerCount).orElse(0))
-                .prescribedCount(prescribedLastRow.join().map(RoomPrescribed::getPrescribedCount).orElse(0))
-                .residentCount(residentLastRow.join().map(RoomResident::getResidentCount).orElse(0))
-                .commonSquare(commonSquareLastRow.join().map(RoomSquare::getValue).orElse(0))
+                .ownerCount(roomOwnerLastRow.orElse(new RoomOwner()).getOwnerCount())
+                .prescribedCount(prescribedLastRow.orElse(new RoomPrescribed()).getPrescribedCount())
+                .residentCount(residentLastRow.orElse(new RoomResident()).getResidentCount())
+                .commonSquare(commonSquareLastRow.orElse(new RoomSquare()).getValue())
                 .lsStateAt(calendar.getTime())
                 .lsIsActive(true)
                 .address("address")

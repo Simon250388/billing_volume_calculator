@@ -4,10 +4,7 @@ import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Поставляемая услуга
@@ -20,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "services")
 public class Service extends BaseCatalog {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "depend_on_service_id")
     private Service dependOnService;
 }

@@ -1,6 +1,7 @@
 package com.best.billing.commonsettings.model;
 
 import com.best.billing.base.model.BaseHistory;
+import com.best.billing.common.convertors.SquareTypeConvertor;
 import com.best.billing.common.model.DirectionOfUse;
 import com.best.billing.common.model.Service;
 import com.best.billing.common.model.enums.SquareType;
@@ -23,16 +24,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "calculation_method_direction_of_use")
 public class CalculationMethodByDirectionOfUse extends BaseHistory {
-    @ManyToOne
+    public static final String QUERY_FIND_ALL_LAST_BY_PERIOD = "CalculationMethodByDirectionOfUse.findAllLastByPeriod";
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "direction_of_use_id", nullable = false)
     private DirectionOfUse directionOfUse;
 
-    @ManyToOne
+
     @JoinColumn(name = "square_type_id", nullable = false)
+    @Convert(converter =SquareTypeConvertor.class)
     private SquareType squareType;
 
     /**

@@ -22,10 +22,11 @@ import javax.persistence.*;
 @Table(name = "period_seasonality")
 public class PeriodSeasonality extends BaseHistory {
 
+    public static final String QUERY_FIND_ALL_BY_YEAR = "PeriodSeasonality.findAllByYear";
     @Column(nullable = false)
     private Integer year;
-    @ManyToOne
-    @JoinColumn(name = "seasonality_id" ,nullable = false)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "seasonality_id", nullable = false)
     private Seasonality seasonality;
     /**
      * Месяц начало действия сезонности

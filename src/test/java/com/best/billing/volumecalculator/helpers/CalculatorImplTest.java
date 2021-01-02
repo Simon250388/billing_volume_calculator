@@ -147,7 +147,7 @@ class CalculatorImplTest {
                                                                         .description("3")
                                                                         .build()
                                                         )
-                                                        .meterState(MeterState.ACTIVE_STATE)
+                                                        .meterState(MeterState.active)
                                                         .period(LocalDateTime.now())
                                                         .build())
                                         .accountingPointServiceProvider(

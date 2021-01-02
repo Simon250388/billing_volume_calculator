@@ -5,10 +5,7 @@ import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Токи учета ключа помещения
@@ -24,13 +21,13 @@ public class AccountingPointKeyRoom extends BaseEntity {
     /**
      * Ключ помещения
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
     /**
      * Точка учета
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_id", nullable = false)
     private AccountingPoint accountingPoint;
 }

@@ -19,7 +19,7 @@ public interface AccountingPointMeterStateMapper extends BaseHistoryMapper<Accou
     @InheritConfiguration( name= "toEntity" )
     @Mapping(source = "accountingPointKeyRoomServiceEntityId", target = "accountingPointKeyRoomServiceEntity.id")
     @Mapping(source = "meterId", target = "meter.id")
-    @Mapping(source = "meterStateId", target = "meterState.id")
+    //@Mapping(source = "meterStateId", target = "meterState.id")
     @Override
     AccountingPointMeterState toEntity(AccountingPointMeterStateDTO source);
 }

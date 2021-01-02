@@ -23,15 +23,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "seasonality_settings")
 public class SeasonalitySetting extends BaseHistory {
-    @ManyToOne()
+    public static final String QUERY_FIND_ALL_LAST_BY_PERIOD = "SeasonalitySetting.findAllLastByPeriod";
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "direction_of_use_Id", nullable = false)
     private DirectionOfUse directionOfUse;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "building_id")
     private Building building;
 
@@ -62,8 +63,6 @@ public class SeasonalitySetting extends BaseHistory {
      */
     @Column(nullable = false)
     private Boolean doNotUseSeasonality;
-
-
 
 
 }

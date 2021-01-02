@@ -10,34 +10,25 @@ import java.util.Optional;
 
 public interface AccountingPointMeterStateRepository extends CrudRepository<AccountingPointMeterState, Long> {
 
-    @Query(value = "SELECT c" +
-            " FROM AccountingPointMeterState c" +
-            " WHERE" +
-            " c.accountingPointKeyRoomServiceEntity =:accountingPointKeyRoomServiceEntityId" +
-            " AND c.meter =:meterId" +
-            " AND c.period = (" +
-            "       SELECT MAX(c.period)" +
-            "       FROM AccountingPointMeterState c" +
-            "       WHERE c.accountingPointKeyRoomServiceEntity =:accountingPointKeyRoomServiceEntityId" +
-            "       AND c.meter =:meterId" +
+    @Query(value = "FROM AccountingPointMeterState " +
+            " WHERE accountingPointKeyRoomServiceEntity =:accountingPointKeyRoomServiceEntityId" +
+            " AND c.meter = :meterId" +
+            " AND c.period IN (" +
+            "       SELECT MAX(period)" +
+            "       FROM AccountingPointMeterState" +
+            "       WHERE accountingPointKeyRoomServiceEntity = :accountingPointKeyRoomServiceEntityId" +
+            "       AND meter = :meterId" +
             ")")
     Optional<AccountingPointMeterState> findOneLastAccountingPointKeyRoomServiceEntityIdAndMeterId(
             @NonNull @Param("accountingPointKeyRoomServiceEntityId") Long accountingPointKeyRoomServiceEntityId,
             @NonNull @Param("meterId") Long meterId);
 
-    @Query(value = "SELECT c" +
-            " FROM AccountingPointMeterState c" +
-            " WHERE (c.accountingPointKeyRoomServiceEntity, c.meter, c.period) IN  (" +
-            "       SELECT" +
-            "           c.accountingPointKeyRoomServiceEntity" +
-            "           ,c.meter" +
-            "           ,MAX(c.period)" +
-            "       FROM AccountingPointMeterState c" +
-            "       WHERE" +
-            "           c.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom =:keyRoomId" +
-            "       GROUP BY" +
-            "           c.accountingPointKeyRoomServiceEntity" +
-            "           ,c.meter)")
+    @Query(value = "FROM AccountingPointMeterState " +
+            "WHERE (accountingPointKeyRoomServiceEntity, meter, period) IN  ( " +
+            "       SELECT accountingPointKeyRoomServiceEntity,meter,MAX(c.period)" +
+            "       FROM AccountingPointMeterState " +
+            "       WHERE accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom = :keyRoomId" +
+            "       GROUP BY accountingPointKeyRoomServiceEntity,meter)")
     Iterable<AccountingPointMeterState> findAllLastByKeyRoomId(@NonNull @Param("keyRoomId") Long keyRoomId);
 
     Iterable<AccountingPointMeterState> findAllByAccountingPointKeyRoomServiceEntityIdAndMeterId(Long accountingPointKeyRoomServiceEntityId, Long meterId);

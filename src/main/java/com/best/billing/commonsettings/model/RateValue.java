@@ -22,17 +22,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rate_values")
 public class RateValue extends BaseHistory {
-    @ManyToOne()
+    public static final String QUERY_FIND_ALL_LAST_BY_PERIOD = "RateValue.findAllLAstByPeriod";
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "rate_group_id", nullable = false)
     private RateGroup rateGroup;
-
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
-
     /**
      * Значение тарифа
      */
     @Column(nullable = false)
-    private Integer rateValue;
+    private Integer value;
 }

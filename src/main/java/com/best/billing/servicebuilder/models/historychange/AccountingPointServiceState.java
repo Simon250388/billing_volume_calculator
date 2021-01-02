@@ -20,18 +20,6 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "accounting_point_service_state")
-@NamedQuery(
-        name = AccountingPointServiceState.QUERY_FIND_ALL_LAST_ACTIVE_BY_KEY_ROOM_ID,
-        query = " FROM AccountingPointServiceState c" +
-                "   WHERE (c.accountingPointKeyRoomServiceEntity, c.period) IN (" +
-                "       SELECT " +
-                "       c.accountingPointKeyRoomServiceEntity" +
-                "       ,MAX(c.period)" +
-                "       FROM AccountingPointServiceState c" +
-                "       WHERE c.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id =:keyRoomId" +
-                "       GROUP BY c.accountingPointKeyRoomServiceEntity)" +
-                " AND c.active = true"
-)
 @NamedEntityGraph(
         name = "accounting-point-service-state-key-room-graph",
         attributeNodes = {
@@ -56,7 +44,7 @@ public class AccountingPointServiceState extends BaseHistory {
     /**
      * Ключ услуги на точке учета
      */
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_Key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     /**

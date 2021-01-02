@@ -22,13 +22,13 @@ public class KeyRoom extends BaseEntity {
     /**
      * Строение
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
     /**
      * Помещение
      */
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_id")
     private Room room;
     /**

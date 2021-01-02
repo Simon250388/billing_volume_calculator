@@ -7,9 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface AccountingPointServiceStateRepository extends CrudRepository<AccountingPointServiceState, Long>  {
+public interface AccountingPointServiceStateRepository extends CrudRepository<AccountingPointServiceState, Long> {
 
-    @Query(name = AccountingPointServiceState.QUERY_FIND_ALL_LAST_ACTIVE_BY_KEY_ROOM_ID)
+    @Query("FROM AccountingPointServiceState " +
+            "WHERE (accountingPointKeyRoomServiceEntity, period) IN ( " +
+            "   SELECT accountingPointKeyRoomServiceEntity, MAX(period) " +
+            "   FROM AccountingPointServiceState " +
+            "   WHERE accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id = :keyRoomId " +
+            "   GROUP BY accountingPointKeyRoomServiceEntity) " +
+            "AND active = true")
     @EntityGraph(value = "accounting-point-service-state-key-room-graph")
     Iterable<AccountingPointServiceState> findAllActiveByKeyRoomId(@NonNull @Param("keyRoomId") Long keyRoomId);
 }

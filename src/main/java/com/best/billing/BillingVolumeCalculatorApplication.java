@@ -25,19 +25,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(
 		basePackages = {
 				"com.best.billing.common.controllers",
-				"com.best.billing.commonsettings.controllers",
+				// "com.best.billing.commonsettings.controllers",
 				"com.best.billing.servicebuilder.controllers",
-				"com.best.billing.volumecalculator.controllers",
+				// "com.best.billing.volumecalculator.controllers",
 
 				"com.best.billing.common.services",
-				"com.best.billing.commonsettings.services",
+				// "com.best.billing.commonsettings.services",
 				"com.best.billing.servicebuilder.services",
-				"com.best.billing.volumecalculator.services",
+				// "com.best.billing.volumecalculator.services",
 
 				"com.best.billing.common.mappers",
-				"com.best.billing.commonsettings.mappers",
+				// "com.best.billing.commonsettings.mappers",
 				"com.best.billing.servicebuilder.mappers",
-				"com.best.billing.volumecalculator.mappers"
+				// "com.best.billing.volumecalculator.mappers"
 		}
 )
 public class BillingVolumeCalculatorApplication {

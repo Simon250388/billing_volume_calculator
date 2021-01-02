@@ -61,12 +61,9 @@ public class VolumeByNormCalculationRule implements CalculationRule {
     }
 
     private boolean isMeterStateIsActiveOrCanCalculateAvgVolume(CalculationItem item) {
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE_STATE)
-                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), item.getEndOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME) {
-            //logger.addStepVolumeFact(CALCULATION_TYPE_BY_NORM, "не применяется", "Прибор учета не введен или с момента вывода прибора учета еще существует возможность начисления по среденму");
-            return true;
-        }
-        return false;
+        //logger.addStepVolumeFact(CALCULATION_TYPE_BY_NORM, "не применяется", "Прибор учета не введен или с момента вывода прибора учета еще существует возможность начисления по среденму");
+        return !item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.active)
+                || monthBetween(item.getStabPeriod().getAccountingPointMeterState().getPeriod().toLocalDate(), item.getEndOfCalculationPeriod().toLocalDate()) > MONTH_METER_IS_NOT_ACTIVE_FOR_AVG_VOLUME;
     }
 
     private long monthBetween(LocalDate start, LocalDate end) {

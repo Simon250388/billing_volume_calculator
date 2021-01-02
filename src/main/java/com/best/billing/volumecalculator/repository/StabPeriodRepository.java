@@ -9,7 +9,17 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 
 public interface StabPeriodRepository extends CrudRepository<StabPeriod, Long> {
-    @Query(name = StabPeriod.FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD)
+    @Query("FROM StabPeriod" +
+            " WHERE (accountingPointKeyRoomServiceEntity, calculationPeriod, registrationPeriod) IN " +
+            "   (SELECT accountingPointKeyRoomServiceEntity, calculationPeriod, MAX(registrationPeriod)" +
+            "   FROM StabPeriod" +
+            "   WHERE (accountingPointKeyRoomServiceEntity, calculationPeriod) IN " +
+            "       (SELECT accountingPointKeyRoomServiceEntity, MAX(calculationPeriod)" +
+            "       FROM StabPeriod" +
+            "       WHERE calculationPeriod < :currentCalculationPeriod" +
+            "       GROUP BY accountingPointKeyRoomServiceEntity)" +
+            "   GROUP BY accountingPointKeyRoomServiceEntity, calculationPeriod)")
     Iterable<StabPeriod> findAllLastOnCurrentCalculationPeriod(@NonNull @Param("currentCalculationPeriod") LocalDate currentCalculationPeriod);
+
     Iterable<StabPeriod> findAllByCalculationPeriod(@NonNull LocalDate calculationPeriod);
 }

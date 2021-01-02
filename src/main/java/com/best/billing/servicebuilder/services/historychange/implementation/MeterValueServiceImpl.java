@@ -6,11 +6,13 @@ import com.best.billing.servicebuilder.repository.historychange.MeterValueReposi
 import com.best.billing.servicebuilder.services.historychange.MeterValueService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class MeterValueServiceImpl implements MeterValueService {
-    private  final MeterValueRepository repository;
+    private final MeterValueRepository repository;
     private final MeterValueMapper mapper;
 
     @Autowired

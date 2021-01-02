@@ -21,16 +21,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "service_volume_values")
 public class ServiceVolumeValue extends BaseEntity {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "stab_period_id", nullable = false)
     private StabPeriod stabPeriod;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "calculation_method_id", nullable = false)
     private CalculationMethod calculationMethod;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_value_start_id")
     private MeterValue meterValueStart;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_value_end_id")
     private MeterValue meterValueEnd;
     @Column(nullable = false)

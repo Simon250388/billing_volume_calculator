@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/key-room")
+@RequestMapping("v1/key-room")
 public class KeyRoomController {
     private final KeyRoomService entityService;
     private final KeyRoomDetailProperty detailPropertyService;

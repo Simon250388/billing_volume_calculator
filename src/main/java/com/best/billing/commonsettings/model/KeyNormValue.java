@@ -21,10 +21,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rate_values")
 public class KeyNormValue extends BaseHistory {
-    @ManyToOne()
+    public static final String QUERY_FIND_ALL_LAST_BY_PERIOD = "KeyNormValue.findAllLastByPeriod";
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "key_norm_Id", nullable = false)
     private KeyNorm keyNorm;
-
     @Column(nullable = false)
-    private Integer NormValue;
+    private Integer normValue;
 }

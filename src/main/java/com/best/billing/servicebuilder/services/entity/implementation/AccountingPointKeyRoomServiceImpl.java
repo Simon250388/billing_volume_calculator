@@ -37,6 +37,6 @@ public class AccountingPointKeyRoomServiceImpl implements AccountingPointKeyRoom
 
     @Override
     public List<AccountingPointKeyRoomDTO> findByKeyRoomId(@NonNull final Long keyRoomId) {
-        return this.mapper.fromEntity(this.repository.findAllByKeyRoom(keyRoomId));
+        return this.mapper.fromEntity(this.repository.findAllByKeyRoomId(keyRoomId));
     }
 }

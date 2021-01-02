@@ -20,15 +20,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "room_prescribers")
-@NamedQuery(name = RoomPrescribed.FIND_ONE_LAST_BY_KEY_ROOM_ID,
-        query = " FROM RoomPrescribed c" +
-                " WHERE c.keyRoom.id = :keyRoomId" +
-                " AND c.period = (  SELECT MAX(c.period)" +
-                "                   FROM RoomPrescribed c" +
-                "                   WHERE c.keyRoom.id =:keyRoomId)")
 public class RoomPrescribed extends BaseHistory {
     public static final String FIND_ONE_LAST_BY_KEY_ROOM_ID = "RoomPrescribed.findOneLastByKeyRoomId";
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;
     @Column(nullable = false)

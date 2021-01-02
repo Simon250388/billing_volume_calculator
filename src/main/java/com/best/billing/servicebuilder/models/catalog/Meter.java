@@ -4,10 +4,7 @@ import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Прибор учета
@@ -20,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "meters")
 public class Meter extends BaseCatalog {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_type_id", nullable = false)
     private MeterType meterType;
 }
