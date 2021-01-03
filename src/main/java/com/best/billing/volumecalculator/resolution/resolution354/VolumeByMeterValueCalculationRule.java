@@ -14,7 +14,7 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
 
     public Optional<Long> volumeFact(@NonNull CalculationItem item) {
 
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.active)) {
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE)) {
             return Optional.empty();
         }
 
@@ -33,7 +33,7 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
 
     public Optional<Long> volume(@NonNull CalculationItem item) {
 
-        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.active)) {
+        if (!item.getStabPeriod().getAccountingPointMeterState().getMeterState().equals(MeterState.ACTIVE)) {
             return Optional.empty();
         }
 

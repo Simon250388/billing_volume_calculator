@@ -80,7 +80,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
                 .findFirst()
                 .ifPresent(value -> {
                     builder.meterId(value.getMeter().getId());
-                    builder.meterIsActive(value.getMeterState() == MeterState.active);
+                    builder.meterIsActive(value.getMeterState() == MeterState.ACTIVE);
                     builder.meterStateChangeAt(value.getPeriod());
                 });
     }

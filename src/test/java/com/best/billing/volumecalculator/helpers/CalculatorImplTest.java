@@ -147,7 +147,7 @@ class CalculatorImplTest {
                                                                         .description("3")
                                                                         .build()
                                                         )
-                                                        .meterState(MeterState.active)
+                                                        .meterState(MeterState.ACTIVE)
                                                         .period(LocalDateTime.now())
                                                         .build())
                                         .accountingPointServiceProvider(
@@ -174,7 +174,7 @@ class CalculatorImplTest {
                                                         .id(new Random().nextLong())
                                                         .build()
                                         )
-                                        .NormValue(20)
+                                        .normValue(20)
                                         .build()
                         )
                         .seasonalitySetting(

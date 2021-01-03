@@ -193,7 +193,7 @@ class ActiveAccountingPointDetailsImplTest {
                                         .id(meterId)
                                         .build()
                         )
-                        .meterState(MeterState.active)
+                        .meterState(MeterState.ACTIVE)
                         .period(LocalDateTime.of(2020, 2, 1, 0, 0, 0))
                         .build()
         ));
