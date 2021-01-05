@@ -3,32 +3,43 @@ package com.best.billing.stabs;
 import com.best.billing.common.model.Building;
 import com.best.billing.common.model.DirectionOfUse;
 import com.best.billing.common.model.Service;
+import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.common.model.enums.SquareType;
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
+import com.best.billing.servicebuilder.models.catalog.Meter;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoom;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
+import com.best.billing.servicebuilder.models.historychange.AccountingPointMeterState;
 import com.best.billing.servicebuilder.models.historychange.AccountingPointServiceState;
 import com.best.billing.servicebuilder.models.historychange.RoomSquare;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 @Builder
 public class StabFactory {
+
     public final Service service = Service.builder().description("Service").build();
+
+    public final Meter meter = Meter.builder().description("Meter").build();
+
     public final Building building = Building.builder().description("Building").build();
-    public final KeyRoom keyRoom = KeyRoom.builder().building(building).room(null).privateSector(true).build();
+
+    public final KeyRoom keyRoomPrivateSector = KeyRoom.builder().building(building).room(null).privateSector(true).build();
+
     public final AccountingPoint accountingPoint = AccountingPoint.builder().description("AccountingPoint").build();
-    public final AccountingPointKeyRoom accountingPointKeyRoom = AccountingPointKeyRoom.builder().keyRoom(keyRoom).accountingPoint(accountingPoint).build();
+
+    public final AccountingPointKeyRoom accountingPointKeyRoom = AccountingPointKeyRoom.builder().keyRoom(keyRoomPrivateSector).accountingPoint(accountingPoint).build();
+
     public final DirectionOfUse directionOfUse = DirectionOfUse.builder().description("directionOfUse").build();
+
     public final AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity = AccountingPointKeyRoomServiceEntity.builder()
             .accountingPointKeyRoom(accountingPointKeyRoom)
             .service(service)
             .directionOfUse(directionOfUse)
             .build();
+
     public final AccountingPointServiceState accountingPointServiceStateActive = AccountingPointServiceState.builder()
             .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
             .active(true)
@@ -41,18 +52,29 @@ public class StabFactory {
             .period(LocalDateTime.now())
             .build();
 
-    public final RoomSquare roomSquare30 = RoomSquare.builder()
-            .keyRoom(keyRoom)
-            .period(LocalDateTime.of(2019, 1, 1, 0, 0, 0))
-            .squareType(SquareType.common)
-            .value(30)
-            .build();
+    public RoomSquare commonRoomSquare(LocalDateTime period, int value) {
+        return RoomSquare.builder()
+                .keyRoom(keyRoomPrivateSector)
+                .period(period)
+                .squareType(SquareType.COMMON)
+                .value(value)
+                .build();
+    }
 
-    public final RoomSquare roomSquare20 = RoomSquare.builder()
-            .keyRoom(keyRoom)
-            .period(LocalDateTime.of(2020, 1, 1, 0, 0, 0))
-            .squareType(SquareType.common)
-            .value(20)
-            .build();
+    public AccountingPointMeterState AccountingPointMeterState(MeterState meterState) {
+        return AccountingPointMeterState.builder()
+                .meter(meter)
+                .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
+                .meterState(meterState)
+                .build();
+    }
+
+    public AccountingPointServiceState AccountingPointServiceState(boolean active) {
+        return AccountingPointServiceState
+                .builder()
+                .accountingPointKeyRoomServiceEntity(accountingPointKeyRoomServiceEntity)
+                .active(active)
+                .build();
+    }
 }
 

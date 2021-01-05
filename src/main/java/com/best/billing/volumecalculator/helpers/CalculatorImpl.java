@@ -31,9 +31,13 @@ public class CalculatorImpl implements Calculator {
         return calculationItemBuilder.buildStream(calculationPeriod)
                 .flatMap(item -> {
                             List<ServiceVolumeValue> serviceVolumeValues = new ArrayList<>();
-                            resolution.getRules().forEach(rule -> {
-                                rule.volume(item).ifPresent(value -> serviceVolumeValues.add(buildVolumeValue(item, value)));
-                                rule.volumeFact(item).ifPresent(value -> serviceVolumeValues.add(buildVolumeValue(item, value)));
+                            resolution.getRules().forEach((rule, validator) -> {
+                                if (validator.canCalculateVolume(item)) {
+                                    buildVolumeValue(item, rule.volume(item));
+                                }
+                                if (validator.isCanCalculateVolumeFact(item)) {
+                                    buildVolumeValue(item, rule.volumeFact(item));
+                                }
                             });
                             return serviceVolumeValues.stream();
                         }

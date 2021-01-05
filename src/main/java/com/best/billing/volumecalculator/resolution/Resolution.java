@@ -1,7 +1,9 @@
 package com.best.billing.volumecalculator.resolution;
 
-import java.util.List;
+import com.best.billing.volumecalculator.resolution.resolution354.CalculationValidator;
+
+import java.util.Map;
 
 public interface Resolution {
-    List<CalculationRule> getRules();
+    Map<CalculationRule, CalculationValidator> getRules();
 }
