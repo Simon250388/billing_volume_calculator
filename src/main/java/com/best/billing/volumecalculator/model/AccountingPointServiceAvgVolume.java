@@ -33,5 +33,5 @@ public class AccountingPointServiceAvgVolume extends BaseEntity {
     @JoinColumn(name = "service_part_id")
     private Service servicePart;
     @Column(nullable = false)
-    private Integer avgVolume;
+    private Long avgVolume;
 }

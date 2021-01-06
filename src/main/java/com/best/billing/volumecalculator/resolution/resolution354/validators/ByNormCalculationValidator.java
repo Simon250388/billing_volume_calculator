@@ -7,7 +7,7 @@ import com.best.billing.volumecalculator.resolution.resolution354.CalculationVal
 
 import java.util.Optional;
 
-public class ByNormCalculationValidatorImpl implements CalculationValidator {
+public class ByNormCalculationValidator implements CalculationValidator {
     @Override
     public boolean canCalculateVolume(CalculationItem item) {
         Optional<AccountingPointMeterState> accountingPointMeterState = Optional.of(item.getStabPeriod().getAccountingPointMeterState());

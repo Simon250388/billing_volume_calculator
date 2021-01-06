@@ -36,16 +36,10 @@ public class CalculationItem {
     private final RateValue rateValue;
     @Nullable
     private final KeyNormValue keyNormValue;
-    @NotNull
+    @Nullable
     private final List<MeterValue> meterValuesStart;
     @NotNull
     private final List<MeterValue> meterValuesEnd;
-    /**
-     * Показания приборов представлены
-     */
-    @NotNull
-    private final boolean isMeterValueProvide;
-
     /**
      * Сейчас сезон услуги
      */
@@ -59,5 +53,9 @@ public class CalculationItem {
 
     public LocalDate getEndOfStabPeriod(@NonNull CalculationItem item) {
         return item.getStabPeriod().getNextRow() == null ? endOfCalculationPeriod.toLocalDate() : item.getStabPeriod().getNextRow().getRegistrationPeriod();
+    }
+
+    public boolean meterValuesIsProvide() {
+        return false;
     }
 }

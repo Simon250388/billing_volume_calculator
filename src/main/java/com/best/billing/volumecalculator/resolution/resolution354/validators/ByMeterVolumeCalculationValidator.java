@@ -19,6 +19,7 @@ public class ByMeterVolumeCalculationValidator implements CalculationValidator {
 
     private boolean canCalculate(CalculationItem item) {
         return item.getStabPeriod().getAccountingPointServiceState().isActive() &&
-                item.getStabPeriod().getAccountingPointMeterState().getMeterState() == MeterState.ACTIVE;
+                item.getStabPeriod().getAccountingPointMeterState().getMeterState() == MeterState.ACTIVE
+                && item.meterValuesIsProvide();
     }
 }
