@@ -1,25 +1,25 @@
 package com.best.billing.volumecalculator.model;
 
-import com.best.billing.base.model.BaseEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Immutable;
+public enum CalculationMethod {
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+    BY_METER(0, "По приборам учета"),
+    BY_AVG_VOLUME(1, "По среднему"),
+    NY_NORM(2, "По нормативу"),
+    NY_ABG_NORM(3, "По среднему нормативу");
 
-@Getter
-@Setter
-@SuperBuilder
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "calculation_methods" )
-@Immutable
-public class CalculationMethod extends BaseEntity {
-    public static final long METHOD_BY_METER_ID = 1;
-    public static final CalculationMethod METHOD_BY_METER = CalculationMethod.builder().id(CalculationMethod.METHOD_BY_METER_ID).build();
+    private final int id;
+    private final String description;
+
+    CalculationMethod(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

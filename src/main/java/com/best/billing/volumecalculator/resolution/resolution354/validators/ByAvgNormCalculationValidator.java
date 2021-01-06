@@ -11,8 +11,8 @@ public class ByAvgNormCalculationValidator implements CalculationValidator {
     public boolean canCalculateVolume(CalculationItem item) {
         return item.getStabPeriod().getAccountingPointServiceState().isActive() &&
                 item.getStabPeriod().getAccountingPointMeterState().getMeterState() == MeterState.ACTIVE
-                && item.meterValuesIsProvide() == false
-                && Optional.ofNullable(item.getAccountingPointServiceAvgVolume()).isPresent() == false;
+                && !item.meterValuesIsProvide()
+                && Optional.ofNullable(item.getAccountingPointServiceAvgVolume()).isEmpty();
     }
 
     @Override

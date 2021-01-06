@@ -33,10 +33,10 @@ public class CalculatorImpl implements Calculator {
                             List<ServiceVolumeValue> serviceVolumeValues = new ArrayList<>();
                             resolution.getRules().forEach((rule, validator) -> {
                                 if (validator.canCalculateVolume(item)) {
-                                    buildVolumeValue(item, rule.volume(item));
+                                    buildVolumeValue(item, rule.volume(item), rule.getCalculationMethod());
                                 }
                                 if (validator.isCanCalculateVolumeFact(item)) {
-                                    buildVolumeValue(item, rule.volumeFact(item));
+                                    buildVolumeValue(item, rule.volumeFact(item), rule.getCalculationMethod());
                                 }
                             });
                             return serviceVolumeValues.stream();
@@ -45,9 +45,9 @@ public class CalculatorImpl implements Calculator {
                 .collect(Collectors.toList());
     }
 
-    private ServiceVolumeValue buildVolumeValue(@NonNull CalculationItem item, long volume) {
+    private ServiceVolumeValue buildVolumeValue(@NonNull CalculationItem item, long volume, CalculationMethod calculationMethod) {
         return ServiceVolumeValue.builder()
-                .calculationMethod(CalculationMethod.METHOD_BY_METER)
+                .calculationMethod(calculationMethod)
                 .stabPeriod(item.getStabPeriod())
                 .volume(volume)
                 .factVolume(0)
