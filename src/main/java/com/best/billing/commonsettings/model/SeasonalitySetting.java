@@ -40,29 +40,29 @@ public class SeasonalitySetting extends BaseHistory {
      * Корректировать годовой объем
      */
     @Column(nullable = false)
-    private Boolean correctAnnualVolume;
+    private boolean correctAnnualVolume;
     /**
      * Начислять объем среднего за прошлый гож
      */
     @Column(nullable = false)
-    private Boolean volumeByLastYear;
+    private boolean volumeByLastYear;
     /**
      * Коэффициент норматива
      */
     @Column(nullable = false)
-    private Integer coefficientNormValue;
+    private int coefficientNormValue;
 
     /**
      * Коэффициент норматива когда сезонность не применяется
      */
     @Column(nullable = false)
-    private Integer coefficientNormValueDoNotUseSeasonality;
+    private int coefficientNormValueDoNotUseSeasonality;
 
     /**
      * Не применять настройки настройки сезонности
      */
     @Column(nullable = false)
-    private Boolean doNotUseSeasonality;
+    private boolean doNotUseSeasonality;
 
 
 }

@@ -26,5 +26,5 @@ public class KeyNormValue extends BaseHistory {
     @JoinColumn(name = "key_norm_Id", nullable = false)
     private KeyNorm keyNorm;
     @Column(nullable = false)
-    private Integer normValue;
+    private int normValue;
 }

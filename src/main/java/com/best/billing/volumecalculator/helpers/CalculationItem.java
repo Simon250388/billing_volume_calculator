@@ -58,4 +58,26 @@ public class CalculationItem {
     public boolean meterValuesIsProvide() {
         return false;
     }
+
+    /**
+     * Показатель нормы
+     * @return
+     */
+    public long getNormIndex() {
+        if (getCalculationMethodByDirectionOfUse().getSquareType() != null) {
+            return getStabPeriod().getRoomSquare().getValue();
+        } else {
+            return getStabPeriod().getPeopleCount();
+        }
+    }
+
+    /**
+     * Коэффцциент норматива
+     * @return
+     */
+    public int getCoefficientNormValue() {
+        return getSeasonalitySetting().isDoNotUseSeasonality()
+                ? getSeasonalitySetting().getCoefficientNormValueDoNotUseSeasonality() : getSeasonalitySetting().getCoefficientNormValue();
+
+    }
 }

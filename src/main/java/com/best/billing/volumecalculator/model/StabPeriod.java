@@ -92,4 +92,15 @@ public class StabPeriod extends BaseEntity {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "next_row_id")
     private StabPeriod nextRow;
+
+    public long getPeopleCount() {
+        if (roomResident != null && roomResident.getResidentCount() != 0) {
+            return roomResident.getResidentCount();
+        } else if (roomPrescribed != null && roomPrescribed.getPrescribedCount() != 0) {
+            return roomPrescribed.getPrescribedCount();
+        } else if (roomOwner != null) {
+            return roomOwner.getOwnerCount();
+        }
+        return 0;
+    }
 }

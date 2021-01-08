@@ -12,11 +12,6 @@ public class ByMeterVolumeCalculationValidator implements CalculationValidator {
         return canCalculate(item);
     }
 
-    @Override
-    public boolean isCanCalculateVolumeFact(CalculationItem item) {
-        return canCalculate(item);
-    }
-
     private boolean canCalculate(CalculationItem item) {
         return item.getStabPeriod().getAccountingPointServiceState().isActive() &&
                 item.getStabPeriod().getAccountingPointMeterState().getMeterState() == MeterState.ACTIVE

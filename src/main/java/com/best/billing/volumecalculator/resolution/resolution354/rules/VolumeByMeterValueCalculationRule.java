@@ -4,12 +4,10 @@ import com.best.billing.volumecalculator.helpers.CalculationItem;
 import com.best.billing.volumecalculator.model.CalculationMethod;
 import com.best.billing.volumecalculator.resolution.CalculationRule;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VolumeByMeterValueCalculationRule implements CalculationRule {
-
-    public long volumeFact(@NonNull CalculationItem item) {
-        return volumeValueByMeterValue(item);
-    }
 
     public long volume(@NonNull CalculationItem item) {
         return volumeValueByMeterValue(item);

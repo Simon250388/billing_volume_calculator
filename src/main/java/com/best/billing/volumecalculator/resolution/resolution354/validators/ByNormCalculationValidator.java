@@ -15,9 +15,4 @@ public class ByNormCalculationValidator implements CalculationValidator {
         return item.getStabPeriod().getAccountingPointServiceState().isActive()
                 && meterState != MeterState.ACTIVE;
     }
-
-    @Override
-    public boolean isCanCalculateVolumeFact(CalculationItem item) {
-        return false;
-    }
 }

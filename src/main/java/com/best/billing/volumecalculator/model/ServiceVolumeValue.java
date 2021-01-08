@@ -35,6 +35,4 @@ public class ServiceVolumeValue extends BaseEntity {
     private MeterValue meterValueEnd;
     @Column(nullable = false)
     private long volume;
-    @Column(nullable = false)
-    private long factVolume;
 }

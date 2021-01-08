@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Scope("prototype")
 @Slf4j
 public class CalculatorImpl implements Calculator {
 
@@ -35,9 +34,6 @@ public class CalculatorImpl implements Calculator {
                                 if (validator.canCalculateVolume(item)) {
                                     buildVolumeValue(item, rule.volume(item), rule.getCalculationMethod());
                                 }
-                                if (validator.isCanCalculateVolumeFact(item)) {
-                                    buildVolumeValue(item, rule.volumeFact(item), rule.getCalculationMethod());
-                                }
                             });
                             return serviceVolumeValues.stream();
                         }
@@ -50,7 +46,6 @@ public class CalculatorImpl implements Calculator {
                 .calculationMethod(calculationMethod)
                 .stabPeriod(item.getStabPeriod())
                 .volume(volume)
-                .factVolume(0)
                 .build();
     }
 }

@@ -14,9 +14,4 @@ public class ByAvgVolumeCalculationValidator implements CalculationValidator {
                 && !item.meterValuesIsProvide()
                 && Optional.ofNullable(item.getAccountingPointServiceAvgVolume()).isPresent();
     }
-
-    @Override
-    public boolean isCanCalculateVolumeFact(CalculationItem item) {
-        return false;
-    }
 }
