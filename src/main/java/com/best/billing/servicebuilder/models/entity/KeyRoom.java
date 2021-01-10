@@ -4,7 +4,6 @@ import com.best.billing.base.model.BaseEntity;
 import com.best.billing.common.model.Building;
 import com.best.billing.common.model.Room;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -13,12 +12,18 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "key_rooms")
-public class KeyRoom extends BaseEntity {
+public class KeyRoom implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
     /**
      * Строение
      */

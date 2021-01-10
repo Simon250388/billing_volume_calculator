@@ -3,10 +3,7 @@ package com.best.billing.volumecalculator.model;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -19,11 +16,16 @@ import java.time.LocalDate;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_service_avg_volume")
-public class AccountingPointServiceAvgVolume extends BaseEntity {
-    public static final String QUERY_FIND_ALL_BY_CALCULATION_PERIOD = "AccountingPointServiceAvgVolume.findAllByCalculationPeriod";
+public class AccountingPointServiceAvgVolume implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
     @Column(nullable = false)
     private LocalDate calculationPeriod;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

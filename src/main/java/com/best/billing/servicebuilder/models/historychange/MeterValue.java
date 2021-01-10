@@ -3,22 +3,20 @@ package com.best.billing.servicebuilder.models.historychange;
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.servicebuilder.models.catalog.Meter;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * История показаний прибора учета
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "meter_values")
 @NamedEntityGraph(
@@ -35,8 +33,14 @@ import javax.persistence.*;
                 )
         }
 )
-public class MeterValue extends BaseHistory {
-    public static final String FIND_ALL_LAST_BY_KEY_ROOM_ID = "MeterValue.findAllLastByKeyRoomId";
+public class MeterValue implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;

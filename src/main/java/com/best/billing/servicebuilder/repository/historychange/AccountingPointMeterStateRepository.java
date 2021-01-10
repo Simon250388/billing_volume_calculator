@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface AccountingPointMeterStateRepository extends CrudRepository<AccountingPointMeterState, Long> {
 
     @Query(value = "FROM AccountingPointMeterState " +
-            " WHERE accountingPointKeyRoomServiceEntity =:accountingPointKeyRoomServiceEntityId" +
-            " AND c.meter = :meterId" +
-            " AND c.period IN (" +
+            " WHERE accountingPointKeyRoomServiceEntity = :accountingPointKeyRoomServiceEntityId" +
+            " AND meter = :meterId" +
+            " AND period IN (" +
             "       SELECT MAX(period)" +
             "       FROM AccountingPointMeterState" +
             "       WHERE accountingPointKeyRoomServiceEntity = :accountingPointKeyRoomServiceEntityId" +
@@ -25,7 +25,7 @@ public interface AccountingPointMeterStateRepository extends CrudRepository<Acco
 
     @Query(value = "FROM AccountingPointMeterState " +
             "WHERE (accountingPointKeyRoomServiceEntity, meter, period) IN  ( " +
-            "       SELECT accountingPointKeyRoomServiceEntity,meter,MAX(c.period)" +
+            "       SELECT accountingPointKeyRoomServiceEntity,meter,MAX(period)" +
             "       FROM AccountingPointMeterState " +
             "       WHERE accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom = :keyRoomId" +
             "       GROUP BY accountingPointKeyRoomServiceEntity,meter)")

@@ -3,25 +3,26 @@ package com.best.billing.volumecalculator.model;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
 import com.best.billing.servicebuilder.models.historychange.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "stability_periods")
-public class StabPeriod extends BaseEntity {
+public class StabPeriod implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    public static final String FIND_ALL_LAST_ON_CURRENT_CALCULATION_PERIOD = "StabPeriod.findAllByCurrentCalculationPeriod";
+    @Version
+    private long version;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_id")
@@ -70,19 +71,16 @@ public class StabPeriod extends BaseEntity {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_service_key_norm_id")
     private RoomServiceKeyNorm roomServiceKeyNorm;
-
     /**
      * Период начисления в котором появилась запись
      */
     @Column(nullable = false)
     private LocalDate calculationPeriod;
-
     /**
      * Дата регистрации записи которая которая произошла в реальной жизни но мы регистриурем ее задним числом
      */
     @Column(nullable = false)
     private LocalDate registrationPeriodFact;
-
     /**
      * Дата регистрации записи
      */

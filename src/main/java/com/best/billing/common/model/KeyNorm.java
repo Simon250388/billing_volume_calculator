@@ -1,14 +1,9 @@
 package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -16,10 +11,16 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "key_norms")
-public class KeyNorm extends BaseEntity {
+public class KeyNorm implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
 }

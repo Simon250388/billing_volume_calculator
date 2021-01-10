@@ -2,25 +2,27 @@ package com.best.billing.common.model;
 
 
 import com.best.billing.base.model.BaseCatalog;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Поставщик услуги
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "providers")
-public class Provider extends BaseCatalog {
-
+public class Provider implements BaseCatalog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "description", nullable = false, length = 50)
+    private String description;
 }

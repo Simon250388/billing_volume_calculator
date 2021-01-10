@@ -4,25 +4,30 @@ import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.KeyNorm;
 import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Ключи нормативов для услуг помещения
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "room_service_key_norms")
-public class RoomServiceKeyNorm extends BaseHistory {
+public class RoomServiceKeyNorm implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;

@@ -3,11 +3,7 @@ package com.best.billing.volumecalculator.model;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.servicebuilder.models.historychange.MeterValue;
 import com.best.billing.volumecalculator.convertors.CalculationMethodConvertor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,12 +12,18 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "service_volume_values")
-public class ServiceVolumeValue extends BaseEntity {
+public class ServiceVolumeValue implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "stab_period_id", nullable = false)
     private StabPeriod stabPeriod;

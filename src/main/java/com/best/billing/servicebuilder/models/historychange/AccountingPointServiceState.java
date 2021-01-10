@@ -2,22 +2,20 @@ package com.best.billing.servicebuilder.models.historychange;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Состояние услуги на точке учета
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_service_state")
 @NamedEntityGraph(
@@ -38,9 +36,14 @@ import javax.persistence.*;
         }
 
 )
-public class AccountingPointServiceState extends BaseHistory {
-    public static final String QUERY_FIND_ALL_LAST_ACTIVE_BY_KEY_ROOM_ID = "AccountingPointServiceState.findAllActiveByKeyRoomId";
-
+public class AccountingPointServiceState implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     /**
      * Ключ услуги на точке учета
      */

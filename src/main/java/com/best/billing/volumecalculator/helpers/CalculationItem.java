@@ -61,7 +61,6 @@ public class CalculationItem {
 
     /**
      * Показатель нормы
-     * @return
      */
     public long getNormIndex() {
         if (getCalculationMethodByDirectionOfUse().getSquareType() != null) {
@@ -73,7 +72,6 @@ public class CalculationItem {
 
     /**
      * Коэффцциент норматива
-     * @return
      */
     public int getCoefficientNormValue() {
         return getSeasonalitySetting().isDoNotUseSeasonality()

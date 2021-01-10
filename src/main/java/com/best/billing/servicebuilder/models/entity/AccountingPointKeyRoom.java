@@ -3,7 +3,6 @@ package com.best.billing.servicebuilder.models.entity;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.servicebuilder.models.catalog.AccountingPoint;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,12 +11,18 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_key_room")
-public class AccountingPointKeyRoom extends BaseEntity {
+public class AccountingPointKeyRoom implements BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
     /**
      * Ключ помещения
      */

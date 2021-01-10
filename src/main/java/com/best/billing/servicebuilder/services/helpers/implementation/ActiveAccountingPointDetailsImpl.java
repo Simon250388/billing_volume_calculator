@@ -61,7 +61,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
             @NonNull Stream<AccountingPointServiceProvider> currentProviders) {
 
         currentProviders
-                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId().equals(accountingPointKeyRoomServiceEntityId))
+                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() ==accountingPointKeyRoomServiceEntityId)
                 .forEach(value -> Optional.ofNullable(value.getServicePart())
                         .ifPresentOrElse(
                                 servicePart -> builder.addServicePart(servicePart.getId(), value.getProvider().getId()),
@@ -76,7 +76,7 @@ public class ActiveAccountingPointDetailsImpl implements ActiveAccountingPointDe
             @NonNull Stream<MeterValue> currentMeterValues) {
 
         activeMetersStream
-                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId().equals(accountingPointKeyRoomServiceEntityId))
+                .filter(value -> value.getAccountingPointKeyRoomServiceEntity().getId() == accountingPointKeyRoomServiceEntityId)
                 .findFirst()
                 .ifPresent(value -> {
                     builder.meterId(value.getMeter().getId());

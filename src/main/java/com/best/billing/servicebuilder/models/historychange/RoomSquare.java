@@ -4,26 +4,30 @@ import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.convertors.SquareTypeConvertor;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import com.best.billing.common.model.enums.SquareType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * История изменения площадей помещения
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "room_squares")
-public class RoomSquare extends BaseHistory {
-    public static final String FIND_ONE_LAST_COMMON_SQUARE_BY_KEY_ROOM_ID = "RoomSquare.findOneLastCommonSquareByKeyRoomId";
+public class RoomSquare implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     /**
      * Ключ помещения
      */

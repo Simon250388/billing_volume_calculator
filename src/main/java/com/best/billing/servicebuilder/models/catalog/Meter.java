@@ -2,7 +2,6 @@ package com.best.billing.servicebuilder.models.catalog;
 
 import com.best.billing.base.model.BaseCatalog;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -11,12 +10,20 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "meters")
-public class Meter extends BaseCatalog {
+public class Meter implements BaseCatalog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "description", nullable = false, length = 50)
+    private String description;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_type_id", nullable = false)
     private MeterType meterType;

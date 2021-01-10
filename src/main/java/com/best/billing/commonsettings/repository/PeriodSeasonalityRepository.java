@@ -8,8 +8,5 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.concurrent.CompletableFuture;
 
 public interface PeriodSeasonalityRepository extends CrudRepository<PeriodSeasonality, Long> {
-
-    @Async
-    @Query(name = PeriodSeasonality.QUERY_FIND_ALL_BY_YEAR)
     CompletableFuture<Iterable<PeriodSeasonality>> findAllByYear(int year);
 }

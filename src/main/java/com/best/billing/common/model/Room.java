@@ -1,11 +1,7 @@
 package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseCatalog;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,16 +10,23 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "rooms")
-public class Room extends BaseCatalog {
+public class Room implements BaseCatalog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "description", nullable = false, length = 50)
+    private String description;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
-
     /**
      * Родительское помещение, заполненно только для коммунальных квартир
      */

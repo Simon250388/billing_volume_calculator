@@ -6,7 +6,6 @@ import com.best.billing.volumecalculator.resolution.Resolution;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,7 +31,8 @@ public class CalculatorImpl implements Calculator {
                             List<ServiceVolumeValue> serviceVolumeValues = new ArrayList<>();
                             resolution.getRules().forEach((rule, validator) -> {
                                 if (validator.canCalculateVolume(item)) {
-                                    buildVolumeValue(item, rule.volume(item), rule.getCalculationMethod());
+                                    serviceVolumeValues.add(
+                                            buildVolumeValue(item, rule.volume(item), rule.getCalculationMethod()));
                                 }
                             });
                             return serviceVolumeValues.stream();

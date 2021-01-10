@@ -4,23 +4,20 @@ import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.Provider;
 import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Поставщик услуги на точке учета
  */
-@SuppressWarnings("ALL")
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_service_provider")
 @NamedEntityGraph(
@@ -37,28 +34,21 @@ import javax.persistence.*;
                 )
         }
 )
-@NamedQuery(name = AccountingPointServiceProvider.FIND_ALL_LAST_BY_KEY_ROOM_ID,
-        query = " FROM AccountingPointServiceProvider" +
-                " WHERE (accountingPointKeyRoomServiceEntity, servicePart, period)  IN (" +
-                "       SELECT " +
-                "           point_provider.accountingPointKeyRoomServiceEntity" +
-                "           ,point_provider.servicePart" +
-                "           ,MAX(point_provider.period)" +
-                "       FROM AccountingPointServiceProvider point_provider" +
-                "       WHERE point_provider.accountingPointKeyRoomServiceEntity.accountingPointKeyRoom.keyRoom.id =:keyRoomId" +
-                "       GROUP BY" +
-                "           point_provider.accountingPointKeyRoomServiceEntity" +
-                "           ,point_provider.servicePart)"
-)
-public class AccountingPointServiceProvider extends BaseHistory {
-    public static final String FIND_ALL_LAST_BY_KEY_ROOM_ID = "AccountingPointServiceProvider.findAllLastByKeyRoomId";
+
+public class AccountingPointServiceProvider implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_part_id")
     private Service servicePart;
-
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;

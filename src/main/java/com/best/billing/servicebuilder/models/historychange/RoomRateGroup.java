@@ -5,21 +5,29 @@ import com.best.billing.common.model.RateGroup;
 import com.best.billing.common.model.Service;
 import com.best.billing.servicebuilder.models.entity.KeyRoom;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Тарифные группы услуг помещения
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "room_rate_groups")
-public class RoomRateGroup  extends BaseHistory {
+public class RoomRateGroup  implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "key_room_id", nullable = false)
     private KeyRoom keyRoom;

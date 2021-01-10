@@ -3,26 +3,30 @@ package com.best.billing.commonsettings.model;
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.RateGroup;
 import com.best.billing.common.model.Service;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Значения тарифов услуг
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "rate_values")
-public class RateValue extends BaseHistory {
-    public static final String QUERY_FIND_ALL_LAST_BY_PERIOD = "RateValue.findAllLAstByPeriod";
+public class RateValue implements BaseHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Version
+    private long version;
+    @Column(name = "period", nullable = false)
+    private LocalDateTime period;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "rate_group_id", nullable = false)
     private RateGroup rateGroup;
