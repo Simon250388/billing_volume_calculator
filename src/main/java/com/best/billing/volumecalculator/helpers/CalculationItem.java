@@ -49,10 +49,16 @@ public class CalculationItem {
      * Завершение расчетного периода
      */
     @NotNull
-    private final LocalDateTime endOfCalculationPeriod;
+    private final LocalDateTime calculationPeriodEnd;
+
+    /**
+     * Начало расчетного периода
+     */
+    @NotNull
+    private final LocalDateTime calculationPeriodStart;
 
     public LocalDate getEndOfStabPeriod(@NonNull CalculationItem item) {
-        return item.getStabPeriod().getNextRow() == null ? endOfCalculationPeriod.toLocalDate() : item.getStabPeriod().getNextRow().getRegistrationPeriod();
+        return item.getStabPeriod().getNextRow() == null ? calculationPeriodEnd.toLocalDate() : item.getStabPeriod().getNextRow().getRegistrationPeriod();
     }
 
     public boolean meterValuesIsProvide() {
