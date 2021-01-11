@@ -1,6 +1,7 @@
 package com.best.billing.stabs;
 
 import com.best.billing.common.model.enums.MeterState;
+import com.best.billing.commonsettings.model.SeasonalitySetting;
 import com.best.billing.volumecalculator.helpers.CalculationItem;
 import com.best.billing.volumecalculator.model.StabPeriod;
 import lombok.Builder;

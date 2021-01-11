@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Builder
@@ -69,7 +70,8 @@ public class CalculationItem {
      * Показатель нормы
      */
     public long getNormIndex() {
-        if (getCalculationMethodByDirectionOfUse().getSquareType() != null) {
+        CalculationMethodByDirectionOfUse calculationMethodByDirectionOfUse = Optional.ofNullable(getCalculationMethodByDirectionOfUse()).orElse(CalculationMethodByDirectionOfUse.builder().build());
+        if (calculationMethodByDirectionOfUse.getSquareType() != null) {
             return getStabPeriod().getRoomSquare().getValue();
         } else {
             return getStabPeriod().getPeopleCount();
@@ -80,8 +82,9 @@ public class CalculationItem {
      * Коэффцциент норматива
      */
     public int getCoefficientNormValue() {
-        return getSeasonalitySetting().isDoNotUseSeasonality()
-                ? getSeasonalitySetting().getCoefficientNormValueDoNotUseSeasonality() : getSeasonalitySetting().getCoefficientNormValue();
+        SeasonalitySetting seasonalitySetting = Optional.ofNullable(getSeasonalitySetting()).orElse(SeasonalitySetting.builder().build());
+        return seasonalitySetting.isDoNotUseSeasonality()
+                ? seasonalitySetting.getCoefficientNormValueDoNotUseSeasonality() : seasonalitySetting.getCoefficientNormValue();
 
     }
 }

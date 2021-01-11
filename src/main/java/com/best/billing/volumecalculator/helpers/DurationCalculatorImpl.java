@@ -1,10 +1,10 @@
 package com.best.billing.volumecalculator.helpers;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.temporal.ChronoUnit;
 
-@Service
+@Component
 public class DurationCalculatorImpl implements DurationCalculator {
     @Override
     public long getDurationByDays(CalculationItem item) {

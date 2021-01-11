@@ -1,4 +1,4 @@
-package com.best.billing.volumecalculator.resolution.resolution354;
+package com.best.billing.volumecalculator.resolution;
 
 import com.best.billing.volumecalculator.helpers.CalculationItem;
 

@@ -4,7 +4,7 @@ import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.stabs.CalculationItemStabFactory;
 import com.best.billing.stabs.StabFactory;
 import com.best.billing.volumecalculator.helpers.CalculationItem;
-import com.best.billing.volumecalculator.resolution.resolution354.CalculationValidator;
+import com.best.billing.volumecalculator.resolution.CalculationValidator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
