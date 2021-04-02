@@ -2,7 +2,7 @@ package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.common.model.Service;
-import com.best.billing.servicebuilder.models.entity.AccountingPointKeyRoomServiceEntity;
+import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

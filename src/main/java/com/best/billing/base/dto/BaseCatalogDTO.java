@@ -8,8 +8,8 @@ import lombok.Getter;
 public class BaseCatalogDTO extends BaseEntityDTO {
     private final String present;
 
-    public BaseCatalogDTO(Long id, String present) {
-        super(id);
+    public BaseCatalogDTO(Long id, Long version, String present) {
+        super(id,version);
         this.present = present;
     }
 }

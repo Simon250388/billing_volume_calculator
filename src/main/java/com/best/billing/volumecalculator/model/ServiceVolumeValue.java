@@ -1,7 +1,8 @@
 package com.best.billing.volumecalculator.model;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.servicebuilder.models.historychange.MeterValue;
+import com.best.billing.departmen.customer.RoomEvent;
+import com.best.billing.roomevents.models.MeterValue;
 import com.best.billing.volumecalculator.convertors.CalculationMethodConvertor;
 import lombok.*;
 
@@ -26,7 +27,7 @@ public class ServiceVolumeValue implements BaseEntity {
     private long version;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "stab_period_id", nullable = false)
-    private StabPeriod stabPeriod;
+    private RoomEvent event;
     @Convert(converter = CalculationMethodConvertor.class)
     private CalculationMethod calculationMethod;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

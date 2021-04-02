@@ -12,6 +12,7 @@ import java.util.List;
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BaseEntityMapper<E extends BaseEntity, D extends BaseEntityDTO> {
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "version", target = "version")
     D fromEntity(E source);
 
     List<D> fromEntity(List<E> source);
@@ -19,6 +20,7 @@ public interface BaseEntityMapper<E extends BaseEntity, D extends BaseEntityDTO>
     Iterable<D> fromEntity(Iterable<E> source);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "version", target = "version")
     E toEntity(D source);
 
     List<E> toEntity(List<D> source);

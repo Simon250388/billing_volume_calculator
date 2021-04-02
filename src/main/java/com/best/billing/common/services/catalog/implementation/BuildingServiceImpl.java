@@ -1,9 +1,9 @@
 package com.best.billing.common.services.catalog.implementation;
 
 import com.best.billing.common.dto.BuildingDTO;
-import com.best.billing.common.repository.catalog.BuildingRepository;
+import com.best.billing.common.repository.BuildingRepository;
 import com.best.billing.common.services.catalog.BuildingService;
-import com.best.billing.common.mappers.catalog.BuildingMapper;
+import com.best.billing.common.mappers.BuildingMapper;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

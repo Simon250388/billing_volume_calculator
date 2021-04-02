@@ -8,8 +8,9 @@ import lombok.Getter;
 public class BaseHistoryDTO extends BaseEntityDTO {
     private final String period;
 
-    public BaseHistoryDTO(Long id, String period) {
-        super(id);
+    public BaseHistoryDTO(Long id, Long version, String period) {
+        super(id, version);
         this.period = period;
     }
+
 }
