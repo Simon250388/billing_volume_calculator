@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Помещение
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "rooms")
 public class Room implements BaseCatalog {

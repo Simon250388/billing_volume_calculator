@@ -16,12 +16,8 @@ import java.util.Map;
 /**
  * Состояние услуги на точке учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_service_state")
 @NamedEntityGraph(

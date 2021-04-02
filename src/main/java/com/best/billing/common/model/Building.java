@@ -9,11 +9,8 @@ import javax.persistence.*;
 /**
  * Строение
  */
-@Getter
-@Setter
-@SuperBuilder
-@NoArgsConstructor
-@EqualsAndHashCode()
+@Data
+@Builder
 @Entity
 @Table(name = "buildings")
 public class Building implements BaseCatalog {

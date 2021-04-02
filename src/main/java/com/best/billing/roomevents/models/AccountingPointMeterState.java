@@ -19,12 +19,8 @@ import java.util.Map;
 /**
  * Состояние прибора учета на точке учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_meter_states")
 public class AccountingPointMeterState implements BaseHistory, RoomEvent {
@@ -52,7 +48,7 @@ public class AccountingPointMeterState implements BaseHistory, RoomEvent {
         RoomProperties result = origin.getCloneBuilder(this.period, this.periodFact).build();
         Map<AccountingPoint, AccountingPointProperties> accountingPointsPropertiesChange = new HashMap<>();
         result.getAccountingPointProperties().forEach((key, value) -> {
-            if (value.getMeter().equals(this.meter)) {
+            if (value.getMeterId() == this.meter.getId()) {
                 AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
                         value.toBuilder().meterState(this.meterState);
                 accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());

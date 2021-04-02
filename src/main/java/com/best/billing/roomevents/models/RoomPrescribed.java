@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 /**
  * История изменения прописанных в помещении
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "room_prescribers")
 public class RoomPrescribed implements BaseHistory, RoomEvent {

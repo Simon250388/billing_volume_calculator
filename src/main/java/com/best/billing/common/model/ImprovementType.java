@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Вид благоустройства помещения
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "improvement_types")
 public class ImprovementType implements BaseCatalog {

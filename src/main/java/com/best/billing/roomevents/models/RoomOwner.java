@@ -12,13 +12,9 @@ import java.time.LocalDateTime;
 /**
  * История изменения количества собственников
  */
-@Entity
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
+@Entity
 @Table(name = "room_owners")
 public class RoomOwner implements BaseHistory, RoomEvent {
     @Id

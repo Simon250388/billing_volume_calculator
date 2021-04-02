@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Поставляемая услуга
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "services")
 public class Service implements BaseCatalog {

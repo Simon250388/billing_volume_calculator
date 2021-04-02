@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Тарифная группа
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "rate_groups")
 public class RateGroup implements BaseCatalog {

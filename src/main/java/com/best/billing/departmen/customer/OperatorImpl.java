@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 @Service
-public class CustomerOperatorImpl implements CustomerOperator {
+public class OperatorImpl implements Operator {
 
     private final Resolution resolution;
     private final Calculator calculator;
 
     @Autowired
-    public CustomerOperatorImpl(Resolution resolution, Calculator calculator) {
+    public OperatorImpl(Resolution resolution, Calculator calculator) {
         this.resolution = resolution;
         this.calculator = calculator;
     }

@@ -9,12 +9,8 @@ import javax.persistence.*;
  *
  * Ключ норматива
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "key_norms")
 public class KeyNorm implements BaseEntity {

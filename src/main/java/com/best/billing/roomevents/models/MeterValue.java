@@ -11,12 +11,8 @@ import java.time.LocalDateTime;
 /**
  * История показаний прибора учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "meter_values")
 @NamedEntityGraph(

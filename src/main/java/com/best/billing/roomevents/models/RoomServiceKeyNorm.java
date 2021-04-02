@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 /**
  * Ключи нормативов для услуг помещения
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "room_service_key_norms")
 public class RoomServiceKeyNorm implements BaseHistory {

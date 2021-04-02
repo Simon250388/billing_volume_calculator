@@ -9,12 +9,8 @@ import javax.persistence.*;
 /**
  * Поставщик услуги
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "providers")
 public class Provider implements BaseCatalog {

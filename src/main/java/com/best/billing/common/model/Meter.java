@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Прибор учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "meters")
 public class Meter implements BaseCatalog {

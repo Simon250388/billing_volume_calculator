@@ -71,9 +71,9 @@ public class MeterDifferentiationType implements BaseHistory, RoomEvent {
         RoomProperties result = origin.getCloneBuilder(this.period, this.periodFact).build();
         Map<AccountingPoint, AccountingPointProperties> accountingPointsPropertiesChange = new HashMap<>();
         result.getAccountingPointProperties().forEach((key, value) -> {
-            if (value.getMeter().equals(this.meter)) {
+            if (value.getMeterId() == this.meter.getId()) {
                 AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
-                        value.toBuilder().differentiationType(this.differentiationType);
+                        value.toBuilder().differentiationTypeId(this.differentiationType.getId());
                 accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());
             }
         });

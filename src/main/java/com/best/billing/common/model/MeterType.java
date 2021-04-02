@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Тип прибора учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "meter_types")
 public class MeterType implements BaseCatalog {

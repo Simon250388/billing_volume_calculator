@@ -8,7 +8,8 @@ import com.best.billing.departmen.customer.AccountingPointProperties;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,12 +19,8 @@ import java.util.Map;
 /**
  * Поставщик услуги на точке учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_point_service_provider")
 @NamedEntityGraph(
@@ -68,8 +65,7 @@ public class AccountingPointServiceProvider implements BaseHistory, RoomEvent {
         result.getAccountingPointProperties().forEach((key, value) -> {
             if (key.equals(accountingPointKeyRoomServiceEntity.getAccountingPointKeyRoom().getAccountingPoint())) {
                 AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
-                        value.toBuilder()
-                                .provider(provider);
+                        value.toBuilder().providerId(provider.getId());
                 accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());
             }
         });

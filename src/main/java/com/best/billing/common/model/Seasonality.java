@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Сезонность
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "seasonality")
 public class Seasonality implements BaseCatalog {

@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Вид диффиринцированности
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "differentiation_types")
 public class DifferentiationType implements BaseCatalog {

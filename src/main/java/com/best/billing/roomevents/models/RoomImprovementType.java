@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 /**
  * Вид благоустройства для услуг помещения
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "room_improvement_types")
 public class RoomImprovementType implements BaseHistory {

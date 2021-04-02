@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 /**
  * История изменения площадей помещения
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "room_squares")
 public class RoomSquare implements BaseHistory {

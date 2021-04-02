@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Направление использования точек учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "direction_of_uses")
 public class DirectionOfUse implements BaseCatalog {

@@ -8,12 +8,8 @@ import javax.persistence.*;
 /**
  * Точка учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "accounting_points")
 public class AccountingPoint implements BaseCatalog {

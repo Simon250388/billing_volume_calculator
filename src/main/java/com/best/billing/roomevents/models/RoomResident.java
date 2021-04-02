@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 /**
  * История изменения проживающих
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "room_residents")
 public class RoomResident implements BaseHistory, RoomEvent {
