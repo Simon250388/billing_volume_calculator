@@ -1,9 +1,12 @@
 package com.best.billing.resolution.resolution354;
 
-import com.best.billing.departmen.customer.AccountingPointProperties;
+import com.best.billing.departmen.customer.AccountingPointProperty;
+import com.best.billing.departmen.customer.RoomProperties;
+import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.resolution.CalculationValidator;
 import com.best.billing.resolution.CalculationRule;
 import com.best.billing.resolution.Resolution;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -38,9 +41,11 @@ public class Resolution354 implements Resolution {
     }
 
     @Override
-    public List<CalculationRule> getCalculationRulesForEvent(AccountingPointProperties accountingPointProperties) {
+    public List<CalculationRule> getCalculationRulesForEvent(@NonNull final RoomProperties roomProperties,
+                                                             @NonNull final AccountingPointProperty accountingPointProperty,
+                                                             @NonNull final ServicePartProperty servicePartProperty) {
         return rules.entrySet().stream().filter(
-                item -> item.getValue().canCalculateVolume(accountingPointProperties))
+                item -> item.getValue().canCalculateVolume(roomProperties, accountingPointProperty, servicePartProperty))
                 .flatMap(item -> List.of(item.getKey()).stream())
                 .collect(Collectors.toList());
     }

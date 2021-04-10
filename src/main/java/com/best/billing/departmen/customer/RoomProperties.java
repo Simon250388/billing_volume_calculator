@@ -1,16 +1,16 @@
 package com.best.billing.departmen.customer;
 
-import com.best.billing.common.model.AccountingPoint;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Value
 @Builder(toBuilder = true)
+@AllArgsConstructor
 public class RoomProperties {
     long roomOwner;
     long roomPrescribed;
@@ -18,20 +18,27 @@ public class RoomProperties {
     long roomCommonSquare;
     LocalDateTime registrationPeriod;
     LocalDateTime registrationPeriodFact;
-    Map<AccountingPoint, AccountingPointProperties> accountingPointProperties;
+    List<AccountingPointProperty> accountingPointProperties;
 
-    public RoomPropertiesBuilder getCloneBuilder(@NonNull final LocalDateTime registrationPeriod, @NonNull final LocalDateTime registrationPeriodFact) {
-        Map<AccountingPoint, AccountingPointProperties> newInstanceAccountingPointProperties = new HashMap<>();
-        this.accountingPointProperties.forEach((key, value) ->
-                newInstanceAccountingPointProperties.put(key, value.toBuilder()
-                        .roomOwner(this.roomOwner)
-                        .roomResident(this.roomResident)
-                        .roomPrescribed(this.roomPrescribed)
-                        .build()));
+    public RoomPropertiesBuilder getNewInstance(@NonNull final LocalDateTime registrationPeriod, @NonNull final LocalDateTime registrationPeriodFact) {
 
+        List<AccountingPointProperty> newAccountingPointProperties = new ArrayList<>();
+
+        for (AccountingPointProperty accountingPointProperty : this.accountingPointProperties) {
+            newAccountingPointProperties.add(accountingPointProperty.getNewInstance());
+        }
         return this.toBuilder()
+                .accountingPointProperties(newAccountingPointProperties)
                 .registrationPeriod(registrationPeriod)
-                .registrationPeriodFact(registrationPeriodFact)
-                .accountingPointProperties(newInstanceAccountingPointProperties);
+                .registrationPeriodFact(registrationPeriodFact);
+
+    }
+
+    public boolean isMeterValuesProvideForAllPointsOfServices(long servicePartId) {
+        return false;
+    }
+
+    public boolean isHasAvgVolumeForAllPointsOfServices(long servicePartId) {
+        return false;
     }
 }

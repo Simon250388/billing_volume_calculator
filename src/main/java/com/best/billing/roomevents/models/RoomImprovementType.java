@@ -2,8 +2,8 @@ package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.ImprovementType;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.common.model.Service;
-import com.best.billing.roomevents.models.entity.KeyRoom;
 import lombok.*;
 
 import javax.persistence.*;

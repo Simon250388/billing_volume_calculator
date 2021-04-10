@@ -1,9 +1,8 @@
 package com.best.billing.departmen.customer;
 
-import lombok.NonNull;
-
 import java.time.LocalDate;
 
 public interface Operator {
-    void printCalculations(@NonNull LocalDate calculationPeriod, @NonNull RoomEventsJournal eventsJournal);
+    void getCalculations(LocalDate calculationPeriod, Long keyRoomId);
+    void getCalculations(LocalDate calculationPeriod);
 }

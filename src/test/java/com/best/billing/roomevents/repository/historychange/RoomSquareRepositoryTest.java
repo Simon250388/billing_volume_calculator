@@ -1,7 +1,8 @@
 package com.best.billing.roomevents.repository.historychange;
 
-import com.best.billing.roomevents.models.entity.KeyRoom;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.roomevents.models.RoomSquare;
+import com.best.billing.roomevents.repository.RoomSquareRepository;
 import com.best.billing.stabs.StabFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

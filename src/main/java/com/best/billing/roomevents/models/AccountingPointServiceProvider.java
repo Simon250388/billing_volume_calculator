@@ -1,20 +1,16 @@
 package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
-import com.best.billing.common.model.AccountingPoint;
 import com.best.billing.common.model.Provider;
 import com.best.billing.common.model.Service;
-import com.best.billing.departmen.customer.AccountingPointProperties;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
-import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
+import com.best.billing.departmen.customer.ServicePartProperty;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Поставщик услуги на точке учета
@@ -60,18 +56,16 @@ public class AccountingPointServiceProvider implements BaseHistory, RoomEvent {
 
     @Override
     public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getCloneBuilder(this.period, this.periodFact).build();
-        Map<AccountingPoint, AccountingPointProperties> accountingPointsPropertiesChange = new HashMap<>();
-        result.getAccountingPointProperties().forEach((key, value) -> {
-            if (key.equals(accountingPointKeyRoomServiceEntity.getAccountingPointKeyRoom().getAccountingPoint())) {
-                AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
-                        value.toBuilder().providerId(provider.getId());
-                accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());
+        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+        result.getAccountingPointProperties().forEach(accountingPointProperty -> {
+            for (int i = 0; i< accountingPointProperty.getServicePartProperties().size(); i++) {
+                ServicePartProperty servicePartProperty = accountingPointProperty.getServicePartProperties().get(i);
+                if (servicePartProperty.getServicePartId() == this.servicePart.getId()) {
+                    final ServicePartProperty newServicePartProperty = servicePartProperty.toBuilder().providerId(this.provider.getId()).build();
+                    accountingPointProperty.getServicePartProperties().set(i, newServicePartProperty);
+                }
             }
         });
-
-        accountingPointsPropertiesChange.forEach((key, value) -> result.getAccountingPointProperties().replace(key, value));
-
         return result;
     }
 }

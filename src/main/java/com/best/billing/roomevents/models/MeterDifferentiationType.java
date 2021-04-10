@@ -1,30 +1,22 @@
 package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
-import com.best.billing.common.model.AccountingPoint;
 import com.best.billing.common.model.DifferentiationType;
 import com.best.billing.common.model.Meter;
-import com.best.billing.departmen.customer.AccountingPointProperties;
+import com.best.billing.departmen.customer.AccountingPointProperty;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
-import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * История изменения вида диффиринцироованности
  * прибора учета на точке учета
  */
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "meter_differentiation_type")
 @NamedEntityGraph(
@@ -57,28 +49,24 @@ public class MeterDifferentiationType implements BaseHistory, RoomEvent {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
     private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
-
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "meter_id", nullable = false)
     private Meter meter;
-
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "differentiation_type_id", nullable = false)
     private DifferentiationType differentiationType;
-
     @Override
     public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getCloneBuilder(this.period, this.periodFact).build();
-        Map<AccountingPoint, AccountingPointProperties> accountingPointsPropertiesChange = new HashMap<>();
-        result.getAccountingPointProperties().forEach((key, value) -> {
-            if (value.getMeterId() == this.meter.getId()) {
-                AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
-                        value.toBuilder().differentiationTypeId(this.differentiationType.getId());
-                accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());
-            }
-        });
+        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
 
-        accountingPointsPropertiesChange.forEach((key, value) -> result.getAccountingPointProperties().replace(key, value));
+        for (int i=0;i<result.getAccountingPointProperties().size();i++) {
+            AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
+            if (accountingPointProperty.getMeterId() == this.meter.getId()) {
+                AccountingPointProperty.AccountingPointPropertyBuilder accountingPointPropertiesBuilder =
+                        accountingPointProperty.toBuilder().differentiationTypeId(this.differentiationType.getId());
+                result.getAccountingPointProperties().set(i,accountingPointPropertiesBuilder.build());
+            }
+        }
 
         return result;
     }

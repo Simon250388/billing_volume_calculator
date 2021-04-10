@@ -1,8 +1,9 @@
 package com.best.billing.roomevents.repository.historychange;
 
 import com.best.billing.common.model.Building;
-import com.best.billing.roomevents.models.entity.KeyRoom;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.roomevents.models.RoomOwner;
+import com.best.billing.roomevents.repository.RoomOwnerRepository;
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
 package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
-import com.best.billing.roomevents.models.entity.KeyRoom;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,8 +33,8 @@ public class RoomOwner implements BaseHistory, RoomEvent {
     private int ownerCount;
 
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        return origin.getCloneBuilder(period, periodFact)
+    public RoomProperties register(@NonNull final RoomProperties origin) {
+        return origin.getNewInstance(period, periodFact)
                 .roomOwner(ownerCount)
                 .build();
 

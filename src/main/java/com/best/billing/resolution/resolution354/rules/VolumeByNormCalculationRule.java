@@ -1,6 +1,8 @@
 package com.best.billing.resolution.resolution354.rules;
 
-import com.best.billing.departmen.customer.AccountingPointProperties;
+import com.best.billing.departmen.customer.AccountingPointProperty;
+import com.best.billing.departmen.customer.RoomProperties;
+import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.volumecalculator.model.CalculationMethod;
 import com.best.billing.resolution.CalculationRule;
 import lombok.NonNull;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Component;
 public class VolumeByNormCalculationRule implements CalculationRule {
 
     @Override
-    public long volume(@NonNull final AccountingPointProperties accountingPointProperties) {
+    public long volume(@NonNull final RoomProperties roomProperties,
+                       @NonNull final AccountingPointProperty accountingPointProperty,
+                       @NonNull final ServicePartProperty servicePartProperty) {
         return 0;
 //        int coefficientNormValue = item.getCoefficientNormValue();
 //

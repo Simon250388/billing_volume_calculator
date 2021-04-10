@@ -1,8 +1,10 @@
 package com.best.billing.resolution.resolution354.rules;
 
-import com.best.billing.departmen.customer.AccountingPointProperties;
-import com.best.billing.volumecalculator.model.CalculationMethod;
+import com.best.billing.departmen.customer.AccountingPointProperty;
+import com.best.billing.departmen.customer.RoomProperties;
+import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.resolution.CalculationRule;
+import com.best.billing.volumecalculator.model.CalculationMethod;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Component;
 @Qualifier("VolumeByMeterValueRule")
 public class VolumeByMeterValueCalculationRule implements CalculationRule {
 
-    public long volume(@NonNull final AccountingPointProperties accountingPointProperties) {
-        return volumeValueByMeterValue(accountingPointProperties);
+    public long volume(@NonNull final RoomProperties roomProperties,
+                       @NonNull final AccountingPointProperty accountingPointProperty,
+                       @NonNull final ServicePartProperty servicePartProperty) {
+        return volumeValueByMeterValue(roomProperties, accountingPointProperty, servicePartProperty);
     }
 
     @Override
@@ -20,7 +24,9 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
         return CalculationMethod.BY_METER;
     }
 
-    private long volumeValueByMeterValue(@NonNull final AccountingPointProperties accountingPointProperties) {
+    private long volumeValueByMeterValue(@NonNull final RoomProperties roomProperties,
+                                         @NonNull final AccountingPointProperty accountingPointProperty,
+                                         @NonNull final ServicePartProperty servicePartProperty) {
         return 0;
         //return item.getMeterValuesEnd().get(0).getValue() - item.getMeterValuesStart().get(0).getValue();
     }

@@ -1,7 +1,8 @@
 package com.best.billing.roomevents.repository.historychange;
 
-import com.best.billing.roomevents.models.entity.KeyRoom;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.roomevents.models.AccountingPointServiceState;
+import com.best.billing.roomevents.repository.AccountingPointServiceStateRepository;
 import com.best.billing.stabs.StabFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ class AccountingPointServiceStateRepositoryTest {
     void When_Last_Row_IS_Not_Active_Then_Iterator_Has_Next_Should_Be_False() {
         StabFactory stabFactory = StabFactory.builder().build();
         Arrays
-                 .asList(stabFactory.accountingPointServiceStateActive, stabFactory.accountingPointServiceStateNotActive)
-                 .forEach(em::persist);
+                .asList(stabFactory.accountingPointServiceStateActive, stabFactory.accountingPointServiceStateNotActive)
+                .forEach(em::persist);
         KeyRoom keyRoom = StabFactory.builder().build().accountingPointServiceStateActive.getAccountingPointKeyRoomServiceEntity().getAccountingPointKeyRoom().getKeyRoom();
         Iterable<AccountingPointServiceState> current = repository.findAllActiveByKeyRoomId(keyRoom.getId());
         assertFalse(current.iterator().hasNext());

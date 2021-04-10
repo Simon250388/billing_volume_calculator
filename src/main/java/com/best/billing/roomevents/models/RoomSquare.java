@@ -2,7 +2,7 @@ package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.convertors.SquareTypeConvertor;
-import com.best.billing.roomevents.models.entity.KeyRoom;
+import com.best.billing.common.model.KeyRoom;
 import com.best.billing.common.model.enums.SquareType;
 import lombok.*;
 

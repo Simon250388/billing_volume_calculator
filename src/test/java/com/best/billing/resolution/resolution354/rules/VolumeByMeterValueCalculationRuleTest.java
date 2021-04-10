@@ -1,11 +1,12 @@
 package com.best.billing.resolution.resolution354.rules;
 
 import com.best.billing.resolution.CalculationRule;
+import org.junit.jupiter.api.Test;
 
 class VolumeByMeterValueCalculationRuleTest {
 
-    private final CalculationRule rule = new VolumeByMeterValueCalculationRule();
-
+//    private final CalculationRule rule = new VolumeByMeterValueCalculationRule();
+//
 //    @Test
 //    void when_meter_value_start_is_5_end_value_end_15_than_volume_return_10() {
 //        final long VALUE_START = 5;

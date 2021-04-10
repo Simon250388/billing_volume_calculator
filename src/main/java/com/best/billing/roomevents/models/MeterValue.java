@@ -2,7 +2,6 @@ package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.Meter;
-import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.*;
 
 import javax.persistence.*;

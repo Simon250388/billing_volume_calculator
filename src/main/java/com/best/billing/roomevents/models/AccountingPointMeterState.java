@@ -2,19 +2,15 @@ package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.convertors.MeterStateConvertor;
-import com.best.billing.common.model.AccountingPoint;
 import com.best.billing.common.model.enums.MeterState;
-import com.best.billing.departmen.customer.AccountingPointProperties;
+import com.best.billing.departmen.customer.AccountingPointProperty;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.common.model.Meter;
 import com.best.billing.departmen.customer.RoomProperties;
-import com.best.billing.roomevents.models.entity.AccountingPointKeyRoomServiceEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Состояние прибора учета на точке учета
@@ -45,18 +41,15 @@ public class AccountingPointMeterState implements BaseHistory, RoomEvent {
 
     @Override
     public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getCloneBuilder(this.period, this.periodFact).build();
-        Map<AccountingPoint, AccountingPointProperties> accountingPointsPropertiesChange = new HashMap<>();
-        result.getAccountingPointProperties().forEach((key, value) -> {
-            if (value.getMeterId() == this.meter.getId()) {
-                AccountingPointProperties.AccountingPointPropertiesBuilder accountingPointPropertiesBuilder =
-                        value.toBuilder().meterState(this.meterState);
-                accountingPointsPropertiesChange.put(key, accountingPointPropertiesBuilder.build());
+        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+        for (int i=0;i<result.getAccountingPointProperties().size();i++) {
+            AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
+            if (accountingPointProperty.getMeterId() == this.meter.getId()) {
+                AccountingPointProperty.AccountingPointPropertyBuilder accountingPointPropertiesBuilder =
+                        accountingPointProperty.toBuilder().meterState(this.meterState);
+                result.getAccountingPointProperties().set(i,accountingPointPropertiesBuilder.build());
             }
-        });
-
-        accountingPointsPropertiesChange.forEach((key, value) -> result.getAccountingPointProperties().replace(key, value));
-
+        }
         return result;
     }
 }
