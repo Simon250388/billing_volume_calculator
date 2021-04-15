@@ -2,6 +2,7 @@ package com.best.billing.resolution.resolution354.validators;
 
 import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.departmen.customer.AccountingPointProperty;
+import com.best.billing.departmen.customer.CalculationSettings;
 import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.resolution.CalculationValidator;
@@ -29,7 +30,9 @@ class ByAvgNormCalculationValidatorTest {
                 .builder()
                 .build();
 
-        assertFalse(validator.canCalculateVolume(roomProperties, accountingPointProperty, servicePartProperty));
+        CalculationSettings calculationSettings = CalculationSettings.builder().build();
+
+        assertFalse(validator.canCalculateVolume(calculationSettings, roomProperties, accountingPointProperty, servicePartProperty));
     }
 
     @Test
@@ -48,7 +51,9 @@ class ByAvgNormCalculationValidatorTest {
                 .serviceAvgVolume(ServicePartProperty.AVG_VOLUME_EMPTY_VALUE)
                 .build();
 
-        assertTrue(validator.canCalculateVolume(roomProperties, accountingPointProperty, servicePartProperty));
+        CalculationSettings calculationSettings = CalculationSettings.builder().build();
+
+        assertTrue(validator.canCalculateVolume(calculationSettings, roomProperties, accountingPointProperty, servicePartProperty));
     }
 
     @Test
@@ -66,6 +71,8 @@ class ByAvgNormCalculationValidatorTest {
                 .serviceAvgVolume(1)
                 .build();
 
-        assertFalse(validator.canCalculateVolume(roomProperties, accountingPointProperty, servicePartProperty));
+        CalculationSettings calculationSettings = CalculationSettings.builder().build();
+
+        assertFalse(validator.canCalculateVolume(calculationSettings, roomProperties, accountingPointProperty, servicePartProperty));
     }
 }

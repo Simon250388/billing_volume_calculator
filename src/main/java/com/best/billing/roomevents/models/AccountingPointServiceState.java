@@ -57,8 +57,8 @@ public class AccountingPointServiceState implements BaseHistory, RoomEvent {
     private boolean active;
 
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
         for (int i=0;i<result.getAccountingPointProperties().size();i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
             if (accountingPointProperty.getAccountingPointId() == this.accountingPointKeyRoomServiceEntity.getAccountingPointKeyRoom().getAccountingPoint().getId()) {

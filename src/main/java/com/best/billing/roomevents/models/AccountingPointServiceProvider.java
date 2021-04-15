@@ -8,6 +8,7 @@ import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.departmen.customer.ServicePartProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -55,8 +56,8 @@ public class AccountingPointServiceProvider implements BaseHistory, RoomEvent {
     private Provider provider;
 
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
         result.getAccountingPointProperties().forEach(accountingPointProperty -> {
             for (int i = 0; i< accountingPointProperty.getServicePartProperties().size(); i++) {
                 ServicePartProperty servicePartProperty = accountingPointProperty.getServicePartProperties().get(i);

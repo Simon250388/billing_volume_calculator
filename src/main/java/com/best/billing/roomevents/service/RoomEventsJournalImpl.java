@@ -15,12 +15,10 @@ class RoomEventsJournalImpl implements RoomEventsJournal {
     private final long keyRoomId;
     private final Map<RoomEvent, RoomProperties> roomEventListMap = new HashMap<>();
     private boolean isInit = false;
-    private final RoomProperties roomPropertiesOnStart;
 
-    RoomEventsJournalImpl(@NonNull final Long keyRoomId, @NonNull final RoomProperties roomPropertiesOnStart, @NonNull final List<RoomEvent> orderEvents) {
+    RoomEventsJournalImpl(@NonNull final Long keyRoomId, @NonNull final List<RoomEvent> orderEvents) {
         this.keyRoomId = keyRoomId;
         this.orderEvents = orderEvents;
-        this.roomPropertiesOnStart = roomPropertiesOnStart;
     }
 
     @Override
@@ -42,10 +40,13 @@ class RoomEventsJournalImpl implements RoomEventsJournal {
     }
 
     private void initRoomProperties() {
-        RoomProperties roomProperties = this.roomPropertiesOnStart;
+        RoomProperties roomProperties = null;
+        RoomEvent previousEvent = null;
         for (RoomEvent event : this.orderEvents) {
-            roomProperties = event.register(roomProperties);
+            roomProperties = event.register(roomProperties, previousEvent);
             roomEventListMap.put(event, roomProperties);
+            previousEvent = event;
+
         }
         this.isInit = true;
     }

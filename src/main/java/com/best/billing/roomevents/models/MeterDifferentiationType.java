@@ -56,8 +56,8 @@ public class MeterDifferentiationType implements BaseHistory, RoomEvent {
     @JoinColumn(name = "differentiation_type_id", nullable = false)
     private DifferentiationType differentiationType;
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
 
         for (int i=0;i<result.getAccountingPointProperties().size();i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);

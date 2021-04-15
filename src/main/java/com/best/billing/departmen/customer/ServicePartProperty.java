@@ -9,12 +9,12 @@ import lombok.Value;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 public class ServicePartProperty {
-    public static long AVG_VOLUME_EMPTY_VALUE = -1;
+    public static int AVG_VOLUME_EMPTY_VALUE = -1;
     long servicePartId;
     SquareType serviceSquareType;
     long roomRateGroupId;
     long providerId;
-    long serviceAvgVolume;
+    int serviceAvgVolume;
     public boolean isHasServiceAvgVolume() {
         return serviceAvgVolume != AVG_VOLUME_EMPTY_VALUE;
     }

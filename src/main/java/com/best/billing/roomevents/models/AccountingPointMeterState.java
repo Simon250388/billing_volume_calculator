@@ -40,8 +40,8 @@ public class AccountingPointMeterState implements BaseHistory, RoomEvent {
     private MeterState meterState;
 
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
         for (int i=0;i<result.getAccountingPointProperties().size();i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
             if (accountingPointProperty.getMeterId() == this.meter.getId()) {

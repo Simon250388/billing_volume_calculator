@@ -40,8 +40,8 @@ public class RoomRateGroup  implements BaseHistory, RoomEvent {
     private RateGroup rateGroup;
 
     @Override
-    public RoomProperties register(@NonNull final RoomProperties origin) {
-        RoomProperties result = origin.getNewInstance(this.period, this.periodFact).build();
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
         result.getAccountingPointProperties().forEach(accountingPointProperty -> {
             for (int i = 0; i< accountingPointProperty.getServicePartProperties().size(); i++) {
                 ServicePartProperty servicePartProperty = accountingPointProperty.getServicePartProperties().get(i);

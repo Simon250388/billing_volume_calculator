@@ -9,7 +9,6 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class CalculatorImpl implements Calculator {
     @Override
     public List<Map<RoomEvent, List<CalculationResult>>> calculate(
-            @NonNull final LocalDate calculationPeriod,
+            @NonNull final CalculationSettings calculationSettings,
             @NonNull final Resolution resolution,
             @NonNull final RoomEventsJournal eventsJournal) {
 
@@ -30,9 +29,9 @@ public class CalculatorImpl implements Calculator {
             RoomProperties roomProperty = eventsJournal.getRoomProperties(event);
             for (AccountingPointProperty accountingPointProperty : roomProperty.getAccountingPointProperties()) {
                 for (ServicePartProperty servicePartProperty : accountingPointProperty.getServicePartProperties()) {
-                    List<CalculationRule> rules = resolution.getCalculationRulesForEvent(roomProperty, accountingPointProperty, servicePartProperty);
+                    List<CalculationRule> rules = resolution.getCalculationRulesForEvent(calculationSettings, roomProperty, accountingPointProperty, servicePartProperty);
                     for (CalculationRule rule : rules) {
-                        long volume = rule.volume(roomProperty, accountingPointProperty, servicePartProperty);
+                        long volume = rule.volume(calculationSettings, roomProperty, accountingPointProperty, servicePartProperty);
                         final CalculationMethod calculationMethod = rule.getCalculationMethod();
                         volumesForEvent.add(new CalculationResultInner(calculationMethod, volume, 0));
                     }

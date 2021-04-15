@@ -24,8 +24,7 @@ public class RoomEventServiceImpl implements RoomEventService {
     @Override
     public RoomEventsJournal getEventJournal(@NonNull final LocalDate CalculationPeriod, @NonNull final Long keyRoomId) {
         List<RoomEvent> orderEvents = getOrderByPeriodEvents(CalculationPeriod, keyRoomId);
-        RoomProperties roomProperties = RoomProperties.builder().build();
-        return new RoomEventsJournalImpl(keyRoomId, roomProperties, orderEvents);
+        return new RoomEventsJournalImpl(keyRoomId, orderEvents);
     }
 
     @Override

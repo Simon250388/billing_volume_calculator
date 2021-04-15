@@ -33,8 +33,8 @@ public class RoomOwner implements BaseHistory, RoomEvent {
     private int ownerCount;
 
     @Override
-    public RoomProperties register(@NonNull final RoomProperties origin) {
-        return origin.getNewInstance(period, periodFact)
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        return origin.getNewInstance(this, previousEvent)
                 .roomOwner(ownerCount)
                 .build();
 

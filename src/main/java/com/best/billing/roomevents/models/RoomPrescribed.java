@@ -33,8 +33,8 @@ public class RoomPrescribed implements BaseHistory, RoomEvent {
     private int prescribedCount;
 
     @Override
-    public RoomProperties register(RoomProperties origin) {
-        return origin.getNewInstance(this.period, this.periodFact)
+    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
+        return origin.getNewInstance(this, previousEvent)
                 .roomPrescribed(this.prescribedCount)
                 .build();
     }

@@ -1,6 +1,7 @@
 package com.best.billing.resolution.resolution354.rules;
 
 import com.best.billing.departmen.customer.AccountingPointProperty;
+import com.best.billing.departmen.customer.CalculationSettings;
 import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.resolution.CalculationRule;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Component;
 @Qualifier("VolumeByMeterValueRule")
 public class VolumeByMeterValueCalculationRule implements CalculationRule {
 
-    public long volume(@NonNull final RoomProperties roomProperties,
-                       @NonNull final AccountingPointProperty accountingPointProperty,
-                       @NonNull final ServicePartProperty servicePartProperty) {
+    public long volume(
+            @NonNull final CalculationSettings calculationSettings,
+            @NonNull final RoomProperties roomProperties,
+            @NonNull final AccountingPointProperty accountingPointProperty,
+            @NonNull final ServicePartProperty servicePartProperty) {
         return volumeValueByMeterValue(roomProperties, accountingPointProperty, servicePartProperty);
     }
 
