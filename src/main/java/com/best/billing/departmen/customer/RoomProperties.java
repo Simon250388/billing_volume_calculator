@@ -23,7 +23,7 @@ public class RoomProperties {
     LocalDateTime previousEventRegistrationPeriod;
     LocalDateTime previousEventRegistrationPeriodFact;
     List<AccountingPointProperty> accountingPointProperties;
-
+    List<RoomMeterValue> roomMeterValues;
 
     public RoomPropertiesBuilder getNewInstance(@NonNull final RoomEvent event, final RoomEvent previousEvent) {
         LocalDateTime previousRegistrationPeriod, previousRegistrationPeriodFact;
@@ -32,6 +32,12 @@ public class RoomProperties {
 
         for (AccountingPointProperty accountingPointProperty : this.accountingPointProperties) {
             newAccountingPointProperties.add(accountingPointProperty.getNewInstance());
+        }
+
+        List<RoomMeterValue> newMeterValues = new ArrayList<>();
+
+        for (RoomMeterValue meterValue : this.roomMeterValues) {
+            newMeterValues.add(meterValue.toBuilder().build());
         }
 
         if (previousEvent == null) {
@@ -44,6 +50,7 @@ public class RoomProperties {
 
         return this.toBuilder()
                 .accountingPointProperties(newAccountingPointProperties)
+                .roomMeterValues(newMeterValues)
                 .registrationPeriod(event.getPeriod())
                 .registrationPeriodFact(event.getPeriodFact())
                 .previousEventRegistrationPeriod(previousRegistrationPeriod)
@@ -60,5 +67,9 @@ public class RoomProperties {
 
     public long getDurationsByDays() {
        return registrationPeriod.until(previousEventRegistrationPeriod, ChronoUnit.DAYS);
+    }
+
+    public List<RoomMeterValue> getPrevoiusRoomMeterValues() {
+        return null;
     }
 }

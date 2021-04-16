@@ -14,7 +14,7 @@ public class ServicePartProperty {
     SquareType serviceSquareType;
     long roomRateGroupId;
     long providerId;
-    int serviceAvgVolume;
+    double serviceAvgVolume;
     public boolean isHasServiceAvgVolume() {
         return serviceAvgVolume != AVG_VOLUME_EMPTY_VALUE;
     }

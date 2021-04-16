@@ -3,9 +3,7 @@ package com.best.billing.volumecalculator.service;
 import com.best.billing.departmen.customer.*;
 import com.best.billing.resolution.CalculationRule;
 import com.best.billing.resolution.Resolution;
-import com.best.billing.volumecalculator.model.CalculationMethod;
 import lombok.NonNull;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +29,13 @@ public class CalculatorImpl implements Calculator {
                 for (ServicePartProperty servicePartProperty : accountingPointProperty.getServicePartProperties()) {
                     List<CalculationRule> rules = resolution.getCalculationRulesForEvent(calculationSettings, roomProperty, accountingPointProperty, servicePartProperty);
                     for (CalculationRule rule : rules) {
-                        long volume = rule.volume(calculationSettings, roomProperty, accountingPointProperty, servicePartProperty);
-                        final CalculationMethod calculationMethod = rule.getCalculationMethod();
-                        volumesForEvent.add(new CalculationResultInner(calculationMethod, volume, 0));
+                        List<CalculationResult> volumes = rule.volume(calculationSettings, roomProperty, accountingPointProperty, servicePartProperty);
+                        volumesForEvent.addAll(volumes);
                     }
                     calculationResult.add(Map.of(event, volumesForEvent));
                 }
             }
         }
         return calculationResult;
-    }
-
-    @Value
-    private static class CalculationResultInner implements CalculationResult {
-        CalculationMethod calculationMethod;
-        long volume;
-        long volumeFact;
     }
 }

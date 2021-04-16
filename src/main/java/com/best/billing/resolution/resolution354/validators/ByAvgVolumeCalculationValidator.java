@@ -7,11 +7,13 @@ import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.departmen.customer.ServicePartProperty;
 import com.best.billing.resolution.CalculationValidator;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 @Qualifier("ByAvgVolumeCalculationValidator")
+@Slf4j
 public class ByAvgVolumeCalculationValidator implements CalculationValidator {
     @Override
     public boolean canCalculateVolume(@NonNull final CalculationSettings calculationSettings,

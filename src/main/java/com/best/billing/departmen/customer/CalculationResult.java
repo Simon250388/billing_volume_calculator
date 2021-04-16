@@ -6,4 +6,6 @@ public interface CalculationResult {
     CalculationMethod getCalculationMethod();
     long getVolume();
     long getVolumeFact();
+    long getScaleId();
+    long getReitGroupId();
 }
