@@ -4,10 +4,13 @@ import com.best.billing.base.model.BaseHistory;
 import com.best.billing.departmen.customer.AccountingPointProperty;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
+import com.best.billing.metervalues.model.MeterValue;
+import com.best.billing.metervalues.model.MethodProvideMeterValue;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Состояние услуги на точке учета
@@ -57,8 +60,14 @@ public class AccountingPointServiceState implements BaseHistory, RoomEvent {
     private boolean active;
 
     @Override
-    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
-        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
+    public RoomProperties register(@NonNull final RoomProperties previousProperties, final RoomEvent previousEvent, @NonNull final List<MeterValue> currentMeterValues) {
+
+        RoomProperties result = previousProperties
+                .cloneBuilder(previousEvent, currentMeterValues)
+                .registrationPeriod(period)
+                .registrationPeriodFact(periodFact)
+                .build();
+
         for (int i=0;i<result.getAccountingPointProperties().size();i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
             if (accountingPointProperty.getAccountingPointId() == this.accountingPointKeyRoomServiceEntity.getAccountingPointKeyRoom().getAccountingPoint().getId()) {
@@ -68,5 +77,15 @@ public class AccountingPointServiceState implements BaseHistory, RoomEvent {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean isProvideMeterValue() {
+        return true;
+    }
+
+    @Override
+    public MethodProvideMeterValue getMethodProvideMeterValue() {
+        return MethodProvideMeterValue.ACCOUNTING_POINT_SERVICE_PROVIDER;
     }
 }

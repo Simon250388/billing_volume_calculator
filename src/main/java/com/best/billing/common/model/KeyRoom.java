@@ -1,8 +1,6 @@
 package com.best.billing.common.model;
 
 import com.best.billing.base.model.BaseEntity;
-import com.best.billing.common.model.Building;
-import com.best.billing.common.model.Room;
 import lombok.*;
 
 import javax.persistence.*;

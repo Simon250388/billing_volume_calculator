@@ -2,15 +2,20 @@ package com.best.billing.roomevents.models;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.convertors.MeterStateConvertor;
+import com.best.billing.common.model.Meter;
 import com.best.billing.common.model.enums.MeterState;
 import com.best.billing.departmen.customer.AccountingPointProperty;
 import com.best.billing.departmen.customer.RoomEvent;
-import com.best.billing.common.model.Meter;
 import com.best.billing.departmen.customer.RoomProperties;
-import lombok.*;
+import com.best.billing.metervalues.model.MeterValue;
+import com.best.billing.metervalues.model.MethodProvideMeterValue;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Состояние прибора учета на точке учета
@@ -40,8 +45,14 @@ public class AccountingPointMeterState implements BaseHistory, RoomEvent {
     private MeterState meterState;
 
     @Override
-    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
-        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
+    public RoomProperties register(@NonNull final RoomProperties previousProperties, @NonNull final RoomEvent previousEvent, @NonNull final List<MeterValue> currentMeterValues) {
+
+        RoomProperties result = previousProperties
+                .cloneBuilder(previousEvent, currentMeterValues)
+                .registrationPeriod(period)
+                .registrationPeriodFact(periodFact)
+                .build();
+
         for (int i=0;i<result.getAccountingPointProperties().size();i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
             if (accountingPointProperty.getMeterId() == this.meter.getId()) {
@@ -51,5 +62,15 @@ public class AccountingPointMeterState implements BaseHistory, RoomEvent {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean isProvideMeterValue() {
+        return true;
+    }
+
+    @Override
+    public MethodProvideMeterValue getMethodProvideMeterValue() {
+        return MethodProvideMeterValue.ACCOUNTING_POINT_METER_STATE;
     }
 }

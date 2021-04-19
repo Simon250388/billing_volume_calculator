@@ -41,7 +41,7 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
                 .filter(roomMeterValue -> roomMeterValue.getMeterId() == accountingPointProperty.getMeterId())
                 .collect(Collectors.toList());
 
-        List<RoomMeterValue> previousMeterValuesByMeterId = roomProperties.getPrevoiusRoomMeterValues().stream()
+        List<RoomMeterValue> previousMeterValuesByMeterId = roomProperties.getPreviousRoomMeterValues().stream()
                 .filter(roomMeterValue -> roomMeterValue.getMeterId() == accountingPointProperty.getMeterId())
                 .collect(Collectors.toList());
 

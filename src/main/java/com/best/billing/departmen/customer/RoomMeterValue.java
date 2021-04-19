@@ -12,4 +12,6 @@ public class RoomMeterValue {
     long reitGroupId;
     long scaleId;
     double value;
+
+
 }

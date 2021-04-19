@@ -4,8 +4,8 @@ import com.best.billing.volumecalculator.model.CalculationMethod;
 
 public interface CalculationResult {
     CalculationMethod getCalculationMethod();
-    long getVolume();
-    long getVolumeFact();
+    double getVolume();
+    double getVolumeFact();
     long getScaleId();
     long getReitGroupId();
 }

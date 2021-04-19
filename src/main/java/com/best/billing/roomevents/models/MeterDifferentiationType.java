@@ -6,10 +6,15 @@ import com.best.billing.common.model.Meter;
 import com.best.billing.departmen.customer.AccountingPointProperty;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
-import lombok.*;
+import com.best.billing.metervalues.model.MeterValue;
+import com.best.billing.metervalues.model.MethodProvideMeterValue;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * История изменения вида диффиринцироованности
@@ -55,19 +60,34 @@ public class MeterDifferentiationType implements BaseHistory, RoomEvent {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "differentiation_type_id", nullable = false)
     private DifferentiationType differentiationType;
-    @Override
-    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
-        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
 
-        for (int i=0;i<result.getAccountingPointProperties().size();i++) {
+    @Override
+    public RoomProperties register(@NonNull final RoomProperties previousProperties, final RoomEvent previousEvent, @NonNull final List<MeterValue> currentMeterValues) {
+        RoomProperties result = previousProperties
+                .cloneBuilder(previousEvent, currentMeterValues)
+                .registrationPeriod(period)
+                .registrationPeriodFact(periodFact)
+                .build();
+
+        for (int i = 0; i < result.getAccountingPointProperties().size(); i++) {
             AccountingPointProperty accountingPointProperty = result.getAccountingPointProperties().get(i);
             if (accountingPointProperty.getMeterId() == this.meter.getId()) {
                 AccountingPointProperty.AccountingPointPropertyBuilder accountingPointPropertiesBuilder =
                         accountingPointProperty.toBuilder().differentiationTypeId(this.differentiationType.getId());
-                result.getAccountingPointProperties().set(i,accountingPointPropertiesBuilder.build());
+                result.getAccountingPointProperties().set(i, accountingPointPropertiesBuilder.build());
             }
         }
 
         return result;
+    }
+
+    @Override
+    public boolean isProvideMeterValue() {
+        return true;
+    }
+
+    @Override
+    public MethodProvideMeterValue getMethodProvideMeterValue() {
+        return MethodProvideMeterValue.METER_DIFFERENTIATION_TYPE;
     }
 }

@@ -53,7 +53,7 @@ class RoomResidentRepositoryTest {
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,1,1,0,0,0))
-                .residentCount(1)
+                .residentCount((short)1)
                 .build());
 
         Optional<RoomResident> roomResident = repository.findOneLastByKeyRoomId(keyRoom.getId());
@@ -85,13 +85,13 @@ class RoomResidentRepositoryTest {
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2019,1,1,0,0,0))
-                .residentCount(1)
+                .residentCount((short)1)
                 .build());
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,1,1,0,0,0))
-                .residentCount(15)
+                .residentCount((short)15)
                 .build());
 
         Optional<RoomResident> roomResident = repository.findOneLastByKeyRoomId(keyRoom.getId());
@@ -123,13 +123,13 @@ class RoomResidentRepositoryTest {
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2019,1,1,0,0,0))
-                .residentCount(1)
+                .residentCount((short)1)
                 .build());
 
         em.persist(RoomResident.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,1,1,0,0,0))
-                .residentCount(15)
+                .residentCount((short)15)
                 .build());
 
         Iterable<RoomResident> roomResidents = repository.findAllByKeyRoomId(keyRoom.getId());

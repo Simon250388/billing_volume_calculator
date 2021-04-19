@@ -1,5 +1,6 @@
 package com.best.billing.departmen.customer;
 
+import com.best.billing.metervalues.model.MeterValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
@@ -7,7 +8,9 @@ import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Value
 @Builder(toBuilder = true)
@@ -25,8 +28,9 @@ public class RoomProperties {
     List<AccountingPointProperty> accountingPointProperties;
     List<RoomMeterValue> roomMeterValues;
 
-    public RoomPropertiesBuilder getNewInstance(@NonNull final RoomEvent event, final RoomEvent previousEvent) {
-        LocalDateTime previousRegistrationPeriod, previousRegistrationPeriodFact;
+    public RoomPropertiesBuilder cloneBuilder(final RoomEvent previousEvent, @NonNull final List<MeterValue> currentMeterValues) {
+        LocalDateTime previousRegistrationPeriod;
+        LocalDateTime previousRegistrationPeriodFact;
 
         List<AccountingPointProperty> newAccountingPointProperties = new ArrayList<>();
 
@@ -36,23 +40,28 @@ public class RoomProperties {
 
         List<RoomMeterValue> newMeterValues = new ArrayList<>();
 
-        for (RoomMeterValue meterValue : this.roomMeterValues) {
-            newMeterValues.add(meterValue.toBuilder().build());
+        for (MeterValue meterValue : currentMeterValues) {
+            newMeterValues.add(
+                    RoomMeterValue.builder()
+                            .meterId(meterValue.getMeter().getId())
+                            .value(meterValue.getValue())
+                            .build()
+            );
         }
 
         if (previousEvent == null) {
-            previousRegistrationPeriod =  LocalDateTime.of(1,1,1,0,0,0);
-            previousRegistrationPeriodFact =  LocalDateTime.of(1,1,1,0,0,0);
+            previousRegistrationPeriod = LocalDateTime.of(1, 1, 1, 0, 0, 0);
+            previousRegistrationPeriodFact = LocalDateTime.of(1, 1, 1, 0, 0, 0);
         } else {
             previousRegistrationPeriod = previousEvent.getPeriod();
-            previousRegistrationPeriodFact = previousEvent.getPeriod();
+            previousRegistrationPeriodFact = previousEvent.getPeriodFact();
         }
 
         return this.toBuilder()
                 .accountingPointProperties(newAccountingPointProperties)
                 .roomMeterValues(newMeterValues)
-                .registrationPeriod(event.getPeriod())
-                .registrationPeriodFact(event.getPeriodFact())
+                .registrationPeriod(null)
+                .registrationPeriodFact(null)
                 .previousEventRegistrationPeriod(previousRegistrationPeriod)
                 .previousEventRegistrationPeriodFact(previousRegistrationPeriodFact);
     }
@@ -66,10 +75,10 @@ public class RoomProperties {
     }
 
     public long getDurationsByDays() {
-       return registrationPeriod.until(previousEventRegistrationPeriod, ChronoUnit.DAYS);
+        return registrationPeriod.until(previousEventRegistrationPeriod, ChronoUnit.DAYS);
     }
 
-    public List<RoomMeterValue> getPrevoiusRoomMeterValues() {
-        return null;
+    public List<RoomMeterValue> getPreviousRoomMeterValues() {
+        return Collections.emptyList();
     }
 }
