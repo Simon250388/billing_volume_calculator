@@ -48,14 +48,14 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
         for (RoomMeterValue currentMeterValue : currentMeterValuesByMeterId) {
             double previousValue = previousMeterValuesByMeterId.stream()
                     .filter(roomMeterValue -> roomMeterValue.getScaleId() == currentMeterValue.getScaleId()
-                            && roomMeterValue.getReitGroupId() == currentMeterValue.getReitGroupId())
+                            && roomMeterValue.getRateZoneId() == currentMeterValue.getRateZoneId())
                     .findAny().orElse(currentMeterValue).getValue();
 
             double volumeByScale = currentMeterValue.getValue() - previousValue;
 
             result.add(CalculationResultImpl.builder()
                     .calculationMethod(getCalculationMethod())
-                    .reitGroupId(currentMeterValue.getReitGroupId())
+                    .reitGroupId(currentMeterValue.getRateZoneId())
                     .scaleId(currentMeterValue.getScaleId())
                     .volume(volumeByScale)
                     .build());

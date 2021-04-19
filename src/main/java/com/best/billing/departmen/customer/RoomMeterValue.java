@@ -9,7 +9,7 @@ import lombok.Value;
 @AllArgsConstructor
 public class RoomMeterValue {
     long meterId;
-    long reitGroupId;
+    long rateZoneId;
     long scaleId;
     double value;
 

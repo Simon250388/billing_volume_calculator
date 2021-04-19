@@ -45,6 +45,10 @@ public class RoomProperties {
                     RoomMeterValue.builder()
                             .meterId(meterValue.getMeter().getId())
                             .value(meterValue.getValue())
+                            // TODO FIX ME
+                            .scaleId(-1)
+                            // TODO FIX ME
+                            .rateZoneId(-1)
                             .build()
             );
         }
