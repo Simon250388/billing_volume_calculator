@@ -5,10 +5,14 @@ import com.best.billing.departmen.customer.RoomEventsJournal;
 import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.metervalues.model.MeterValue;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
+@Slf4j
 class RoomEventsJournalImpl implements RoomEventsJournal {
 
     private final List<RoomEvent> orderEvents;
