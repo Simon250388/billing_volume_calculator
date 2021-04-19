@@ -7,10 +7,15 @@ import com.best.billing.common.model.Service;
 import com.best.billing.departmen.customer.RoomEvent;
 import com.best.billing.departmen.customer.RoomProperties;
 import com.best.billing.departmen.customer.ServicePartProperty;
-import lombok.*;
+import com.best.billing.metervalues.model.MeterValue;
+import com.best.billing.metervalues.model.MethodProvideMeterValue;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Тарифные группы услуг помещения
@@ -19,7 +24,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "room_rate_groups")
-public class RoomRateGroup  implements BaseHistory, RoomEvent {
+public class RoomRateGroup implements BaseHistory, RoomEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -40,10 +45,15 @@ public class RoomRateGroup  implements BaseHistory, RoomEvent {
     private RateGroup rateGroup;
 
     @Override
-    public RoomProperties register(@NonNull final RoomProperties origin, final RoomEvent previousEvent) {
-        RoomProperties result = origin.getNewInstance(this, previousEvent).build();
+    public RoomProperties register(@NonNull final RoomProperties previousProperties, final RoomEvent previousEvent, @NonNull final List<MeterValue> currentMeterValues) {
+        RoomProperties result = previousProperties
+                .cloneBuilder(previousEvent, currentMeterValues)
+                .registrationPeriod(period)
+                .registrationPeriodFact(periodFact)
+                .build();
+
         result.getAccountingPointProperties().forEach(accountingPointProperty -> {
-            for (int i = 0; i< accountingPointProperty.getServicePartProperties().size(); i++) {
+            for (int i = 0; i < accountingPointProperty.getServicePartProperties().size(); i++) {
                 ServicePartProperty servicePartProperty = accountingPointProperty.getServicePartProperties().get(i);
                 if (servicePartProperty.getServicePartId() == this.service.getId()) {
                     final ServicePartProperty newServicePartProperty = servicePartProperty.toBuilder().roomRateGroupId(this.rateGroup.getId()).build();
@@ -53,5 +63,15 @@ public class RoomRateGroup  implements BaseHistory, RoomEvent {
         });
 
         return result;
+    }
+
+    @Override
+    public boolean isProvideMeterValue() {
+        return false;
+    }
+
+    @Override
+    public MethodProvideMeterValue getMethodProvideMeterValue() {
+        return null;
     }
 }

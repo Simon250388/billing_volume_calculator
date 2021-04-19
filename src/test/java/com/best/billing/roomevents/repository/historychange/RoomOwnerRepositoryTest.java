@@ -54,7 +54,7 @@ class RoomOwnerRepositoryTest {
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,1,1,0,0,0))
-                .ownerCount(1)
+                .ownerCount((short)1)
                 .build());
 
         Optional<RoomOwner> roomOwner = repository.findOneLastByKeyRoomId(keyRoom.getId());
@@ -86,13 +86,13 @@ class RoomOwnerRepositoryTest {
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2019,1,1,0,0,0))
-                .ownerCount(1)
+                .ownerCount((short)1)
                 .build());
 
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,2,1,0,0,0))
-                .ownerCount(15)
+                .ownerCount((short)15)
                 .build());
 
         Optional<RoomOwner> roomOwner = repository.findOneLastByKeyRoomId(keyRoom.getId());
@@ -124,13 +124,13 @@ class RoomOwnerRepositoryTest {
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2019,2,1,0,0,0))
-                .ownerCount(1)
+                .ownerCount((short)1)
                 .build());
 
         em.persist(RoomOwner.builder()
                 .keyRoom(keyRoom)
                 .period(LocalDateTime.of(2020,2,1,0,0,0))
-                .ownerCount(15)
+                .ownerCount((short)15)
                 .build());
 
         Iterable<RoomOwner> roomOwners = repository.findAllByKeyRoomId(keyRoom.getId());

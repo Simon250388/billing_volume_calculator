@@ -1,7 +1,8 @@
-package com.best.billing.roomevents.models;
+package com.best.billing.metervalues.model;
 
 import com.best.billing.base.model.BaseHistory;
 import com.best.billing.common.model.Meter;
+import com.best.billing.roomevents.models.AccountingPointKeyRoomServiceEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,4 +45,15 @@ public class MeterValue implements BaseHistory {
     private Meter meter;
     @Column(nullable = false)
     private double value;
+    /**
+     * Тип события которым были зарегистрированы показания
+     */
+    @Column(name = "event_type_id", nullable = false)
+    @Convert(converter = MethodProvideMeterValueConvertor.class)
+    private MethodProvideMeterValue methodProvideMeterValue;
+    /**
+     * Ключ события которым были зарегестрированы показания
+     */
+    @Column(name = "event_id")
+    private long eventId;
 }

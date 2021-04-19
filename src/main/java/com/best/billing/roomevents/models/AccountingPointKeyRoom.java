@@ -3,7 +3,8 @@ package com.best.billing.roomevents.models;
 import com.best.billing.base.model.BaseEntity;
 import com.best.billing.common.model.AccountingPoint;
 import com.best.billing.common.model.KeyRoom;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 

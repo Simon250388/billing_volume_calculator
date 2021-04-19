@@ -1,6 +1,6 @@
-package com.best.billing.roomevents.repository;
+package com.best.billing.metervalues.repository;
 
-import com.best.billing.roomevents.models.MeterValue;
+import com.best.billing.metervalues.model.MeterValue;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
