@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <include file="direction-of-uses-table.xml" relativeToChangelogFile="true"></include>
+    <include file="meter-types-table.xml" relativeToChangelogFile="true"></include>
+    <include file="buildings-table.xml" relativeToChangelogFile="true"></include>
+    <include file="accounting-points-table.xml" relativeToChangelogFile="true"></include>
+    <include file="services-table.xml" relativeToChangelogFile="true"></include>
+    <include file="services-table.xml" relativeToChangelogFile="true"></include>
+    <include file="differentiation-types-table.xml" relativeToChangelogFile="true"></include>
+    <include file="providers-table.xml" relativeToChangelogFile="true"></include>
+    <include file="rooms-table.xml" relativeToChangelogFile="true"></include>
+    <include file="key-rooms-table.xml" relativeToChangelogFile="true"></include>
+    <include file="accounting-point-key-room-table.xml" relativeToChangelogFile="true"/>
+    <include file="accounting-point-key-room-service-entity-table.xml" relativeToChangelogFile="true"/>
+    <include file="accounting-point-service-state-table.xml" relativeToChangelogFile="true"/>
+    <include file="accounting-point-service-provider-table.xml" relativeToChangelogFile="true"/>
+    <include file="meter-differentiation-type-table.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>
