@@ -9,14 +9,18 @@ import org.springframework.stereotype.Component;
 @Qualifier("ByAvgNormCalculationValidator")
 @Slf4j
 public class ByAvgNormCalculationValidator implements CalculationValidator {
-//    @Override
-//    public boolean canCalculateVolume(@NonNull final CalculationSettings calculationSettings,
-//                                      @NonNull final RoomProperties roomProperties,
-//                                      @NonNull final AccountingPointProperty accountingPointProperty,
-//                                      @NonNull final ServicePartProperty servicePartProperty) {
-//        return accountingPointProperty.isServiceActive() &&
-//                accountingPointProperty.getMeterState() == MeterState.ACTIVE
-//                && !roomProperties.isMeterValuesProvideForAllPointsOfServices(servicePartProperty.getServicePartId())
-//                && !roomProperties.isHasAvgVolumeForAllPointsOfServices(servicePartProperty.getServicePartId());
-//    }
+  //    @Override
+  //    public boolean canCalculateVolume(@NonNull final CalculationSettings calculationSettings,
+  //                                      @NonNull final RoomProperties roomProperties,
+  //                                      @NonNull final AccountingPointProperty
+  // accountingPointProperty,
+  //                                      @NonNull final ServicePartProperty servicePartProperty) {
+  //        return accountingPointProperty.isServiceActive() &&
+  //                accountingPointProperty.getMeterState() == MeterState.ACTIVE
+  //                &&
+  // !roomProperties
+    // .isMeterValuesProvideForAllPointsOfServices(servicePartProperty.getServicePartId())
+  //                &&
+  // !roomProperties.isHasAvgVolumeForAllPointsOfServices(servicePartProperty.getServicePartId());
+  //    }
 }

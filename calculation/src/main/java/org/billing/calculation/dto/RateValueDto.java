@@ -1,4 +1,3 @@
 package org.billing.calculation.dto;
 
-public interface RateValueDTO {
-}
+public interface RateValueDto {}

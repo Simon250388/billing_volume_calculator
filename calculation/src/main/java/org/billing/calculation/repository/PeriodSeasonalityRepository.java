@@ -1,11 +1,10 @@
 package org.billing.calculation.repository;
 
-import org.billing.calculation.dto.PeriodSeasonalityDTO;
+import java.util.concurrent.CompletableFuture;
+import org.billing.calculation.dto.PeriodSeasonalityDto;
 import org.billing.calculation.model.PeriodSeasonality;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.concurrent.CompletableFuture;
-
 public interface PeriodSeasonalityRepository extends CrudRepository<PeriodSeasonality, Long> {
-    CompletableFuture<Iterable<PeriodSeasonalityDTO>> findAllByYear(int year);
+  CompletableFuture<Iterable<PeriodSeasonalityDto>> findAllByYear(int year);
 }
