@@ -1,15 +1,21 @@
 package org.billing.common.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-/**
- * Помещение
- */
+/** Помещение. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,20 +23,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rooms")
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Version
-    private long version;
-    @Column(name = "description", nullable = false, length = 50)
-    private String description;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "building_id", nullable = false)
-    private Building building;
-    /**
-     * Родительское помещение, заполненно только для коммунальных квартир
-     */
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "parent_id")
-    private Room parent;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  @Version private long version;
+
+  @Column(name = "description", nullable = false, length = 50)
+  private String description;
+
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "building_id", nullable = false)
+  private Building building;
+  /** Родительское помещение, заполненно только для коммунальных квартир. */
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "parent_id")
+  private Room parent;
 }

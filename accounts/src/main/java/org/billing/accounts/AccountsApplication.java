@@ -7,16 +7,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableJpaRepositories(
-        basePackages = {
-                "org.billing.accounts.repository"
-        })
-@EntityScan(basePackages = {
-        "org.billing.accounts.model"
-})
+@EnableJpaRepositories(basePackages = {"org.billing.accounts.repository"})
+@EntityScan(basePackages = {"org.billing.accounts.model"})
 @EnableTransactionManagement
 public class AccountsApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(AccountsApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(AccountsApplication.class, args);
+  }
 }

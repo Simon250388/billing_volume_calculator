@@ -11,27 +11,30 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class VolumeByNormCalculationRule implements CalculationRule {
 
-//    @Override
-//    public List<CalculationResult> volume(@NonNull final CalculationSettings calculationSettings,
-//                                          @NonNull final RoomProperties roomProperties,
-//                                          @NonNull final AccountingPointProperty accountingPointProperty,
-//                                          @NonNull final ServicePartProperty servicePartProperty) {
-//        return Collections.emptyList();
-////        int coefficientNormValue = roomProperties.getCoefficientNormValue();
-////
-////        long normIndex = item.getNormIndex();
-////
-////        long durationByDays = roomProperties.getDurationsByDays();
-////
-////        long daysOfCalculationPeriod = calculationSettings.getDaysOfCalculationPeriod();
-////
-////        int normValue = servicePartProperty.geyNormValue();
-////
-////        return (normValue * coefficientNormValue * normIndex * durationByDays / daysOfCalculationPeriod);
-//    }
+  //    @Override
+  //    public List<CalculationResult> volume(@NonNull final CalculationSettings
+  // calculationSettings,
+  //                                          @NonNull final RoomProperties roomProperties,
+  //                                          @NonNull final AccountingPointProperty
+  // accountingPointProperty,
+  //                                          @NonNull final ServicePartProperty
+  // servicePartProperty) {
+  //        return Collections.emptyList();
+  ////        int coefficientNormValue = roomProperties.getCoefficientNormValue();
+  ////
+  ////        long normIndex = item.getNormIndex();
+  ////
+  ////        long durationByDays = roomProperties.getDurationsByDays();
+  ////
+  ////        long daysOfCalculationPeriod = calculationSettings.getDaysOfCalculationPeriod();
+  ////
+  ////        int normValue = servicePartProperty.geyNormValue();
+  ////
+  ////        return (normValue * coefficientNormValue * normIndex * durationByDays /
+  // daysOfCalculationPeriod);
+  //    }
 
-
-    protected CalculationMethod getCalculationMethod() {
-        return CalculationMethod.BY_NORM;
-    }
+  protected CalculationMethod getCalculationMethod() {
+    return CalculationMethod.BY_NORM;
+  }
 }

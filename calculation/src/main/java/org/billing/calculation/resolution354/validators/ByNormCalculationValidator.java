@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 @Qualifier("ByNormCalculationValidator")
 @Slf4j
 public class ByNormCalculationValidator implements CalculationValidator {
-//    @Override
-//    public boolean canCalculateVolume(@NonNull final CalculationSettings calculationSettings,
-//                                      @NonNull final RoomProperties roomProperties,
-//                                      @NonNull final AccountingPointProperty accountingPointProperty,
-//                                      @NonNull final ServicePartProperty servicePartProperty) {
-//        MeterState meterState = accountingPointProperty.getMeterState();
-//        return accountingPointProperty.isServiceActive()
-//                && meterState != MeterState.ACTIVE;
-//    }
+  //    @Override
+  //    public boolean canCalculateVolume(@NonNull final CalculationSettings calculationSettings,
+  //                                      @NonNull final RoomProperties roomProperties,
+  //                                      @NonNull final AccountingPointProperty
+  // accountingPointProperty,
+  //                                      @NonNull final ServicePartProperty servicePartProperty) {
+  //        MeterState meterState = accountingPointProperty.getMeterState();
+  //        return accountingPointProperty.isServiceActive()
+  //                && meterState != MeterState.ACTIVE;
+  //    }
 }

@@ -2,8 +2,7 @@ package org.billing.accountingpoints.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import org.billing.accountingpoints.dto.MeterDifferentiationTypeDTO;
-import org.billing.accountingpoints.model.MeterDifferentiationType;
+import org.billing.accountingpoints.dto.MeterDifferentiationTypeDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -30,14 +29,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DatabaseSetup("/db/accounting-points.xml")
 class MeterDifferentiationTypeRepositoryTest {
 
+    private final MeterDifferentiationTypeRepository repository;
+
     @Autowired
-    private MeterDifferentiationTypeRepository repository;
+    MeterDifferentiationTypeRepositoryTest(MeterDifferentiationTypeRepository repository) {
+        this.repository = repository;
+    }
 
     @Test
     @DatabaseSetup("/db/meter-differentiation-type.xml")
     void findAllLastByKeyRoomId() {
         final long keyRoomId = 1;
-        List<MeterDifferentiationTypeDTO> result = repository.findAllLastByKeyRoomId(keyRoomId);
+        List<MeterDifferentiationTypeDto> result = repository.findAllLastByKeyRoomId(keyRoomId);
         assertAll("",
                 () -> assertEquals(1, result.size()),
                 () -> assertEquals(2, result.get(0).getDifferentiationTypeId())

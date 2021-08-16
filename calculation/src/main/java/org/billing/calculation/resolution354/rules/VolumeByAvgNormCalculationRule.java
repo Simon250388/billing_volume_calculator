@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 @Component()
 @Qualifier("VolumeByAvgNormRule")
 @Slf4j
-public class VolumeByAvgNormCalculationRule extends VolumeByNormCalculationRule implements CalculationRule {
+public class VolumeByAvgNormCalculationRule extends VolumeByNormCalculationRule
+    implements CalculationRule {
 
-    @Override
-    protected CalculationMethod getCalculationMethod() {
-        return CalculationMethod.BY_AVG_NORM;
-    }
+  @Override
+  protected CalculationMethod getCalculationMethod() {
+    return CalculationMethod.BY_AVG_NORM;
+  }
 }
