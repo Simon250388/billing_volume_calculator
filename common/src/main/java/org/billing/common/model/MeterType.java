@@ -1,4 +1,4 @@
-package org.billing.accountingpoints.model;
+package org.billing.common.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,33 +1,25 @@
 package org.billing.accountingpoints.dto;
 
-import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import java.time.Instant;
 import org.springframework.beans.factory.annotation.Value;
 
 public interface AccountingPointServiceStateDto {
-
-  @NotNull
   @Value("#{target.id}")
-  long getId();
+  Long getId();
 
-  @NotNull
   @Value("#{target.period}")
-  LocalDateTime getPeriod();
+  Instant getPeriod();
 
-  @Null
   @Value("#{target.period_fact}")
-  LocalDateTime getPeriodFact();
+  Instant getPeriodFact();
 
-  @NotNull
-  @Value("#{target.accounting_point_key_room_service_id}")
-  Long getAccountingPointKeyRoomServiceEntityId();
+  @Value("#{target.accountPointId}")
+  Long getAccountPointId();
 
-  @Null
-  @Value("#{target.active}")
-  Boolean getServicePartId();
+  @Value("#{target.serviceId}")
+  Long getServiceId();
 
-  boolean equals(Object o);
+  boolean equals(Object ob);
 
   int hashCode();
 }

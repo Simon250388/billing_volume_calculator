@@ -26,7 +26,7 @@ import org.billing.rooms.model.KeyRoom;
 @Builder
 @Entity
 @Table(name = "room_improvement_types")
-public class RoomImprovementType {
+public class ServiceImprovementType {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
