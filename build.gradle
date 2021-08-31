@@ -100,5 +100,3 @@ project(':calculation') {
         implementation project(':rooms')
     }
 }
-
-

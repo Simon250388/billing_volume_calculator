@@ -1,12 +1,12 @@
 package org.billing.accountingpoints.repository;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.util.List;
-import org.billing.accountingpoints.dto.MeterDifferentiationTypeDto;
+import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
     properties = {
       "spring.liquibase.enabled=false",
       "spring.jpa.show-sql=true",
-      "spring.jpa.properties.hibernate.format_sql=true"
+      "spring.jpa.properties.hibernate.format_sql=true",
     })
 @TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,
@@ -28,24 +28,19 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 })
 @DatabaseSetup("/db/common.xml")
 @DatabaseSetup("/db/accounting-points.xml")
-class MeterDifferentiationTypeRepositoryTest {
+class AccountingPointPresentDtoServiceProviderRepositoryTest {
 
-  private final MeterDifferentiationTypeRepository repository;
-
-  @Autowired
-  MeterDifferentiationTypeRepositoryTest(MeterDifferentiationTypeRepository repository) {
-    this.repository = repository;
-  }
+  @Autowired private AccountingPointServiceProviderRepository repository;
 
   @Test
   @Tag("medium")
-  @DatabaseSetup("/db/meter-differentiation-type.xml")
+  @DatabaseSetup("/db/service-provider.xml")
   void findAllLastByKeyRoomId() {
     final long keyRoomId = 1;
-    List<MeterDifferentiationTypeDto> result = repository.findAllLastByKeyRoomId(keyRoomId);
-    assertAll(
-        "",
-        () -> assertEquals(1, result.size()),
-        () -> assertEquals(2, result.get(0).getDifferentiationTypeId()));
+    List<AccountingPointServiceProviderDto> allLastByKeyRoomId =
+        repository.findAllLastByKeyRoomId(keyRoomId);
+    Assertions.assertEquals(1, allLastByKeyRoomId.size());
+    final long providerId = 2;
+    assertEquals(providerId, allLastByKeyRoomId.get(0).getProviderId());
   }
 }

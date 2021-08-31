@@ -1,6 +1,5 @@
 package org.billing.accountingpoints.repository;
 
-import java.io.Serializable;
 import java.util.List;
 import lombok.NonNull;
 import org.billing.accountingpoints.dto.AccountingPointMeterStateDto;
@@ -9,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-interface AccountingPointMeterStateRepository
-        extends JpaRepository<AccountingPointMeterState, Long> {
+public interface AccountingPointMeterStateRepository
+    extends JpaRepository<AccountingPointMeterState, Long> {
 
   @Query(
       nativeQuery = true,
