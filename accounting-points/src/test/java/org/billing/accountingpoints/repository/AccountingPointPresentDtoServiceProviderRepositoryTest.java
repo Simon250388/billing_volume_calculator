@@ -18,9 +18,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @DataJpaTest
 @TestPropertySource(
     properties = {
-      "spring.liquibase.enabled=false",
-      "spring.jpa.show-sql=true",
-      "spring.jpa.properties.hibernate.format_sql=true",
+      "spring.liquibase.enabled=false"
     })
 @TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,

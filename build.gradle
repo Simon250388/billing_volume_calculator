@@ -100,3 +100,15 @@ project(':calculation') {
         implementation project(':rooms')
     }
 }
+
+project(':cucumber-test') {
+    dependencies {
+        implementation project(':accounting-points')
+        implementation project(':rooms')
+        implementation project(':meter-values')
+        implementation project(':calculation')
+        testImplementation 'io.cucumber:cucumber-java:6.11.0'
+        testImplementation 'io.cucumber:cucumber-junit:6.11.0'
+        testImplementation 'io.cucumber:cucumber-spring:6.11.0'
+    }
+}

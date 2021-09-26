@@ -3,6 +3,7 @@ include(
         'accounting-points',
         'accounts',
         'calculation',
+        'cucumber-test',
         'common',
         'db',
         'meter-values',

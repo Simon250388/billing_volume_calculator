@@ -13,12 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MeterStateServiceImpl implements MeterStateService {
 
-  private final AccountingPointMeterStateRepository meterStateDao;
-
-  @Autowired
+    @Autowired
   public MeterStateServiceImpl(AccountingPointMeterStateRepository meterStateDao) {
-    this.meterStateDao = meterStateDao;
-  }
+    }
 
   @Override
   public CompletableFuture<Set<AccountingPointMeterStateDtoValue>>
