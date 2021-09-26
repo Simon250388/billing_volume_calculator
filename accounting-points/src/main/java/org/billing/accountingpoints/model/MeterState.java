@@ -4,5 +4,5 @@ package org.billing.accountingpoints.model;
 public enum MeterState {
   ACTIVE,
   DISABLE,
-  VERIFICATION;
+  VERIFICATION
 }
