@@ -1,4 +1,4 @@
-package org.billing.api;
+package org.billing.calculation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication
 @EnableAutoConfiguration(
     exclude = {DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class})
-public class ApiApplication {
+public class CalculationApp {
   public static void main(String[] args) {
-    SpringApplication.run(ApiApplication.class, args);
+    SpringApplication.run(CalculationApp.class, args);
   }
 }

@@ -6,6 +6,10 @@ plugins {
     id 'checkstyle'
 }
 
+application {
+    mainClass = 'org.billing.calculation.CalculationApp'
+}
+
 repositories {
     mavenCentral()
 }
@@ -18,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':common')
+    implementation project(':rooms')
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.boot:spring-boot-starter'

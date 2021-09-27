@@ -1,4 +1,4 @@
-package org.billing.common.model;
+package org.billing.metervalues.model;
 
 public enum MethodProvideMeterValue {
   METER_DIFFERENTIATION_TYPE(1),

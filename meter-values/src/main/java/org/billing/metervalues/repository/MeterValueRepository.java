@@ -1,7 +1,7 @@
-package org.billing.common.repository;
+package org.billing.metervalues.repository;
 
 import lombok.NonNull;
-import org.billing.common.model.MeterValue;
+import org.billing.metervalues.model.MeterValue;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

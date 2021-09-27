@@ -6,6 +6,10 @@ plugins {
     id 'checkstyle'
 }
 
+application {
+    mainClass = 'org.billing.db.DbApp'
+}
+
 repositories {
     mavenCentral()
 }
