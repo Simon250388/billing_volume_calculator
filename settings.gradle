@@ -1,5 +1,6 @@
 
 include(
+        'api',
         'accounting-points',
         'accounts',
         'calculation',
