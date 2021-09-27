@@ -1,4 +1,4 @@
-package org.billing.common.model;
+package org.billing.metervalues.model;
 
 import java.util.stream.Stream;
 import javax.persistence.AttributeConverter;

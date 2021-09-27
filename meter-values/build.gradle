@@ -6,6 +6,10 @@ plugins {
     id 'checkstyle'
 }
 
+application {
+    mainClass = 'org.billing.metervalues.MeterValuesApp'
+}
+
 repositories {
     mavenCentral()
 }
@@ -18,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':accounting-points')
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.boot:spring-boot-starter'

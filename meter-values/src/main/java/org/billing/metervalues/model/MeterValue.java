@@ -1,4 +1,4 @@
-package org.billing.common.model;
+package org.billing.metervalues.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;

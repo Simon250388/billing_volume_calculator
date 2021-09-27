@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AccountingController {
 
-  @PostMapping
+  @PostMapping("/create")
   public ResponseEntity<AccountResponse> createAccount(@RequestBody AccountRequest accountRequest) {
     return new ResponseEntity(AccountResponse.builder().build(), HttpStatus.OK);
   }
 
-
+  @PostMapping("/terminate")
+  public ResponseEntity<AccountResponse> terminateAccount(
+      @RequestBody AccountRequest accountRequest) {
+    return new ResponseEntity(AccountResponse.builder().build(), HttpStatus.OK);
+  }
 }
