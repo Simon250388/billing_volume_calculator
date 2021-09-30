@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':api')
     implementation project(':accounting-points')
     implementation project(':rooms')
     implementation project(':meter-values')
@@ -30,6 +31,8 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-java:6.11.0'
     testImplementation 'io.cucumber:cucumber-junit:6.11.0'
     testImplementation 'io.cucumber:cucumber-spring:6.11.0'
+    testImplementation 'org.testcontainers:testcontainers:1.16.0'
+    testImplementation 'org.testcontainers:junit-jupiter:1.16.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

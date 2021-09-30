@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+#  postgres:
+#    image: postgres
+  api:
+    image: gradle:jdk11-hotspot
+    working_dir: /project/api/
+    volumes:
+      - ../../../../api/:/project/api/
+    command: gradle run
+
+

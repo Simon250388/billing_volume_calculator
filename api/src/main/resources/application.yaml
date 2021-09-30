@@ -1,0 +1,7 @@
+services:
+  meter-value: meter-value
+  rooms: rooms
+
+server:
+  port: 8080
+

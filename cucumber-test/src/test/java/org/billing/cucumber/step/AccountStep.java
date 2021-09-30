@@ -3,6 +3,8 @@ package org.billing.cucumber.step;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.billing.api.dto.AccountResponse;
+import org.billing.api.dto.CreateAccountRequest;
 import org.billing.cucumber.service.RequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +19,8 @@ public class AccountStep {
 
   @Given("в строении {long} помещении {long} есть открытый лицевой счет")
   public void keyRoomHasActiveAccount(final Long buildingId, final Long roomId) {
-    System.out.printf("в строении %s помещении %s есть открытый лицевой счет%n", buildingId, roomId);
+    System.out.printf(
+        "в строении %s помещении %s есть открытый лицевой счет%n", buildingId, roomId);
   }
 
   @Given(
@@ -25,24 +28,26 @@ public class AccountStep {
   public void keyRoomHasActiveWithAccountNumber(
       final Long buildingId, final Long roomId, final String accountNumber) {
     System.out.printf(
-            "в строении %s помещении %s есть открытый лицевой счет c номером договора %s%n",
+        "в строении %s помещении %s есть открытый лицевой счет c номером договора %s%n",
         buildingId, roomId, accountNumber);
   }
 
-  @When("я отправляю запрос октрытия лицевого счета c параметрами {long} {long} {string}")
-  public void createAccountRequest(
-      final Long buildingId, final Long roomId, final String accountName) {
+  @When("я отправляю запрос октрытия лицевого счета c параметрами {long} {long}")
+  public void createAccountRequest(final Long keyRoomId, final Long customerId) {
+
+    CreateAccountRequest request =
+        CreateAccountRequest.builder().keyRoomId(keyRoomId).customerId(customerId).build();
+
+    requestBuilder.sendPostForEntity("accounting/create", request, AccountResponse.class);
+
     System.out.printf(
-            "Create request with params buildingId:%s roomId:%s, accountName:%s%n",
-        buildingId, roomId, accountName);
+        "Create request with params keyRoomId:%s customerId:%s%n", keyRoomId, customerId);
   }
 
-  @When("я отправляю запрос закрытия лицевого счета c параметрами {long} {long} {string}")
-  public void closeAccountRequest(
-          final Long buildingId, final Long roomId, final String accountName) {
+  @When("я отправляю запрос закрытия лицевого счета c параметрами {long} {long}")
+  public void closeAccountRequest(final Long keyRoomId, final Long customerId) {
     System.out.printf(
-            "Create request with params buildingId:%s roomId:%s, accountName:%s%n",
-            buildingId, roomId, accountName);
+        "Create request with params keyRoomId:%s customerId:%s%n", keyRoomId, customerId);
   }
 
   @Then("последний ответ не содержит ошибок")
