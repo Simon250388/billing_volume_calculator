@@ -1,4 +1,4 @@
-@withdrawal
+
 Feature: Заключение договора
 
   @success
