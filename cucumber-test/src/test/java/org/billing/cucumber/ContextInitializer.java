@@ -9,14 +9,15 @@ public class ContextInitializer
   @Override
   public void initialize(ConfigurableApplicationContext applicationContext) {
 
-      ContainerBox.initTestContainers();
+//      ContainerBox.initTestContainers();
+//
+//      final TestPropertyValues testPropertyValues = TestPropertyValues.of(
+//              "services.api.host="
+//                      + ContainerBox.compose.getServiceHost("api", ContainerBox.API_PORT),
+//              "services.api.port="
+//                      + ContainerBox.compose.getServicePort("api", ContainerBox.API_PORT));
+//
+//      testPropertyValues.applyTo(applicationContext.getEnvironment());
 
-      final TestPropertyValues testPropertyValues = TestPropertyValues.of(
-              "services.api.host="
-                      + ContainerBox.compose.getServiceHost("api", ContainerBox.API_PORT),
-              "services.api.port="
-                      + ContainerBox.compose.getServicePort("api", ContainerBox.API_PORT));
-
-      testPropertyValues.applyTo(applicationContext.getEnvironment());
   }
 }
