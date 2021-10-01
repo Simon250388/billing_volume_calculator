@@ -17,10 +17,10 @@ public class AccountStep {
     System.out.printf("last account number %s%n", lastAccountNumber);
   }
 
-  @Given("в строении {long} помещении {long} есть открытый лицевой счет")
-  public void keyRoomHasActiveAccount(final Long buildingId, final Long roomId) {
+  @Given("в ключе помещения {long} открыт лицевой счет на физ лицо к ключом {long}")
+  public void keyRoomHasActiveAccount(final Long keyRoomId, final Long accountId) {
     System.out.printf(
-        "в строении %s помещении %s есть открытый лицевой счет%n", buildingId, roomId);
+        "в ключе помещения %s открыт лицевой счет c ключом %s%n", keyRoomId, accountId);
   }
 
   @Given(
@@ -35,13 +35,13 @@ public class AccountStep {
   @When("я отправляю запрос октрытия лицевого счета c параметрами {long} {long}")
   public void createAccountRequest(final Long keyRoomId, final Long customerId) {
 
-    CreateAccountRequest request =
-        CreateAccountRequest.builder().keyRoomId(keyRoomId).customerId(customerId).build();
-
-    requestBuilder.sendPostForEntity("accounting/create", request, AccountResponse.class);
+//    CreateAccountRequest request =
+//        CreateAccountRequest.builder().keyRoomId(keyRoomId).customerId(customerId).build();
+//
+//    requestBuilder.sendPostForEntity("accounting/create", request, AccountResponse.class);
 
     System.out.printf(
-        "Create request with params keyRoomId:%s customerId:%s%n", keyRoomId, customerId);
+        "я отправляю запрос октрытия лицевого счета c параметрами keyRoomId=%s, customerId=%s %n", keyRoomId, customerId);
   }
 
   @When("я отправляю запрос закрытия лицевого счета c параметрами {long} {long}")
