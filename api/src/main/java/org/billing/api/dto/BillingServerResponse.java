@@ -8,11 +8,8 @@ import lombok.Value;
 
 @Value
 @Builder
-@JsonDeserialize(builder = AccountResponse.AccountResponseBuilder.class)
-public class AccountResponse {
-  @JsonProperty("keyRoomId")
-  Long keyRoomId;
-
-  @JsonProperty("accountKey")
-  UUID accountId;
+@JsonDeserialize(builder = BillingServerResponse.BillingServerResponseBuilder.class)
+public class BillingServerResponse {
+  @JsonProperty("queryId")
+  UUID queryId;
 }

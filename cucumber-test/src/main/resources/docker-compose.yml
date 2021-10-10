@@ -3,10 +3,8 @@ services:
 #  postgres:
 #    image: postgres
   api:
-    image: gradle:jdk11-hotspot
-    working_dir: /project/api/
-    volumes:
-      - ../../../../api/:/project/api/
-    command: gradle run
+    image: docker.io/billing/api:0.0.1-SNAPSHOT
+    ports:
+      - 10800:8080
 
 

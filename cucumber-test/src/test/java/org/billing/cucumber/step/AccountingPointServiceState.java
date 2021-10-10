@@ -25,4 +25,12 @@ public class AccountingPointServiceState {
         "я отправляю запрос подключения услуги с параметрами keyRoomId=%s, accountingPointId=%s, serviceId=%s%n",
         keyRoomId, accountingPointId, serviceId);
   }
+
+  @When("я отправляю запрос отключения услуги с параметрами {long} {long} {long}")
+  public void sendRequestDisconnectServiceToAccountingPointInKeyRoom(
+      final Long keyRoomId, final Long accountingPointId, final Long serviceId) {
+    System.out.printf(
+        "я отправляю запрос отключения услуги с параметрами keyRoomId=%s, accountingPointId=%s, serviceId=%s%n",
+        keyRoomId, accountingPointId, serviceId);
+  }
 }

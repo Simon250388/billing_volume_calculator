@@ -3,8 +3,6 @@ package org.billing.cucumber.step;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.billing.api.dto.AccountResponse;
-import org.billing.api.dto.CreateAccountRequest;
 import org.billing.cucumber.service.RequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,13 +33,14 @@ public class AccountStep {
   @When("я отправляю запрос октрытия лицевого счета c параметрами {long} {long}")
   public void createAccountRequest(final Long keyRoomId, final Long customerId) {
 
-//    CreateAccountRequest request =
-//        CreateAccountRequest.builder().keyRoomId(keyRoomId).customerId(customerId).build();
-//
-//    requestBuilder.sendPostForEntity("accounting/create", request, AccountResponse.class);
+    //    CreateAccountRequest request =
+    //        CreateAccountRequest.builder().keyRoomId(keyRoomId).customerId(customerId).build();
+    //
+    //    requestBuilder.sendPostForEntity("accounting/create", request, AccountResponse.class);
 
     System.out.printf(
-        "я отправляю запрос октрытия лицевого счета c параметрами keyRoomId=%s, customerId=%s %n", keyRoomId, customerId);
+        "я отправляю запрос октрытия лицевого счета c параметрами keyRoomId=%s, customerId=%s %n",
+        keyRoomId, customerId);
   }
 
   @When("я отправляю запрос закрытия лицевого счета c параметрами {long} {long}")
