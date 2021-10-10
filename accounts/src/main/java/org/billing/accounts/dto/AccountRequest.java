@@ -1,4 +1,4 @@
-package org.billing.api.dto;
+package org.billing.accounts.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -9,8 +9,8 @@ import lombok.Value;
 
 @Value
 @Builder
-@JsonDeserialize(builder = CreateAccountRequest.CreateAccountRequestBuilder.class)
-public class CreateAccountRequest {
+@JsonDeserialize(builder = AccountRequest.AccountRequestBuilder.class)
+public class AccountRequest {
   @NotNull
   @Positive
   @JsonProperty("keyRoomId")

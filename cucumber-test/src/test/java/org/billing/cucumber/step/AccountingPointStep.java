@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AccountingPointStep {
 
-    @Autowired
-    RequestBuilder requestBuilder;
+  @Autowired RequestBuilder requestBuilder;
 
-    @Given("есть точка учета с ключом {long}")
-    public void setupLastAccountNumber(final Long accountingPointId) {
-        System.out.printf("есть точка учета с ключом %s%n", accountingPointId);
-    }
-
+  @Given("есть точка учета с ключом {long}")
+  public void setupLastAccountNumber(final Long accountingPointId) {
+    System.out.printf("есть точка учета с ключом %s%n", accountingPointId);
+  }
 }
