@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-10-10T15:36:56.022Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="5WMx9OSijComp1s7Obpw" version="15.5.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-10-10T15:37:56.570Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="l6kJ6kRP9dZC6edlb8ah" version="15.5.0" type="github">
   <diagram id="BbiA8Y8N8VMHT7lSSjlu" name="Page-1">
     <mxGraphModel dx="2370" dy="2424" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -595,7 +595,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="tZeqiOX70hp46-EPD96z-154" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
+        <mxCell id="tZeqiOX70hp46-EPD96z-154" value="analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
           <mxGeometry x="1500" y="510" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="tZeqiOX70hp46-EPD96z-159" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=23;" edge="1" parent="1" source="tZeqiOX70hp46-EPD96z-155">
@@ -606,7 +606,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="tZeqiOX70hp46-EPD96z-155" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
+        <mxCell id="tZeqiOX70hp46-EPD96z-155" value="analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
           <mxGeometry x="1500" y="660" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="tZeqiOX70hp46-EPD96z-160" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=23;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tZeqiOX70hp46-EPD96z-156" target="tZeqiOX70hp46-EPD96z-152">
@@ -618,7 +618,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="tZeqiOX70hp46-EPD96z-156" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
+        <mxCell id="tZeqiOX70hp46-EPD96z-156" value="analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
           <mxGeometry x="1500" y="800" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="tZeqiOX70hp46-EPD96z-161" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=23;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tZeqiOX70hp46-EPD96z-157" target="tZeqiOX70hp46-EPD96z-152">
@@ -630,7 +630,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="tZeqiOX70hp46-EPD96z-157" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
+        <mxCell id="tZeqiOX70hp46-EPD96z-157" value="analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=23;" vertex="1" parent="1">
           <mxGeometry x="1500" y="940" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
