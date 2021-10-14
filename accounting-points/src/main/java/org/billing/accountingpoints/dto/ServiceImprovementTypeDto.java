@@ -1,15 +1,16 @@
 package org.billing.accountingpoints.dto;
 
 import java.time.Instant;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
 public class ServiceImprovementTypeDto {
-  Long id;
+  UUID id;
   Instant period;
   Instant periodFact;
-  Long accountingPointId;
-  Long improvementTypeId;
+  UUID accountingPointId;
+  UUID improvementTypeId;
 }

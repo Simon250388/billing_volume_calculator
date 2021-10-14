@@ -4,13 +4,14 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.billing.accountingpoints.dto.AccountingPointMeterStateDtoValue;
-import org.billing.accountingpoints.dto.AccountingPointServiceProviderDtoValue;
-import org.billing.accountingpoints.dto.AccountingPointServiceStateDtoValue;
+import org.billing.accountingpoints.dto.AccountingPointMeterStateDto;
+import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
+import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
 import org.billing.accountingpoints.service.AccountingPointServiceProviderService;
 import org.billing.accountingpoints.service.ImprovementTypeService;
 import org.billing.accountingpoints.service.MeterStateService;
@@ -30,12 +31,12 @@ public class AccountingPointsStateService {
   private final AccountingPointServiceProviderService serviceProviderService;
   private final ImprovementTypeService improvementTypeService;
   private final PresentDtoConvertor<
-          ServiceProviderPresentDto, AccountingPointServiceProviderDtoValue>
+          ServiceProviderPresentDto, AccountingPointServiceProviderDto>
       serviceProviderConvertor;
 
   @NonNull
   public RoomAccountingPoints currentState(
-      @NonNull Long keyRoomId, @NonNull Instant period, Instant periodFact) {
+      @NonNull UUID keyRoomId, @NonNull Instant period, Instant periodFact) {
 
     final List<AccountingPointStatePresentDto> accountingPointStatePresentDtos =
         getTasksForBuildCurrentState(keyRoomId, period, periodFact);
@@ -47,12 +48,12 @@ public class AccountingPointsStateService {
   }
 
   private List<AccountingPointStatePresentDto> getTasksForBuildCurrentState(
-      Long keyRoomId, Instant period, Instant periodFact) {
+          UUID keyRoomId, Instant period, Instant periodFact) {
 
-    final Set<AccountingPointServiceStateDtoValue> allEntityServiceId =
+    final Set<AccountingPointServiceStateDto> allEntityServiceId =
         serviceStateService.currentActiveByKeyRoomId(keyRoomId, period, periodFact);
 
-    final Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder>
+    final Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder>
         accountingPointStateBuilderMap = getBuildersMap(allEntityServiceId);
 
     final CompletableFuture[] tasks =
@@ -69,49 +70,49 @@ public class AccountingPointsStateService {
         .collect(Collectors.toList());
   }
 
-  private Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder>
-      getBuildersMap(Set<AccountingPointServiceStateDtoValue> allEntityServiceId) {
+  private Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder>
+      getBuildersMap(Set<AccountingPointServiceStateDto> allEntityServiceId) {
     return allEntityServiceId.stream()
         .collect(
             Collectors.toMap(
-                AccountingPointServiceStateDtoValue::getAccountPointId,
+                AccountingPointServiceStateDto::getAccountPointId,
                 this::createAccountingPointBuilder));
   }
 
   private AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder
-      createAccountingPointBuilder(AccountingPointServiceStateDtoValue item) {
+      createAccountingPointBuilder(AccountingPointServiceStateDto item) {
     return AccountingPointStatePresentDto.builder()
         .accountingPoint(AccountingPointPresentDto.builder().id(item.getAccountPointId()).build());
   }
 
   private CompletableFuture<?> taskForMeterState(
-      Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
+      Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
     return meterStateService
         .currentStateByEntityServiceIdAsync(builders.keySet(), Instant.now())
         .thenAccept(result -> setMeter(result, builders));
   }
 
   private CompletableFuture<?> taskForServiceProviders(
-      Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
+      Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
     return serviceProviderService
         .currentProvidersAsync(builders.keySet(), Instant.now())
         .thenAccept(result -> setServiceProviders(result, builders));
   }
 
   private CompletableFuture<?> taskForServiceImprovementTypes(
-      Set<AccountingPointServiceStateDtoValue> accountingPointServicesStateDto,
-      Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
+      Set<AccountingPointServiceStateDto> accountingPointServicesStateDto,
+      Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
     return improvementTypeService
         .currentImprovementTypesAsync(
             accountingPointServicesStateDto.stream()
-                .map(AccountingPointServiceStateDtoValue::getServiceId)
+                .map(AccountingPointServiceStateDto::getServiceId)
                 .collect(Collectors.toSet()))
         .thenAccept((result) -> {});
   }
 
   private void setMeter(
-      Set<AccountingPointMeterStateDtoValue> inputSet,
-      Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
+      Set<AccountingPointMeterStateDto> inputSet,
+      Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
     inputSet.forEach(
         item ->
             builders
@@ -121,12 +122,12 @@ public class AccountingPointsStateService {
   }
 
   private void setServiceProviders(
-      Set<AccountingPointServiceProviderDtoValue> result,
-      Map<Long, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
+      Set<AccountingPointServiceProviderDto> result,
+      Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder> builders) {
     result.stream()
         .collect(
             Collectors.groupingBy(
-                AccountingPointServiceProviderDtoValue::getAccountPointId, Collectors.toSet()))
+                AccountingPointServiceProviderDto::getAccountPointId, Collectors.toSet()))
         .forEach(
             (key, value) ->
                 builders.get(key).serviceProviders(serviceProviderConvertor.toPresent(value)));

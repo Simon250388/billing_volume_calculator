@@ -3,8 +3,9 @@ package org.billing.accountingpoints.service.implementation;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import org.billing.accountingpoints.dto.AccountingPointMeterStateDtoValue;
+import org.billing.accountingpoints.dto.AccountingPointMeterStateDto;
 import org.billing.accountingpoints.repository.AccountingPointMeterStateRepository;
 import org.billing.accountingpoints.service.MeterStateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class MeterStateServiceImpl implements MeterStateService {
   public MeterStateServiceImpl(AccountingPointMeterStateRepository meterStateDao) {}
 
   @Override
-  public CompletableFuture<Set<AccountingPointMeterStateDtoValue>>
+  public CompletableFuture<Set<AccountingPointMeterStateDto>>
       currentStateByEntityServiceIdAsync(
-          Set<Long> accountingPointKeyRoomServiceEntities, Instant period) {
+          Set<UUID> accountingPointKeyRoomServiceEntities, Instant period) {
     return CompletableFuture.completedFuture(Collections.emptySet());
   }
 }

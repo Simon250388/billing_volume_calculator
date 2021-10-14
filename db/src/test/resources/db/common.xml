@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dataset>
-    <meter_types
-            id="1"
-            version="1"
-            description="сгв-15"
-    />
 
-    <services
-            id="1"
-            version="1"
-            Description="Электроэнергия"
-    />
-
-    <meters
-            id="1"
-            version="1"
-            Description="0005151515"
-            meter_type_id="1"
-    />
-
-    <meters
-            id="2"
-            version="1"
-            Description="00022222"
-            meter_type_id="1"
-    />
 
     <buildings
             id="1"
@@ -33,23 +9,7 @@
 
     />
 
-    <providers
-            id="1"
-            version="1"
-            Description="Мосэнерго"
-    />
 
-    <providers
-            id="2"
-            version="1"
-            Description="Ленэнерго"
-    />
-
-    <direction_of_uses
-            id="1"
-            version="1"
-            Description="Основное направление"
-    />
 
     <key_rooms
             id="1"

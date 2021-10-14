@@ -3,29 +3,21 @@ package org.billing.accountingpoints.repository;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.util.List;
-import org.billing.accountingpoints.dto.AccountingPointMeterStateDto;
+import java.util.UUID;
+import org.billing.accountingpoints.model.AccountingPointMeterState;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @TestPropertySource(
     properties = {
       "spring.liquibase.enabled=false"
     })
-@TestExecutionListeners({
-  DependencyInjectionTestExecutionListener.class,
-  TransactionDbUnitTestExecutionListener.class
-})
-@DatabaseSetup("/db/common.xml")
-@DatabaseSetup("/db/accounting-points.xml")
 class AccountingPointRequestMeterPresentDtoStateRepositoryTest {
 
   private final AccountingPointMeterStateRepository repository;
@@ -38,17 +30,18 @@ class AccountingPointRequestMeterPresentDtoStateRepositoryTest {
 
   @Test
   @Tag("medium")
-  @DatabaseSetup("/db/accounting-point-meter-states.xml")
+  @Sql({"classpath:db/common.sql", "classpath:db/accounting-points.sql"})
+  @Sql("classpath:db/accounting-point-meter-states.sql")
   void findAllLastByKeyRoomId() {
 
-    long keyRoomId = 1;
+    final UUID keyRoomId = UUID.fromString("7c3081d7-7d05-4cc0-9f79-0fac53a0a9e2");
 
-    final List<AccountingPointMeterStateDto> result =
+    final List<AccountingPointMeterState> result =
         repository.findAllLastActiveByKeyRoomId(keyRoomId);
 
     assertAll(
         "Some message",
         () -> assertEquals(1, result.size()),
-        () -> assertEquals(2, result.get(0).getMeterId()));
+        () -> assertEquals(UUID.fromString("1f867903-5f0e-4cfc-8b77-98845672db29"), result.get(0).getMeterId()));
   }
 }

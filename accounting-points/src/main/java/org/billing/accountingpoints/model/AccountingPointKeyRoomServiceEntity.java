@@ -1,9 +1,9 @@
 package org.billing.accountingpoints.model;
 
+import java.util.UUID;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,8 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.billing.common.model.DirectionOfUse;
-import org.billing.common.model.Service;
 
 /** Услуга точки учета (без учета состояния). */
 @Data
@@ -24,9 +22,17 @@ import org.billing.common.model.Service;
 @Entity
 @Table(name = "accounting_point_key_room_service_entity")
 public class AccountingPointKeyRoomServiceEntity {
+
+  public static final String SELECT_ID_BY_KEY_ROOM_ID = "" +
+          "SELECT APS.ID " +
+          "FROM ACCOUNTING_POINT_KEY_ROOM_SERVICE_ENTITY APS " +
+          "INNER JOIN ACCOUNTING_POINT_KEY_ROOM AP " +
+          "ON APS.ACCOUNTING_POINT_KEY_ROOM_ID = AP.ID " +
+          "WHERE AP.KEY_ROOM_ID = :keyRoomId";
+
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Column(nullable = false, updatable = false)
+  private UUID id;
 
   @Version private long version;
 

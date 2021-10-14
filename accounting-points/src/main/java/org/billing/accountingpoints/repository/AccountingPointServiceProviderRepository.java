@@ -1,15 +1,16 @@
 package org.billing.accountingpoints.repository;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.NonNull;
-import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
+import org.billing.accountingpoints.model.AccountingPointKeyRoomServiceEntity;
 import org.billing.accountingpoints.model.AccountingPointServiceProvider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface AccountingPointServiceProviderRepository
-    extends JpaRepository<AccountingPointServiceProvider, Long> {
+    extends JpaRepository<AccountingPointServiceProvider, UUID> {
   @Query(
       nativeQuery = true,
       value =
@@ -21,14 +22,10 @@ public interface AccountingPointServiceProviderRepository
               + "       ,SERVICE_PART_ID "
               + "       ,MAX(PERIOD) PERIOD "
               + "       FROM ACCOUNTING_POINT_SERVICE_PROVIDER "
-              + "       WHERE ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID in "
-              + "           (SELECT APS.ID "
-              + "               FROM ACCOUNTING_POINT_KEY_ROOM_SERVICE_ENTITY APS "
-              + "               INNER JOIN ACCOUNTING_POINT_KEY_ROOM AP"
-              + "                ON APS.ACCOUNTING_POINT_KEY_ROOM_ID = AP.ID "
-              + "               WHERE AP.KEY_ROOM_ID = :keyRoomId ) "
-              + "       GROUP BY ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID,SERVICE_PART_ID) SQ  "
-              + "ON APSP.ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID"
+              + "       WHERE ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID in ("
+              + AccountingPointKeyRoomServiceEntity.SELECT_ID_BY_KEY_ROOM_ID
+              + ") GROUP BY ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID,SERVICE_PART_ID) SQ "
+              + " ON APSP.ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID"
               + "              = SQ.ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID "
               + "AND  "
               + "   CASE "
@@ -40,6 +37,6 @@ public interface AccountingPointServiceProviderRepository
               + "       ELSE SQ.SERVICE_PART_ID "
               + "   END "
               + "AND APSP.PERIOD = SQ.PERIOD")
-  List<AccountingPointServiceProviderDto> findAllLastByKeyRoomId(
-      @NonNull @Param("keyRoomId") Long keyRoomId);
+  List<AccountingPointServiceProvider> findAllLastByKeyRoomId(
+      @NonNull @Param("keyRoomId") UUID keyRoomId);
 }

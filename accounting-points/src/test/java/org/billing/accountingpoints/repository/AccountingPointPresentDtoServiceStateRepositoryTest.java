@@ -2,29 +2,21 @@ package org.billing.accountingpoints.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.util.List;
-import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
+import java.util.UUID;
+import org.billing.accountingpoints.model.AccountingPointServiceState;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @TestPropertySource(
     properties = {
       "spring.liquibase.enabled=false"
     })
-@TestExecutionListeners({
-  DependencyInjectionTestExecutionListener.class,
-  TransactionDbUnitTestExecutionListener.class
-})
-@DatabaseSetup("/db/common.xml")
-@DatabaseSetup("/db/accounting-points.xml")
 class AccountingPointPresentDtoServiceStateRepositoryTest {
 
   @Autowired
@@ -32,10 +24,11 @@ class AccountingPointPresentDtoServiceStateRepositoryTest {
 
   @Test
   @Tag("medium")
-  @DatabaseSetup("/db/service-state.xml")
+  @Sql({"classpath:db/common.sql", "classpath:db/accounting-points.sql"})
+  @Sql("classpath:db/service-state.sql")
   void findAllActiveByKeyRoomId_WhenOneActive() {
-    final long keyRoomId = 1;
-    List<AccountingPointServiceStateDto> current = repository.findAllActiveByKeyRoomId(keyRoomId);
+    final UUID keyRoomId = UUID.fromString("7c3081d7-7d05-4cc0-9f79-0fac53a0a9e2");
+    List<AccountingPointServiceState> current = repository.findAllActiveByKeyRoomId(keyRoomId);
     assertEquals(1, current.size());
   }
 }

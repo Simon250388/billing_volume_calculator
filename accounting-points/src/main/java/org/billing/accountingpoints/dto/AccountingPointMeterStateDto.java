@@ -1,8 +1,10 @@
 package org.billing.accountingpoints.dto;
 
 import java.time.Instant;
+import java.util.UUID;
+import lombok.Builder;
+import lombok.Value;
 import org.billing.accountingpoints.model.MeterState;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Dto contract.
@@ -13,26 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
  * @author Simanov Aleksey
  */
 
-public interface AccountingPointMeterStateDto {
-  @Value("#{target.id}")
-  Long getId();
-
-  @Value("#{target.period}")
-  Instant getPeriod();
-
-  @Value("#{target.period_fact}")
-  Instant getPeriodFact();
-
-  @Value("#{target.accountPointId}")
-  Long getAccountPointId();
-
-  @Value("#{target.meter_id}")
-  Long getMeterId();
-
-  @Value("#{target.meter_state_id}")
-  MeterState getMeterState();
-
-  boolean equals(Object o);
-
-  int hashCode();
+@Value
+@Builder
+public class AccountingPointMeterStateDto {
+  UUID id;
+  Instant period;
+  Instant periodFact;
+  UUID accountPointId;
+  UUID meterId;
+  MeterState meterState;
 }
