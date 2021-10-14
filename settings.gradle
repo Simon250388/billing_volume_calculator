@@ -5,7 +5,6 @@ include(
         'accounts',
         'calculation',
         'cucumber-test',
-        'db',
         'meter-values',
         'rooms',
 )
