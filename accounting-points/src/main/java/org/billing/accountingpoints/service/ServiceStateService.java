@@ -2,14 +2,15 @@ package org.billing.accountingpoints.service;
 
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import org.billing.accountingpoints.dto.AccountingPointServiceStateDtoValue;
+import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
 
 public interface ServiceStateService {
 
-  Set<AccountingPointServiceStateDtoValue> currentActiveByKeyRoomId(
-          Long keyRoomId, Instant period, Instant periodFact);
+  Set<AccountingPointServiceStateDto> currentActiveByKeyRoomId(
+          UUID keyRoomId, Instant period, Instant periodFact);
 
-  CompletableFuture<Set<AccountingPointServiceStateDtoValue>> currentActiveByEntityServiceIdAsync(
-      Set<Long> allEntityServiceId);
+  CompletableFuture<Set<AccountingPointServiceStateDto>> currentActiveByEntityServiceIdAsync(
+      Set<UUID> allEntityServiceId);
 }

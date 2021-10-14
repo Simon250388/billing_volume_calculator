@@ -3,6 +3,7 @@ package org.billing.accountingpoints.usecase.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import lombok.Builder;
@@ -14,7 +15,7 @@ public class AccountingPointStatePresentDto {
 
   @JsonProperty("serviceId")
   @Null
-  Long serviceId;
+  UUID serviceId;
 
   @JsonProperty("accountingPoint")
   @NotNull

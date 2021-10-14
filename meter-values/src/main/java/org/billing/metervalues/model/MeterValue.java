@@ -1,12 +1,11 @@
 package org.billing.metervalues.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,8 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.billing.accountingpoints.model.AccountingPointKeyRoomServiceEntity;
-import org.billing.accountingpoints.model.Meter;
 
 /** История показаний прибора учета. */
 @Data
@@ -28,17 +25,13 @@ import org.billing.accountingpoints.model.Meter;
 @Table(name = "meter_values")
 public class MeterValue {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Column(nullable = false, updatable = false)
+  private UUID id;
 
   @Version private long version;
 
   @Column(name = "period", nullable = false)
-  private LocalDateTime period;
-
-  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "accounting_point_key_room_service_id", nullable = false)
-  private AccountingPointKeyRoomServiceEntity accountingPointKeyRoomServiceEntity;
+  private Instant period;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "meter_id", nullable = false)

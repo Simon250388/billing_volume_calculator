@@ -16,8 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.billing.common.model.Building;
-import org.billing.common.model.Room;
 
 /** Ключ помещения. */
 @Data

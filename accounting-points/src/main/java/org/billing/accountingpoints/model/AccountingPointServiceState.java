@@ -1,12 +1,11 @@
 package org.billing.accountingpoints.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,16 +25,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "accounting_point_service_state")
 public class AccountingPointServiceState {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Column(nullable = false, updatable = false)
+  private UUID id;
 
   @Version private long version;
 
   @Column(name = "period", nullable = false)
-  private LocalDateTime period;
+  private Instant period;
 
   @Column(name = "period_fact")
-  private LocalDateTime periodFact;
+  private Instant periodFact;
   /** Ключ услуги на точке учета. */
   @ManyToOne(
       cascade = {CascadeType.MERGE, CascadeType.PERSIST},

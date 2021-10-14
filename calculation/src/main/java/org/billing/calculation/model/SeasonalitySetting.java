@@ -2,14 +2,12 @@ package org.billing.calculation.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.CascadeType;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -17,9 +15,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.billing.common.model.Building;
-import org.billing.common.model.DirectionOfUse;
-import org.billing.common.model.Service;
 
 /** Настройка применения сезонности. */
 @Getter
@@ -39,17 +34,14 @@ public class SeasonalitySetting {
   @Column(name = "period", nullable = false)
   private LocalDateTime period;
 
-  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "service_id", nullable = false)
-  private Service service;
+  @Column(name = "service_id", nullable = false)
+  private UUID serviceId;
 
-  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "direction_of_use_Id", nullable = false)
-  private DirectionOfUse directionOfUse;
+  @Column(name = "direction_of_use_id", nullable = false)
+  private UUID directionOfUseId;
 
-  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "building_id")
-  private Building building;
+  @Column(name = "building_id", length = 36)
+  private String building;
   /** Корректировать годовой объем. */
   @Column(nullable = false)
   private boolean correctAnnualVolume;
@@ -80,6 +72,6 @@ public class SeasonalitySetting {
 
   @Override
   public int hashCode() {
-    return Objects.hash(period, service.getId(), directionOfUse.getId(), building.getId());
+    return Objects.hash(period, serviceId, directionOfUseId, building);
   }
 }

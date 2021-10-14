@@ -1,0 +1,19 @@
+INSERT INTO ACCOUNTING_POINTS(ID,VERSION,description)
+VALUES (CAST(REPLACE('5879623f-58a7-4f82-9bb6-c6a949771dc1','-','') as BINARY),1,'Электрощитовая');
+
+INSERT INTO ACCOUNTING_POINT_KEY_ROOM(id,version,key_room_id,accounting_point_id)
+VALUES (
+CAST(REPLACE('b2e4091e-7948-478e-94bf-8c71d0836e24','-','') as BINARY)
+,1
+,CAST(REPLACE('7c3081d7-7d05-4cc0-9f79-0fac53a0a9e2','-','') as BINARY)
+,CAST(REPLACE('5879623f-58a7-4f82-9bb6-c6a949771dc1','-','') as BINARY));
+
+INSERT INTO ACCOUNTING_POINT_KEY_ROOM_SERVICE_ENTITY(id,version,accounting_point_key_room_id,service_id,direction_of_use_id)
+VALUES (
+CAST(REPLACE('5936aa9b-ea18-47d2-b677-a98d0769ca9a','-','') as BINARY)
+,1
+,CAST(REPLACE('b2e4091e-7948-478e-94bf-8c71d0836e24','-','') as BINARY)
+,CAST(REPLACE('74c29c03-b528-4f24-95e0-c68cd1e42574','-','') as BINARY)
+,CAST(REPLACE('718556e7-6b3d-448e-a307-2a0775b251f8','-','') as BINARY));
+
+

@@ -1,25 +1,36 @@
 package org.billing.accountingpoints.dto;
 
 import java.time.Instant;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 
-public interface AccountingPointServiceStateDto {
-  @Value("#{target.id}")
-  Long getId();
-
-  @Value("#{target.period}")
-  Instant getPeriod();
-
-  @Value("#{target.period_fact}")
-  Instant getPeriodFact();
-
-  @Value("#{target.accountPointId}")
-  Long getAccountPointId();
-
-  @Value("#{target.serviceId}")
-  Long getServiceId();
-
-  boolean equals(Object ob);
-
-  int hashCode();
+@Value
+@Builder
+@AllArgsConstructor
+public class AccountingPointServiceStateDto {
+  //  @Value("#{target.id}")
+  //  UUID getId();
+  //
+  //  @Value("#{target.period}")
+  //  Instant getPeriod();
+  //
+  //  @Value("#{target.period_fact}")
+  //  Instant getPeriodFact();
+  //
+  //  @Value("#{target.accountPointId}")
+  //  UUID getAccountPointId();
+  //
+  //  @Value("#{target.serviceId}")
+  //  UUID getServiceId();
+  //
+  //  boolean equals(Object ob);
+  //
+  //  int hashCode();
+  UUID id;
+  Instant period;
+  Instant periodFact;
+  UUID accountPointId;
+  UUID serviceId;
 }

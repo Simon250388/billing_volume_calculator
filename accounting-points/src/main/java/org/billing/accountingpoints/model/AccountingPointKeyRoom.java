@@ -1,9 +1,9 @@
 package org.billing.accountingpoints.model;
 
+import java.util.UUID;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,9 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.billing.rooms.model.KeyRoom;
 
-/** Токи учета ключа помещения. */
+/** Точка учета ключа помещения. */
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,14 +23,13 @@ import org.billing.rooms.model.KeyRoom;
 @Table(name = "accounting_point_key_room")
 public class AccountingPointKeyRoom {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Column(nullable = false, updatable = false)
+  private UUID id;
 
   @Version private long version;
   /** Ключ помещения. */
-  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "key_room_id", nullable = false)
-  private KeyRoom keyRoom;
+  @Column(name = "key_room_id", nullable = false, length = 36)
+  private UUID keyRoomId;
   /** Точка учета. */
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "accounting_point_id", nullable = false)

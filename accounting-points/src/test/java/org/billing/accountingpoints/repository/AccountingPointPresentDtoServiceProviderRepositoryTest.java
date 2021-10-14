@@ -1,44 +1,42 @@
 package org.billing.accountingpoints.repository;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.util.List;
-import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
-import org.junit.jupiter.api.Assertions;
+import java.util.UUID;
+import org.billing.accountingpoints.model.AccountingPointServiceProvider;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@TestPropertySource(
-    properties = {
-      "spring.liquibase.enabled=false"
-    })
-@TestExecutionListeners({
-  DependencyInjectionTestExecutionListener.class,
-  TransactionDbUnitTestExecutionListener.class
-})
-@DatabaseSetup("/db/common.xml")
-@DatabaseSetup("/db/accounting-points.xml")
+@TestPropertySource(properties = {"spring.liquibase.enabled=false"})
 class AccountingPointPresentDtoServiceProviderRepositoryTest {
 
   @Autowired private AccountingPointServiceProviderRepository repository;
 
   @Test
   @Tag("medium")
-  @DatabaseSetup("/db/service-provider.xml")
+  @Sql({"classpath:db/common.sql", "classpath:db/accounting-points.sql"})
+  @Sql("classpath:db/service-provider.sql")
   void findAllLastByKeyRoomId() {
-    final long keyRoomId = 1;
-    List<AccountingPointServiceProviderDto> allLastByKeyRoomId =
-        repository.findAllLastByKeyRoomId(keyRoomId);
-    Assertions.assertEquals(1, allLastByKeyRoomId.size());
-    final long providerId = 2;
-    assertEquals(providerId, allLastByKeyRoomId.get(0).getProviderId());
+    final UUID keyRoomId = UUID.fromString("7c3081d7-7d05-4cc0-9f79-0fac53a0a9e2");
+    List<AccountingPointServiceProvider> result = repository.findAllLastByKeyRoomId(keyRoomId);
+    AccountingPointServiceProvider expected =
+        AccountingPointServiceProvider.builder()
+            .id(UUID.fromString("5349b15c-9f7e-4658-ac6a-f83f05c86eaa"))
+            .build();
+
+    assertAll(
+        () -> assertEquals(1, result.size()),
+        () -> assertThat(result, containsInAnyOrder(hasProperty("id", equalTo(expected.getId())))));
   }
 }

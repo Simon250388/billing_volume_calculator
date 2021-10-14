@@ -3,6 +3,7 @@ package org.billing.accountingpoints.usecase;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import org.billing.accountingpoints.usecase.dto.AccountingPointStatePresentDto;
 public class RoomAccountingPoints {
   @JsonProperty("keyRoomId")
   @NotNull
-  Long keyRoomId;
+  UUID keyRoomId;
 
   @JsonProperty("period")
   @NotNull
