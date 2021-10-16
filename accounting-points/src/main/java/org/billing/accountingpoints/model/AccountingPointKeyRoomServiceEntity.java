@@ -23,12 +23,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "accounting_point_key_room_service_entity")
 public class AccountingPointKeyRoomServiceEntity {
 
-  public static final String SELECT_ID_BY_KEY_ROOM_ID = "" +
+  public static final String SELECT_ID_WHERE_KEY_ROOM_ID = "" +
           "SELECT APS.ID " +
           "FROM ACCOUNTING_POINT_KEY_ROOM_SERVICE_ENTITY APS " +
           "INNER JOIN ACCOUNTING_POINT_KEY_ROOM AP " +
           "ON APS.ACCOUNTING_POINT_KEY_ROOM_ID = AP.ID " +
           "WHERE AP.KEY_ROOM_ID = :keyRoomId";
+
+  public static final String SELECT_ID_WHERE_KEY_ROOM_ID_AND_ACC_POINT_ID = "" +
+          "SELECT APS.ID " +
+          "FROM ACCOUNTING_POINT_KEY_ROOM_SERVICE_ENTITY APS " +
+          "INNER JOIN ACCOUNTING_POINT_KEY_ROOM AP " +
+          "ON APS.ACCOUNTING_POINT_KEY_ROOM_ID = AP.ID " +
+          "WHERE AP.KEY_ROOM_ID = :keyRoomId" +
+          " AND AP.ACCOUNTING_POINT_ID =:accountingPointId";
 
   @Id
   @Column(nullable = false, updatable = false)

@@ -13,4 +13,6 @@ public interface ServiceStateService {
 
   CompletableFuture<Set<AccountingPointServiceStateDto>> currentActiveByEntityServiceIdAsync(
       Set<UUID> allEntityServiceId);
+
+  AccountingPointServiceStateDto changeState(AccountingPointServiceStateDto request);
 }

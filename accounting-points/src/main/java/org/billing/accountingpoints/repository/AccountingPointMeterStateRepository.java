@@ -22,7 +22,7 @@ public interface AccountingPointMeterStateRepository
               + "       SELECT accounting_point_key_room_service_id,meter_id,MAX(period) "
               + "       FROM accounting_point_meter_states "
               + "       WHERE accounting_point_key_room_service_id IN ( "
-              + AccountingPointKeyRoomServiceEntity.SELECT_ID_BY_KEY_ROOM_ID
+              + AccountingPointKeyRoomServiceEntity.SELECT_ID_WHERE_KEY_ROOM_ID
               + " ) GROUP BY accounting_point_key_room_service_id,meter_id) "
               + "AND meter_state_id = 'ACTIVE'")
   List<AccountingPointMeterState> findAllLastActiveByKeyRoomId(

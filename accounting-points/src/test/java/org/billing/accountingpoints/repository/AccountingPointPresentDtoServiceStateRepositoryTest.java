@@ -28,7 +28,7 @@ class AccountingPointPresentDtoServiceStateRepositoryTest {
   @Sql("classpath:db/service-state.sql")
   void findAllActiveByKeyRoomId_WhenOneActive() {
     final UUID keyRoomId = UUID.fromString("7c3081d7-7d05-4cc0-9f79-0fac53a0a9e2");
-    List<AccountingPointServiceState> current = repository.findAllActiveByKeyRoomId(keyRoomId);
+    List<AccountingPointServiceState> current = repository.findAllActive(keyRoomId);
     assertEquals(1, current.size());
   }
 }

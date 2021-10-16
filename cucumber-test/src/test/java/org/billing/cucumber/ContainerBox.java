@@ -11,7 +11,7 @@ public class ContainerBox {
 
   @Container
   public static DockerComposeContainer compose =
-      new DockerComposeContainer(new File("src/main/resources/docker-compose.yml"))
+      new DockerComposeContainer(new File("src/main/resources/docker-compose.yaml"))
           .withLocalCompose(true)
           .withExposedService("api", API_PORT, Wait.forListeningPort());
 
