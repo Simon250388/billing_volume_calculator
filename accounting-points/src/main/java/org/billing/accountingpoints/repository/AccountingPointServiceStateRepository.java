@@ -25,6 +25,22 @@ public interface AccountingPointServiceStateRepository
               + AccountingPointKeyRoomServiceEntity.SELECT_ID_BY_KEY_ROOM_ID
               + " ) GROUP BY ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID) "
               + "AND ACTIVE = TRUE")
-  List<AccountingPointServiceState> findAllActiveByKeyRoomId(
-      @NonNull @Param("keyRoomId") UUID keyRoomId);
+  List<AccountingPointServiceState> findAllActive(@NonNull @Param("keyRoomId") UUID keyRoomId);
+
+  @Query(
+      nativeQuery = true,
+      value =
+          ""
+              + "SELECT * "
+              + "FROM ACCOUNTING_POINT_SERVICE_STATE "
+              + "WHERE (ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID, PERIOD) IN ( "
+              + "   SELECT ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID, MAX(PERIOD) "
+              + "   FROM ACCOUNTING_POINT_SERVICE_STATE "
+              + "   WHERE ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID IN ( "
+              + AccountingPointKeyRoomServiceEntity.SELECT_ID_BY_KEY_ROOM_ID
+              + " ) GROUP BY ACCOUNTING_POINT_KEY_ROOM_SERVICE_ID) "
+              + "AND ACTIVE = TRUE")
+  AccountingPointServiceState findAllActive(
+      @NonNull @Param("keyRoomId") UUID keyRoomId,
+      @NonNull @Param("accountingPointId") UUID accountingPointId);
 }

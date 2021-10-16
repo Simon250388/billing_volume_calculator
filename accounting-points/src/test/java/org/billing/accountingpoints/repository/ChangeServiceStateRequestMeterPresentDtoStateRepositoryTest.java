@@ -18,15 +18,9 @@ import org.springframework.test.context.jdbc.Sql;
     properties = {
       "spring.liquibase.enabled=false"
     })
-class AccountingPointRequestMeterPresentDtoStateRepositoryTest {
-
-  private final AccountingPointMeterStateRepository repository;
-
+class ChangeServiceStateRequestMeterPresentDtoStateRepositoryTest {
   @Autowired
-  AccountingPointRequestMeterPresentDtoStateRepositoryTest(
-      AccountingPointMeterStateRepository repository) {
-    this.repository = repository;
-  }
+  private AccountingPointMeterStateRepository repository;
 
   @Test
   @Tag("medium")
