@@ -1,3 +1,5 @@
+[![Gradle Package](https://github.com/Simon250388/billing_volume_calculator/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/Simon250388/billing_volume_calculator/actions/workflows/gradle-publish.yml)
+
 # billing_volume_calculator
 
 # Цели проекта:
