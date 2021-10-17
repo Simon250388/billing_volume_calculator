@@ -16,11 +16,11 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @TestPropertySource(
     properties = {
-      "spring.liquibase.enabled=false"
+      "spring.liquibase.enabled=false",
+      "spring.jpa.hibernate.ddl-auto=create-drop",
     })
 class ChangeServiceStateRequestMeterPresentDtoStateRepositoryTest {
-  @Autowired
-  private AccountingPointMeterStateRepository repository;
+  @Autowired private AccountingPointMeterStateRepository repository;
 
   @Test
   @Tag("medium")
@@ -36,6 +36,9 @@ class ChangeServiceStateRequestMeterPresentDtoStateRepositoryTest {
     assertAll(
         "Some message",
         () -> assertEquals(1, result.size()),
-        () -> assertEquals(UUID.fromString("1f867903-5f0e-4cfc-8b77-98845672db29"), result.get(0).getMeterId()));
+        () ->
+            assertEquals(
+                UUID.fromString("1f867903-5f0e-4cfc-8b77-98845672db29"),
+                result.get(0).getMeterId()));
   }
 }

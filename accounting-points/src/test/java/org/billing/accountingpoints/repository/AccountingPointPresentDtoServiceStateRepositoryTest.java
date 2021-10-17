@@ -15,12 +15,12 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @TestPropertySource(
     properties = {
-      "spring.liquibase.enabled=false"
+      "spring.liquibase.enabled=false",
+      "spring.jpa.hibernate.ddl-auto=create-drop",
     })
 class AccountingPointPresentDtoServiceStateRepositoryTest {
 
-  @Autowired
-  private AccountingPointServiceStateRepository repository;
+  @Autowired private AccountingPointServiceStateRepository repository;
 
   @Test
   @Tag("medium")
