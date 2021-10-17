@@ -6,6 +6,10 @@ plugins {
     id 'checkstyle'
 }
 
+application {
+    mainClass = 'org.billing.accountingpoints.AccountingPointsApplication'
+}
+
 repositories {
     mavenCentral()
 }
@@ -27,7 +31,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp:2.5.5'
     implementation 'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-
+    implementation 'org.postgresql:postgresql:42.2.24'
+    implementation 'org.liquibase:liquibase-core:4.5.0'
     testImplementation 'org.dbunit:dbunit:2.6.0'
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
