@@ -15,4 +15,6 @@ public class QueueConfiguration {
   public Queue serviceQueue() {
     return QueueBuilder.durable(Queues.SERVICE_NAME).build();
   }
+
+
 }
