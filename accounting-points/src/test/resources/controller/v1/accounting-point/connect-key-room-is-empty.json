@@ -1,0 +1,11 @@
+{
+  "keyRoomId": null,
+  "accountingPoint": {
+    "id": "3f187ec3-e6fe-43e8-9648-df77f7c9de27",
+    "name": null
+  },
+  "serviceId": "49049133-dd1e-4dbb-9bdc-da9f46b08b6f",
+  "meterId": null,
+  "period": "2021-10-01T12:00:00+04:00",
+  "periodFact": null
+}

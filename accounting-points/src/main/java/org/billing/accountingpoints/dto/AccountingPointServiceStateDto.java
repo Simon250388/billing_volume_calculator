@@ -13,24 +13,6 @@ import lombok.Value;
 @JsonDeserialize(builder = AccountingPointServiceStateDto.AccountingPointServiceStateDtoBuilder.class)
 @AllArgsConstructor
 public class AccountingPointServiceStateDto {
-  //  @Value("#{target.id}")
-  //  UUID getId();
-  //
-  //  @Value("#{target.period}")
-  //  Instant getPeriod();
-  //
-  //  @Value("#{target.period_fact}")
-  //  Instant getPeriodFact();
-  //
-  //  @Value("#{target.accountPointId}")
-  //  UUID getAccountPointId();
-  //
-  //  @Value("#{target.serviceId}")
-  //  UUID getServiceId();
-  //
-  //  boolean equals(Object ob);
-  //
-  //  int hashCode();
   UUID id;
   Instant period;
   Instant periodFact;
