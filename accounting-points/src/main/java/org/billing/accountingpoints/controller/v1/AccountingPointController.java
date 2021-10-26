@@ -47,8 +47,8 @@ public class AccountingPointController {
   @GetMapping("/history/{keyRoomId}")
   public ResponseEntity<Collection<AccountingPointServiceStateDto>> getHistory(
       @PathVariable final UUID keyRoomId,
-      @RequestParam final Instant from,
-      @RequestParam final Instant to) {
+      @RequestParam(required=false) final Instant from,
+      @RequestParam(required=false) final Instant to) {
 
     if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isPresent()) {
       return ResponseEntity.ok(serviceStateService.getHistory(keyRoomId, from, to));
