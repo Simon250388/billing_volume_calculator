@@ -5,8 +5,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.Set;
@@ -32,13 +34,23 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(
     classes = {AccountingPointsStateService.class, ServiceProviderConvertor.class})
+@Import(AccountingPointsStateServiceTest.TestConfig.class)
 class AccountingPointsStateServiceTest {
+
+  public static class TestConfig {
+    @Bean
+    Clock clock() {
+      return Clock.fixed(Instant.parse("2022-01-01T00:00:00.00Z"), ZoneId.of("UTC"));
+    }
+  }
 
   @MockBean private ServiceStateService serviceStateService;
   @MockBean private MeterStateService meterStateService;
@@ -59,11 +71,7 @@ class AccountingPointsStateServiceTest {
 
     final UUID uuid = UUID.randomUUID();
 
-    final RoomAccountingPoints result =
-        accountingPointsStateService.currentState(
-            uuid,
-            LocalDate.parse("2021-08-27").atStartOfDay().toInstant(ZoneOffset.UTC),
-            LocalDate.parse("2021-08-27").atStartOfDay().toInstant(ZoneOffset.UTC));
+    final RoomAccountingPoints result = accountingPointsStateService.currentState(uuid);
 
     final RoomAccountingPoints expected =
         RoomAccountingPoints.builder()
@@ -94,8 +102,7 @@ class AccountingPointsStateServiceTest {
   }
 
   private void setupMock() {
-    when(serviceStateService.currentActiveByKeyRoomId(
-            any(UUID.class), any(Instant.class), any(Instant.class)))
+    when(serviceStateService.currentActive(any(UUID.class), any(Instant.class), any(Instant.class)))
         .thenReturn(
             Set.of(
                 AccountingPointServiceStateDto.builder()

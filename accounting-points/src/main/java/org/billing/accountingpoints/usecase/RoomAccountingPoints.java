@@ -1,7 +1,7 @@
 package org.billing.accountingpoints.usecase;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
@@ -19,11 +19,11 @@ public class RoomAccountingPoints {
 
   @JsonProperty("period")
   @NotNull
-  Instant period;
+  OffsetDateTime period;
 
   @JsonProperty("periodFact")
   @Null
-  Instant periodFact;
+  OffsetDateTime periodFact;
 
   @JsonProperty("accountingPoints")
   @NotNull

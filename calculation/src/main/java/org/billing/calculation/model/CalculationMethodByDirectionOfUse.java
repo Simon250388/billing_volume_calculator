@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,9 +44,8 @@ public class CalculationMethodByDirectionOfUse {
   @Column(name = "direction_of_use_id", nullable = false)
   private UUID directionOfUseId;
 
-  @Column(name = "square_type_id", nullable = false)
-  @Enumerated(value = EnumType.STRING)
-  private SquareType squareType;
+  @Column(name = "square_type_id", nullable = false, length = 36)
+  private UUID squareType;
   /** Начислять норматив по дням. */
   @Column(nullable = false)
   private Boolean normByDay;

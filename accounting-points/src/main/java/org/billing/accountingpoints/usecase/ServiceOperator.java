@@ -1,5 +1,7 @@
 package org.billing.accountingpoints.usecase;
 
+import java.time.OffsetDateTime;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,9 @@ public class ServiceOperator {
 
     RoomAccountingPoints currentState =
         accountingPointsStateService.currentState(
-            newState.getKeyRoomId(), newState.getPeriod(), newState.getPeriodFact());
+            newState.getKeyRoomId(),
+            newState.getPeriod().toInstant(),
+            Optional.ofNullable(newState.getPeriodFact()).orElse(OffsetDateTime.MIN).toInstant());
 
     return false;
   }

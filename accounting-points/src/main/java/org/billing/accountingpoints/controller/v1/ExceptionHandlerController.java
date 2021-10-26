@@ -30,10 +30,13 @@ public class ExceptionHandlerController {
                         Optional.ofNullable(fieldError.getDefaultMessage()).orElse(""))));
 
     return ResponseEntity.badRequest()
-        .body(
-            BillingServerError.builder()
-                .message("validation error")
-                .errors(errors)
-                .build());
+        .body(BillingServerError.builder().message("validation error").errors(errors).build());
+  }
+
+  @ExceptionHandler({BillingValidationException.class})
+  public ResponseEntity<BillingServerError> billingValidationException(
+      BillingValidationException exception) {
+    return ResponseEntity.badRequest()
+        .body(BillingServerError.builder().message(exception.getMessage()).build());
   }
 }

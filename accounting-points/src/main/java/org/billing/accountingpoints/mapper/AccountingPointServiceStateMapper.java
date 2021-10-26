@@ -1,6 +1,6 @@
 package org.billing.accountingpoints.mapper;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
 import org.billing.accountingpoints.model.AccountingPointServiceState;
@@ -20,8 +20,8 @@ public abstract class AccountingPointServiceStateMapper
   public abstract AccountingPointServiceState toModel(final AccountingPointServiceStateDto dto);
 
   @Override
-  public List<AccountingPointServiceState> toModel(
-      final List<AccountingPointServiceStateDto> dtos) {
+  public Collection<AccountingPointServiceState> toModel(
+      final Collection<AccountingPointServiceStateDto> dtos) {
     return dtos.stream().map(this::toModel).collect(Collectors.toList());
   }
 
@@ -33,8 +33,8 @@ public abstract class AccountingPointServiceStateMapper
   public abstract AccountingPointServiceStateDto toDto(final AccountingPointServiceState model);
 
   @Override
-  public List<AccountingPointServiceStateDto> toDto(
-      final List<AccountingPointServiceState> models) {
+  public Collection<AccountingPointServiceStateDto> toDto(
+      final Collection<AccountingPointServiceState> models) {
     return models.stream().map(this::toDto).collect(Collectors.toList());
   }
 }

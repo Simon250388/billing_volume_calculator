@@ -1,5 +1,6 @@
 package org.billing.accountingpoints.usecase;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,23 @@ public class AccountingPointsStateService {
           ServiceProviderPresentDto, AccountingPointServiceProviderDto>
       serviceProviderConvertor;
 
+  private final Clock clock;
+
+  @NonNull
+  public RoomAccountingPoints currentState(@NonNull UUID keyRoomId) {
+   return currentState(keyRoomId, Instant.now(clock), Instant.EPOCH);
+  }
+
   @NonNull
   public RoomAccountingPoints currentState(
-      @NonNull UUID keyRoomId, @NonNull Instant period, Instant periodFact) {
+          @NonNull UUID keyRoomId, @NonNull Instant period) {
+    return currentState(keyRoomId, period, Instant.EPOCH);
+
+  }
+
+  @NonNull
+  public RoomAccountingPoints currentState(
+      @NonNull UUID keyRoomId, @NonNull Instant period, @NonNull Instant periodFact) {
 
     final List<AccountingPointStatePresentDto> accountingPointStatePresentDtos =
         getTasksForBuildCurrentState(keyRoomId, period, periodFact);
@@ -47,11 +62,12 @@ public class AccountingPointsStateService {
         .build();
   }
 
+
   private List<AccountingPointStatePresentDto> getTasksForBuildCurrentState(
           UUID keyRoomId, Instant period, Instant periodFact) {
 
     final Set<AccountingPointServiceStateDto> allEntityServiceId =
-        serviceStateService.currentActiveByKeyRoomId(keyRoomId, period, periodFact);
+        serviceStateService.currentActive(keyRoomId, period, periodFact);
 
     final Map<UUID, AccountingPointStatePresentDto.AccountingPointStatePresentDtoBuilder>
         accountingPointStateBuilderMap = getBuildersMap(allEntityServiceId);
