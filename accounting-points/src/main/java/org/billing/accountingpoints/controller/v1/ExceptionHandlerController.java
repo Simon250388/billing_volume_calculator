@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.billing.accountingpoints.exception.BillingValidationException;
 import org.billing.accountingpoints.request.BillingServerError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
+import org.billing.accountingpoints.exception.BillingValidationException;
 import org.billing.accountingpoints.request.BillingServerResponse;
 import org.billing.accountingpoints.request.ChangeServiceStateRequest;
 import org.billing.accountingpoints.service.GuidGenerator;
@@ -16,7 +17,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/accounting-point")
+@RequestMapping("/v1/accounting-point-state")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AccountingPointController {
+public class AccountingPointServiceStateController {
 
   private final RabbitTemplate template;
   private final ServiceStateService serviceStateService;

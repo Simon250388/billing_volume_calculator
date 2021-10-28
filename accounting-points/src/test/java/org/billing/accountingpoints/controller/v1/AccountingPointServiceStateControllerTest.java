@@ -19,6 +19,7 @@ import org.billing.accountingpoints.configuration.QueueConfiguration;
 import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
 import org.billing.accountingpoints.service.GuidGenerator;
 import org.billing.accountingpoints.service.ServiceStateService;
+import org.billing.accountingpoints.usecase.AccountingPointsStateService;
 import org.billing.accountingpoints.utils.FileContentUtls;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,11 +34,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(AccountingPointController.class)
-@Import({AccountingPointControllerTest.TestConfig.class, QueueConfiguration.class})
+@WebMvcTest(AccountingPointServiceStateController.class)
+@Import({AccountingPointServiceStateControllerTest.TestConfig.class, QueueConfiguration.class})
 @ActiveProfiles("test")
 @Tag("medium")
-class AccountingPointControllerTest {
+class AccountingPointServiceStateControllerTest {
 
   @TestConfiguration
   public static class TestConfig {
@@ -102,7 +103,7 @@ class AccountingPointControllerTest {
 
     mockMvc
         .perform(
-            get("/v1/accounting-point/active/e3c08228-9011-4820-9d2a-02d0913acf18")
+            get("/v1/accounting-point-state/active/e3c08228-9011-4820-9d2a-02d0913acf18")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -149,7 +150,7 @@ class AccountingPointControllerTest {
 
     mockMvc
         .perform(
-            get("/v1/accounting-point/history/e3c08228-9011-4820-9d2a-02d0913acf18")
+            get("/v1/accounting-point-state/history/e3c08228-9011-4820-9d2a-02d0913acf18")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -196,7 +197,7 @@ class AccountingPointControllerTest {
 
     mockMvc
         .perform(
-            get("/v1/accounting-point/history/e3c08228-9011-4820-9d2a-02d0913acf18?from=2021-10-01T00:00:00Z")
+            get("/v1/accounting-point-state/history/e3c08228-9011-4820-9d2a-02d0913acf18?from=2021-10-01T00:00:00Z")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -231,7 +232,7 @@ class AccountingPointControllerTest {
 
     mockMvc
         .perform(
-            get("/v1/accounting-point/history/e3c08228-9011-4820-9d2a-02d0913acf18"
+            get("/v1/accounting-point-state/history/e3c08228-9011-4820-9d2a-02d0913acf18"
                     + "?from=2021-10-01T00:00:00Z&to=2022-10-01T00:00:00Z")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
@@ -244,7 +245,7 @@ class AccountingPointControllerTest {
 
     mockMvc
         .perform(
-            get("/v1/accounting-point/history/e3c08228-9011-4820-9d2a-02d0913acf18?to=2021-10-01T00:00:00Z")
+            get("/v1/accounting-point-state/history/e3c08228-9011-4820-9d2a-02d0913acf18?to=2021-10-01T00:00:00Z")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError())
@@ -255,7 +256,7 @@ class AccountingPointControllerTest {
   void getActiveWhenNotFound() throws Exception {
     mockMvc
         .perform(
-            get("/v1/accounting-point/active/aaaaaaaa")
+            get("/v1/accounting-point-state/active/aaaaaaaa")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError());
@@ -265,12 +266,12 @@ class AccountingPointControllerTest {
   void connect() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/connect")
+            post("/v1/accounting-point-state/connect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect.json")))
+                        "/controller/v1/accounting-point-state/connect.json")))
         .andExpect(status().isOk())
         .andExpect(content().json("{ queryId:\"ce102007-893c-4ab0-9179-3c54d326ea1d\"}"));
   }
@@ -279,12 +280,12 @@ class AccountingPointControllerTest {
   void connectWhenKeyRoomIdIsEmpty() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/connect")
+            post("/v1/accounting-point-state/connect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect-key-room-is-empty.json")))
+                        "/controller/v1/accounting-point-state/connect-key-room-is-empty.json")))
         .andExpect(status().is4xxClientError())
         .andExpect(
             content()
@@ -301,12 +302,12 @@ class AccountingPointControllerTest {
   void connectWhenAccountingPointIsEmpty() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/connect")
+            post("/v1/accounting-point-state/connect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect-accounting-point-is-empty.json")))
+                        "/controller/v1/accounting-point-state/connect-accounting-point-is-empty.json")))
         .andExpect(status().is4xxClientError())
         .andExpect(
             content()
@@ -323,12 +324,12 @@ class AccountingPointControllerTest {
   void connectWhenPeriodIsEmpty() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/connect")
+            post("/v1/accounting-point-state/connect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect-period-is-empty.json")))
+                        "/controller/v1/accounting-point-state/connect-period-is-empty.json")))
         .andExpect(status().is4xxClientError())
         .andExpect(
             content()
@@ -345,12 +346,12 @@ class AccountingPointControllerTest {
   void connectWhenMultiFieldIsEmpty() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/connect")
+            post("/v1/accounting-point-state/connect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect-multi-field-is-empty.json")))
+                        "/controller/v1/accounting-point-state/connect-multi-field-is-empty.json")))
         .andExpect(status().is4xxClientError())
         .andExpect(
             content()
@@ -369,12 +370,12 @@ class AccountingPointControllerTest {
   void disconnect() throws Exception {
     mockMvc
         .perform(
-            post("/v1/accounting-point/disconnect")
+            post("/v1/accounting-point-state/disconnect")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(
                     FileContentUtls.contentAsString(
-                        "/controller/v1/accounting-point/connect.json")))
+                        "/controller/v1/accounting-point-state/connect.json")))
         .andExpect(status().isOk())
         .andExpect(content().json("{ queryId:\"ce102007-893c-4ab0-9179-3c54d326ea1d\" }"));
   }

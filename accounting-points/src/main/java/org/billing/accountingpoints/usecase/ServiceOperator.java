@@ -3,6 +3,7 @@ package org.billing.accountingpoints.usecase;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.billing.accountingpoints.request.RoomAccountingPointsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class ServiceOperator {
   private final AccountingPointsStateService accountingPointsStateService;
 
-  public boolean saveAccountingPointState(RoomAccountingPoints newState) {
+  public boolean saveAccountingPointState(RoomAccountingPointsRequest newState) {
 
-    RoomAccountingPoints currentState =
+    RoomAccountingPointsRequest currentState =
         accountingPointsStateService.currentState(
             newState.getKeyRoomId(),
             newState.getPeriod().toInstant(),
