@@ -19,15 +19,16 @@ import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
 import org.billing.accountingpoints.dto.AccountingPointServiceStateDto;
 import org.billing.accountingpoints.dto.ServiceImprovementTypeDto;
 import org.billing.accountingpoints.model.MeterState;
+import org.billing.accountingpoints.request.AccountingPointRequest;
+import org.billing.accountingpoints.request.AccountingPointStateRequest;
+import org.billing.accountingpoints.request.MeterRequest;
+import org.billing.accountingpoints.request.RoomAccountingPointsRequest;
+import org.billing.accountingpoints.request.ServiceProviderRequest;
 import org.billing.accountingpoints.service.AccountingPointServiceProviderService;
 import org.billing.accountingpoints.service.ImprovementTypeService;
 import org.billing.accountingpoints.service.MeterStateService;
 import org.billing.accountingpoints.service.ServiceStateService;
 import org.billing.accountingpoints.usecase.convertor.ServiceProviderConvertor;
-import org.billing.accountingpoints.usecase.dto.AccountingPointPresentDto;
-import org.billing.accountingpoints.usecase.dto.AccountingPointStatePresentDto;
-import org.billing.accountingpoints.usecase.dto.MeterPresentDto;
-import org.billing.accountingpoints.usecase.dto.ServiceProviderPresentDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -71,25 +72,25 @@ class AccountingPointsStateServiceTest {
 
     final UUID uuid = UUID.randomUUID();
 
-    final RoomAccountingPoints result = accountingPointsStateService.currentState(uuid);
+    final RoomAccountingPointsRequest result = accountingPointsStateService.currentState(uuid);
 
-    final RoomAccountingPoints expected =
-        RoomAccountingPoints.builder()
+    final RoomAccountingPointsRequest expected =
+        RoomAccountingPointsRequest.builder()
             .keyRoomId(uuid)
-            .accountingPointStatePresentDtos(
+            .accountingPoints(
                 Collections.singletonList(
-                    AccountingPointStatePresentDto.builder()
+                    AccountingPointStateRequest.builder()
                         .accountingPoint(
-                            AccountingPointPresentDto.builder()
+                            AccountingPointRequest.builder()
                                 .id(UUID.fromString("dd897253-8af2-4b86-be21-e5bc69879672"))
                                 .build())
                         .meter(
-                            MeterPresentDto.builder()
+                            MeterRequest.builder()
                                 .id(UUID.fromString("2e630ee6-5bd0-47a5-b810-e4b557afab94"))
                                 .build())
                         .serviceProviders(
                             Collections.singletonList(
-                                ServiceProviderPresentDto.builder()
+                                ServiceProviderRequest.builder()
                                     .serviceId(
                                         UUID.fromString("ad951f62-f29f-4031-be25-8273e358b504"))
                                     .providerId(

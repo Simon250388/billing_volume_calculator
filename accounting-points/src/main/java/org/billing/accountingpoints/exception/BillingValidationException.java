@@ -1,4 +1,4 @@
-package org.billing.accountingpoints.controller.v1;
+package org.billing.accountingpoints.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

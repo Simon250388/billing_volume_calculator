@@ -4,25 +4,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.billing.accountingpoints.dto.AccountingPointServiceProviderDto;
-import org.billing.accountingpoints.usecase.dto.ServiceProviderPresentDto;
+import org.billing.accountingpoints.request.ServiceProviderRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceProviderConvertor
     implements PresentDtoConvertor<
-        ServiceProviderPresentDto, AccountingPointServiceProviderDto> {
+        ServiceProviderRequest, AccountingPointServiceProviderDto> {
   @Override
-  public ServiceProviderPresentDto toPresent(AccountingPointServiceProviderDto dto) {
+  public ServiceProviderRequest toPresent(AccountingPointServiceProviderDto dto) {
     return null;
   }
 
   @Override
-  public List<ServiceProviderPresentDto> toPresent(
+  public List<ServiceProviderRequest> toPresent(
       Set<AccountingPointServiceProviderDto> dtos) {
     return dtos.stream()
         .map(
             item ->
-                ServiceProviderPresentDto.builder()
+                ServiceProviderRequest.builder()
                     .providerId(item.getProviderId())
                     .serviceId(item.getServiceId())
                     .build())
