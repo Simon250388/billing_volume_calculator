@@ -2,7 +2,6 @@ package org.billing.calculation.repository;
 
 import java.time.LocalDate;
 import lombok.NonNull;
-import org.billing.calculation.dto.CalculationMethodByDirectionOfUseDto;
 import org.billing.calculation.model.CalculationMethodByDirectionOfUse;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,6 +17,6 @@ public interface CalculationMethodByDirectionOfUseRepository
           + "FROM CalculationMethodByDirectionOfUse "
           + "WHERE period < :period "
           + "GROUP BY service, directionOfUse)")
-  Iterable<CalculationMethodByDirectionOfUseDto> findAllLastByPeriod(
+  Iterable<CalculationMethodByDirectionOfUse> findAllLastByPeriod(
       @NonNull @Param("period") LocalDate period);
 }

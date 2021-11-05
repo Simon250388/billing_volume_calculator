@@ -1,10 +1,10 @@
 package org.billing.calculation.resolution;
 
+import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
+import org.billing.calculation.dto.CalculationResult;
+
 public interface CalculationRule {
-  //    List<CalculationResult> volume(
-  //            CalculationSettings calculationSettings,
-  //            RoomProperties roomProperties,
-  //            AccountingPointProperty accountingPointProperty,
-  //            ServicePartProperty servicePartProperty
-  //    );
+  CalculationResult volume(ServiceOfAccountingPointStabilityPeriod stabilityPeriod);
+
+  boolean canCalculateVolume(ServiceOfAccountingPointStabilityPeriod stabilityPeriod);
 }
