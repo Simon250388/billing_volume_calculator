@@ -7,4 +7,5 @@ include(
         'cucumber-test',
         'meter-values',
         'rooms',
+        'telegram-bot'
 )
