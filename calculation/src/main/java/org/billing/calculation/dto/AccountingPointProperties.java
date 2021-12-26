@@ -7,7 +7,7 @@ import lombok.Value;
 @Value
 @Builder
 public class AccountingPointProperties {
-    UUID serice;
+    UUID service;
     boolean serviceActive;
     boolean meterActive;
 }

@@ -8,6 +8,9 @@ import lombok.Value;
 public class RoomProperties {
 
   double squareValue;
+  int countOwner;
+  int countResident;
+  int countPrescribed;
 
   public Double getPeople() {
     return 0d;

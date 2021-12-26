@@ -2,13 +2,15 @@ package org.billing.calculation.resolution354.rules;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import org.billing.calculation.BillingConst;
 import org.billing.calculation.dto.AccountingPointProperties;
 import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
 import org.billing.calculation.dto.AvgRateZoneVolume;
 import org.billing.calculation.dto.AvgScaleVolume;
-import org.billing.calculation.dto.CalculationResult;
+import org.billing.calculation.dto.CalculationResultDto;
 import org.billing.calculation.dto.CalculationVolume;
 import org.billing.calculation.dto.RateZoneMeterValue;
 import org.billing.calculation.dto.ScaleMeterValue;
@@ -31,10 +33,10 @@ class VolumeByMeterValueCalculationRuleTest {
   @Test
   void volume() {
 
-    final CalculationResult result = calculationRule.volume(mockAccountingPointStabilityPeriod());
+    final CalculationResultDto result = calculationRule.volume(mockAccountingPointStabilityPeriod());
 
-    final CalculationResult expected =
-        CalculationResult.builder()
+    final CalculationResultDto expected =
+        CalculationResultDto.builder()
             .calculationMethod(CalculationMethod.BY_METER)
             .stabilityPeriod(mockAccountingPointStabilityPeriod())
             .volumes(
@@ -63,14 +65,14 @@ class VolumeByMeterValueCalculationRuleTest {
     return ServiceOfAccountingPointStabilityPeriod.builder()
         .accountingPoints(
             AccountingPointProperties.builder()
-                .serice(UUID.fromString("e33a9703-e799-4afc-829e-d0ba4f5f1d02"))
+                .service(UUID.fromString("e33a9703-e799-4afc-829e-d0ba4f5f1d02"))
                 .serviceActive(true)
                 .meterActive(true)
                 .build())
-        .periodStart(Instant.parse("2021-11-01T00:00:00Z"))
-        .periodEnd(Instant.parse("2021-12-01T00:00:00Z"))
-        .calculationPeriodStart(Instant.parse("2021-12-01T00:00:00Z"))
-        .calculationPeriodEnd(Instant.parse("2021-12-01T00:00:00Z"))
+        .periodStart(LocalDateTime.of(2021, 11, 1, 0, 0))
+        .periodEnd(LocalDateTime.of(2021, 12, 1, 0, 0))
+        .calculationPeriodStart(LocalDate.of(2021,11,1))
+        .calculationPeriodEnd(LocalDate.of(2021,12,1))
         .avgVolumeForAllPointsOfServices(true)
         .meterValuesProvideForAllPointsOfServices(true)
         .avgScaleVolumes(

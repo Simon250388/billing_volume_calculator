@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.billing.calculation.BillingConst;
-import org.billing.calculation.dto.CalculationResult;
+import org.billing.calculation.dto.CalculationResultDto;
 import org.billing.calculation.dto.CalculationVolume;
 import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
 import org.billing.calculation.model.CalculationMethod;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class VolumeByNormCalculationRule implements CalculationRule {
 
   @Override
-  public CalculationResult volume(
+  public CalculationResultDto volume(
       @NonNull final ServiceOfAccountingPointStabilityPeriod stabilityPeriod) {
 
     double coefficientNormValue = stabilityPeriod.getCoefficientNormValue();
@@ -33,7 +33,7 @@ public class VolumeByNormCalculationRule implements CalculationRule {
         BigDecimal.valueOf((normValue * coefficientNormValue * normIndicator * periodPercent))
             .setScale(BillingConst.getVolumeScale());
 
-    return CalculationResult.builder()
+    return CalculationResultDto.builder()
         .calculationMethod(getCalculationMethod())
         .volumes(
             new CalculationVolume[] {

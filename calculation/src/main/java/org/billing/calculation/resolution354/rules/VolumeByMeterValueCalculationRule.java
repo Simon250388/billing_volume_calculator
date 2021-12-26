@@ -6,11 +6,11 @@ import java.util.Comparator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.billing.calculation.BillingConst;
-import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
-import org.billing.calculation.dto.CalculationResult;
+import org.billing.calculation.dto.CalculationResultDto;
 import org.billing.calculation.dto.CalculationVolume;
 import org.billing.calculation.dto.RateZoneMeterValue;
 import org.billing.calculation.dto.ScaleMeterValue;
+import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
 import org.billing.calculation.model.CalculationMethod;
 import org.billing.calculation.resolution.CalculationRule;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,11 +21,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class VolumeByMeterValueCalculationRule implements CalculationRule {
 
-  public CalculationResult volume(@NonNull final ServiceOfAccountingPointStabilityPeriod stabilityPeriod) {
+  public CalculationResultDto volume(
+      @NonNull final ServiceOfAccountingPointStabilityPeriod stabilityPeriod) {
 
     CalculationVolume[] volumes = calculationVolumes(stabilityPeriod);
 
-    return CalculationResult.builder()
+    return CalculationResultDto.builder()
         .calculationMethod(getCalculationMethod())
         .volumes(volumes)
         .stabilityPeriod(stabilityPeriod)
@@ -93,7 +94,10 @@ public class VolumeByMeterValueCalculationRule implements CalculationRule {
             CalculationVolume.builder()
                 .rateZoneId(rateZoneMeterStartOrPeriod[rateZoneIndex].getRateZone())
                 .skaleId(scaleMeterValuesEndOrPeriod[scaleIndex].getScaleId())
-                .volume(BigDecimal.valueOf((long) (volume * Math.pow(10, BillingConst.getVolumeScale())), BillingConst.getVolumeScale()))
+                .volume(
+                    BigDecimal.valueOf(
+                        (long) (volume * Math.pow(10, BillingConst.getVolumeScale())),
+                        BillingConst.getVolumeScale()))
                 .volumeFact(BigDecimal.ZERO)
                 .build();
 

@@ -6,10 +6,10 @@ import java.util.UUID;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.billing.calculation.BillingConst;
-import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
 import org.billing.calculation.dto.AvgRateZoneVolume;
-import org.billing.calculation.dto.CalculationResult;
+import org.billing.calculation.dto.CalculationResultDto;
 import org.billing.calculation.dto.CalculationVolume;
+import org.billing.calculation.dto.ServiceOfAccountingPointStabilityPeriod;
 import org.billing.calculation.model.CalculationMethod;
 import org.billing.calculation.resolution.CalculationRule;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +20,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class VolumeByAvgCalculationRule implements CalculationRule {
   @Override
-  public CalculationResult volume(@NonNull final ServiceOfAccountingPointStabilityPeriod stabilityPeriod) {
+  public CalculationResultDto volume(
+      @NonNull final ServiceOfAccountingPointStabilityPeriod stabilityPeriod) {
 
     CalculationVolume[] volumes = calculateVolume(stabilityPeriod);
 
-    return CalculationResult.builder()
+    return CalculationResultDto.builder()
         .calculationMethod(getCalculationMethod())
         .volumes(volumes)
         .stabilityPeriod(stabilityPeriod)
@@ -62,17 +63,18 @@ public class VolumeByAvgCalculationRule implements CalculationRule {
       for (AvgRateZoneVolume avgRateZoneVolume : rateZoneVolume) {
 
         BigDecimal volume =
-                avgRateZoneVolume
-                        .getAvgVolume()
-                        .multiply(BigDecimal.valueOf(stabilityPeriod.periodPercent())).setScale(BillingConst.getVolumeScale());
+            avgRateZoneVolume
+                .getAvgVolume()
+                .multiply(BigDecimal.valueOf(stabilityPeriod.periodPercent()))
+                .setScale(BillingConst.getVolumeScale());
 
         result[resultIndex] =
-                CalculationVolume.builder()
-                        .skaleId(scaleId)
-                        .rateZoneId(avgRateZoneVolume.getRateZoneId())
-                        .volume(volume)
-                        .volumeFact(BigDecimal.ZERO)
-                        .build();
+            CalculationVolume.builder()
+                .skaleId(scaleId)
+                .rateZoneId(avgRateZoneVolume.getRateZoneId())
+                .volume(volume)
+                .volumeFact(BigDecimal.ZERO)
+                .build();
         resultIndex++;
       }
     }

@@ -1,6 +1,7 @@
 package org.billing.calculation.dto;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import lombok.Builder;
@@ -10,14 +11,14 @@ import lombok.Value;
 @Builder
 public class ServiceOfAccountingPointStabilityPeriod {
   /** Начало периода начисления */
-  Instant calculationPeriodStart;
+  LocalDate calculationPeriodStart;
 
   /** Окончание периода начисления */
-  Instant calculationPeriodEnd;
+  LocalDate calculationPeriodEnd;
   /** Начало стабильного периода */
-  Instant periodStart;
+  LocalDateTime periodStart;
   /** окончание стабильного периода */
-  Instant periodEnd;
+  LocalDateTime periodEnd;
   /** Свойства помещения */
   RoomProperties roomProperties;
   /** Свойства точки учета */
