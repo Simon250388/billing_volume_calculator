@@ -2,7 +2,6 @@ package org.billing.calculation.repository;
 
 import java.time.LocalDate;
 import lombok.NonNull;
-import org.billing.calculation.dto.SeasonalitySettingDto;
 import org.billing.calculation.model.SeasonalitySetting;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,5 +15,5 @@ public interface SeasonalitySettingsRepository extends CrudRepository<Seasonalit
           + "FROM SeasonalitySetting "
           + "WHERE period < :period "
           + "GROUP BY service,directionOfUse,building) ")
-  Iterable<SeasonalitySettingDto> findAllLastByPeriod(@NonNull @Param("period") LocalDate period);
+  Iterable<SeasonalitySetting> findAllLastByPeriod(@NonNull @Param("period") LocalDate period);
 }
