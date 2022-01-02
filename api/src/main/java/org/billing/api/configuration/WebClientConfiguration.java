@@ -13,8 +13,36 @@ public class WebClientConfiguration {
   @Bean
   @Qualifier("AccountingServiceWebClient")
   public WebClient accountingServiceWebClient() {
-    return WebClient.builder().baseUrl("http://localhost:8080")
-            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .build();
+    return WebClient.builder()
+        .baseUrl("http://localhost:8080")
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
+  }
+
+  @Bean
+  @Qualifier("MeterValueServiceWebClient")
+  public WebClient meterValueServiceWebClient() {
+    return WebClient.builder()
+        .baseUrl("http://localhost:8080")
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
+  }
+
+  @Bean
+  @Qualifier("RoomServiceWebClient")
+  public WebClient roomServiceWebClient() {
+    return WebClient.builder()
+        .baseUrl("http://localhost:8080")
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
+  }
+
+  @Bean
+  @Qualifier("ServiceWebClient")
+  public WebClient serviceWebClient() {
+    return WebClient.builder()
+        .baseUrl("http://localhost:8080")
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
   }
 }
