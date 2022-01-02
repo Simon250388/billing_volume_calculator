@@ -1,10 +1,10 @@
-FROM gradle:jdk11-hotspot
+FROM gradle:7.3-jdk17-alpine
 
-COPY . /api-project
-RUN cd /api-project
-RUN gradle distZip --no-daemon
-RUN unzip -o ./build/distributions/api-0.0.1-SNAPSHOT.zip
+COPY --chown=gradle:gradle . /api-project
+WORKDIR /api-project
+RUN gradle bootJar --no-daemon
 
-EXPOSE 8080
+EXPOSE 8085
+WORKDIR /api-project
 
-ENTRYPOINT ["./api-project/api-0.0.1-SNAPSHOT/bin/api"]
+CMD java -jar build/libs/api-0.0.1-SNAPSHOT.jar

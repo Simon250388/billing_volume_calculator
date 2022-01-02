@@ -16,7 +16,8 @@ public abstract class AbstractValidator<T> implements Validator {
   @Override
   public void validate(Object target, Errors errors) {
 
-    final Set<ConstraintViolation<Object>> validates = validator.validate(target, target.getClass());
+    final Set<ConstraintViolation<Object>> validates =
+        validator.validate(target, target.getClass());
 
     for (ConstraintViolation<Object> constraintViolation : validates) {
       String property = constraintViolation.getPropertyPath().toString();

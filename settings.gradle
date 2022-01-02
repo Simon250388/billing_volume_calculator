@@ -1,4 +1,4 @@
-
+rootProject.name = 'billing-volume-calculator'
 include(
         'api',
         'accounting-points',
@@ -9,3 +9,4 @@ include(
         'rooms',
         'telegram-bot'
 )
+
