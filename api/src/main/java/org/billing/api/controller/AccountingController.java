@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/account")
-@Validated
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountingController {
 

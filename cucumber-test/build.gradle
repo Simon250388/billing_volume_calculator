@@ -18,11 +18,11 @@ repositories {
 }
 
 dependencies {
-    implementation project(':api')
-    implementation project(':accounting-points')
-    implementation project(':rooms')
-    implementation project(':meter-values')
-    implementation project(':calculation')
+//    implementation project(':api')
+//    implementation project(':accounting-points')
+//    implementation project(':rooms')
+//    implementation project(':meter-values')
+//    implementation project(':calculation')
 
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

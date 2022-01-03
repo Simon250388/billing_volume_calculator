@@ -32,22 +32,20 @@ public class AccountingPointsStateService {
   private final MeterStateService meterStateService;
   private final AccountingPointServiceProviderService serviceProviderService;
   private final ImprovementTypeService improvementTypeService;
-  private final PresentDtoConvertor<
-          ServiceProviderRequest, AccountingPointServiceProviderDto>
+  private final PresentDtoConvertor<ServiceProviderRequest, AccountingPointServiceProviderDto>
       serviceProviderConvertor;
 
   private final Clock clock;
 
   @NonNull
   public RoomAccountingPointsRequest currentState(@NonNull UUID keyRoomId) {
-   return currentState(keyRoomId, Instant.now(clock), Instant.EPOCH);
+    return currentState(keyRoomId, Instant.now(clock), Instant.EPOCH);
   }
 
   @NonNull
   public RoomAccountingPointsRequest currentState(
-          @NonNull UUID keyRoomId, @NonNull Instant period) {
+      @NonNull UUID keyRoomId, @NonNull Instant period) {
     return currentState(keyRoomId, period, Instant.EPOCH);
-
   }
 
   @NonNull
@@ -64,7 +62,7 @@ public class AccountingPointsStateService {
   }
 
   private List<AccountingPointStateRequest> getTasksForBuildCurrentState(
-          UUID keyRoomId, Instant period, Instant periodFact) {
+      UUID keyRoomId, Instant period, Instant periodFact) {
 
     final Set<AccountingPointServiceStateDto> allEntityServiceId =
         serviceStateService.currentActive(keyRoomId, period, periodFact);
@@ -86,8 +84,8 @@ public class AccountingPointsStateService {
         .collect(Collectors.toList());
   }
 
-  private Map<UUID, AccountingPointStateRequest.AccountingPointStateRequestBuilder>
-      getBuildersMap(Set<AccountingPointServiceStateDto> allEntityServiceId) {
+  private Map<UUID, AccountingPointStateRequest.AccountingPointStateRequestBuilder> getBuildersMap(
+      Set<AccountingPointServiceStateDto> allEntityServiceId) {
     return allEntityServiceId.stream()
         .collect(
             Collectors.toMap(
