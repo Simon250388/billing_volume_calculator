@@ -16,13 +16,6 @@ public class KeyRoomService {
 
   private final KeyRoomDbService keyRoomDbService;
 
-  public void keyRoomExistOrElseThrow(@NonNull final String keyRoomId) {
-    if (keyRoomDbService.notExistsById(keyRoomId)) {
-      throw new KeyRoomNotFoundException(
-          String.format("Помещение с ключом %s не найдено", keyRoomId));
-    }
-  }
-
   public KeyRoomResponse save(KeyRoomRequest request, String userId) {
     final String keyRoomId = UUID.randomUUID().toString();
     return keyRoomDbService.save(keyRoomId, request, userId);

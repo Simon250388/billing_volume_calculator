@@ -6,12 +6,16 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import lombok.Builder;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.billing.api.model.exception.KeyRoomNotFoundException;
 import org.billing.api.model.keyRoom.KeyRoomRequest;
 import org.billing.api.model.keyRoom.KeyRoomResponse;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class MockKeyRoomRepository implements KeyRoomDbService {
 
   @Value
@@ -27,14 +31,20 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
     BigDecimal square;
   }
 
-  public MockKeyRoomRepository() {}
+  @Override
+  public void keyRoomExistOrElseThrow(@NonNull final String keyRoomId) {
+    if (notExistsById(keyRoomId)) {
+      throw new KeyRoomNotFoundException(
+              String.format("Помещение с ключом %s не найдено", keyRoomId));
+    }
+  }
 
   private final Set<MockKeyRoomModel> dataSet = new HashSet<>();
 
   @Override
   public KeyRoomResponse save(String keyRoomId, KeyRoomRequest request, String userId) {
 
-    MockKeyRoomModel model = mapFromRequest(keyRoomId, request, userId);
+    MockKeyRoomModel model = mergeWithRequest(keyRoomId, request, userId);
 
     deleteById(keyRoomId);
 
@@ -72,7 +82,7 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
             .build();
   }
 
-  private MockKeyRoomModel mapFromRequest(String keyRoomId, KeyRoomRequest request, String userId) {
+  private MockKeyRoomModel mergeWithRequest(String keyRoomId, KeyRoomRequest request, String userId) {
     final MockKeyRoomModel.MockKeyRoomModelBuilder modelBuilder =
             MockKeyRoomModel.builder()
                     .keyRoomId(keyRoomId)

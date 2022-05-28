@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import or.billing.api.repository.KeyRoomDbService;
 import org.billing.api.app.service.AccountingPointService;
 import org.billing.api.app.service.KeyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ import org.springframework.stereotype.Service;
 public class AccountingPointUseCaseService {
     private final Map<Boolean, AccountingPointStatusService> statusServices;
     private final AccountingPointService accountingPointService;
-    private final KeyRoomService keyRoomService;
+    private final KeyRoomDbService keyRoomService;
 
     @Autowired
     public AccountingPointUseCaseService(
             @Qualifier("AccountingPointActiveStatusService") AccountingPointStatusService activeStatusService,
             @Qualifier("AccountingPointDisableStatusService") AccountingPointStatusService notActiveStatusService,
             AccountingPointService accountingPointService,
-            KeyRoomService keyRoomService
+            KeyRoomDbService keyRoomService
     ) {
 
         this.accountingPointService = accountingPointService;

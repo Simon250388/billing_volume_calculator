@@ -4,8 +4,10 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import or.billing.api.repository.KeyRoomDbService;
 import org.billing.api.app.service.KeyRoomService;
 import org.billing.api.model.keyRoom.KeyRoomRequest;
 import org.billing.api.model.keyRoom.KeyRoomResponse;
@@ -16,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class KeyRoomUseCaseService {
-  private final KeyRoomService keyRoomService;
-
-  private final Clock clock;
+  private final KeyRoomDbService keyRoomDbService;
 
   private final UserProvider userProvider;
 
@@ -27,20 +27,20 @@ public class KeyRoomUseCaseService {
   }
 
   public ResponseEntity<KeyRoomResponse> create(@NonNull final KeyRoomRequest request) {
-    return ResponseEntity.ok(keyRoomService.save(request, userProvider.getUser()));
+    final String keyRoomId = UUID.randomUUID().toString();
+    return ResponseEntity.ok(keyRoomDbService.save(keyRoomId, request, userProvider.getUser()));
   }
 
   @Transactional
   public ResponseEntity<KeyRoomResponse> update(
       @NonNull final String id, @NonNull final KeyRoomRequest request) {
-    keyRoomService.keyRoomExistOrElseThrow(id);
-    keyRoomService.saveHistory(request, Instant.now(clock));
-    return ResponseEntity.ok(keyRoomService.save(id, request, userProvider.getUser()));
+    keyRoomDbService.keyRoomExistOrElseThrow(id);
+    return ResponseEntity.ok(keyRoomDbService.save(id, request, userProvider.getUser()));
   }
 
   public ResponseEntity<KeyRoomResponse> delete(@NonNull final String id) {
-    keyRoomService.keyRoomExistOrElseThrow(id);
-    keyRoomService.delete(id);
+    keyRoomDbService.keyRoomExistOrElseThrow(id);
+    keyRoomDbService.deleteById(id);
     return ResponseEntity.noContent().build();
   }
 }
