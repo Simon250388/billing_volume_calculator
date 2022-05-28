@@ -5,7 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.billing.api.app.useCase.keyRoom.KeyRoomUseCaseService;
+import org.billing.api.app.useCase.KeyRoomUseCaseService;
 import org.billing.api.model.keyRoom.KeyRoomRequest;
 import org.billing.api.model.keyRoom.KeyRoomResponse;
 import org.springframework.http.ResponseEntity;

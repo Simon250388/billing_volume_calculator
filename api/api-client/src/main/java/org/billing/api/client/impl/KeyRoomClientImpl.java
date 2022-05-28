@@ -26,7 +26,7 @@ public class KeyRoomClientImpl implements KeyRoomClient {
   private final String HANDLE_PATH = "/v1/key-room";
 
   @Override
-  public ResponseEntity<Collection<KeyRoomResponse>> getAll() {
+  public ResponseEntity<Collection<KeyRoomResponse>> getAllKeyRooms() {
 
     return webClient
         .get()
@@ -37,7 +37,7 @@ public class KeyRoomClientImpl implements KeyRoomClient {
   }
 
   @Override
-  public ResponseEntity<Object> create(KeyRoomRequest request) {
+  public ResponseEntity<Object> createKeyRoom(KeyRoomRequest request) {
     return webClient
         .post()
         .uri(HANDLE_PATH)
@@ -64,7 +64,7 @@ public class KeyRoomClientImpl implements KeyRoomClient {
   }
 
   @Override
-  public ResponseEntity<Object> update(String keyRoomId, KeyRoomRequest request) {
+  public ResponseEntity<Object> updateKeyRoom(String keyRoomId, KeyRoomRequest request) {
     return webClient
         .put()
         .uri(String.join("/", HANDLE_PATH, keyRoomId))

@@ -1,4 +1,4 @@
-package org.billing.api.app.useCase.accountingPoint;
+package org.billing.api.model.accountingPoint;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

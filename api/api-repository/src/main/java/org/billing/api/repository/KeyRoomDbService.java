@@ -1,4 +1,4 @@
-package or.billing.api.repository;
+package org.billing.api.repository;
 
 import java.time.Instant;
 import lombok.NonNull;
@@ -17,4 +17,6 @@ public interface KeyRoomDbService {
   void saveHistory(KeyRoomRequest request, Instant instant);
 
   void deleteById(String keyRoomId);
+
+  boolean exist(String value);
 }

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import or.billing.api.repository.MockKeyRoomRepository;
+import org.billing.api.repository.MockKeyRoomRepository;
 import org.assertj.core.api.Assertions;
 import org.billing.api.app.cucumber.TestContext;
 import org.billing.api.client.KeyRoomClient;
@@ -31,20 +31,31 @@ public class KeyRoomSteps {
     keyRoomRepository.save(table.get(0).get("keyRoomId"), convertRequestFromDataTable(table), "");
   }
 
+  @Given("Есть помещение с ключом {string}")
+  public void saveKeyRoom(String keyRoomId) {
+    keyRoomRepository.save(keyRoomId, KeyRoomRequest.builder()
+                    .roomTypeId(1L)
+                    .address("")
+                    .countResident(1L)
+                    .countOwner(1L)
+                    .countSubscribed(1L)
+                    .square(BigDecimal.ZERO)
+            .build(), "");
+  }
   @When("Пользователь отправляет запрос получения списка помещений")
   public void getAllRequest() {
-    TestContext.CONTEXT.setResponse(keyRoomClient.getAll());
+    TestContext.CONTEXT.setResponse(keyRoomClient.getAllKeyRooms());
   }
 
   @When("Пользователь отправляет запрос создания помещений c параметрами")
-  public void createKeyRoom(List<Map<String, String>> table) {
-    TestContext.CONTEXT.setResponse(keyRoomClient.create(convertRequestFromDataTable(table)));
+  public void sendCreateKeyRoomMessage(List<Map<String, String>> table) {
+    TestContext.CONTEXT.setResponse(keyRoomClient.createKeyRoom(convertRequestFromDataTable(table)));
   }
 
   @When("Пользователь отправляет запрос обновление помещения с параметрами")
   public void sendUpdateRequest(List<Map<String, String>> params) {
     TestContext.CONTEXT.setResponse(
-        keyRoomClient.update(params.get(0).get("keyRoomId"), convertRequestFromDataTable(params)));
+        keyRoomClient.updateKeyRoom(params.get(0).get("keyRoomId"), convertRequestFromDataTable(params)));
   }
 
   @Then("полученный список помещений пуст")

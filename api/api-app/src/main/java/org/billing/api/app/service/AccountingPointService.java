@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.billing.api.app.useCase.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPointResponse;
 import org.springframework.stereotype.Service;
 
 @Service

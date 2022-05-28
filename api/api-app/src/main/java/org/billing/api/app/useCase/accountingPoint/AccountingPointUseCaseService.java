@@ -5,9 +5,10 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import or.billing.api.repository.KeyRoomDbService;
+import org.billing.api.repository.KeyRoomDbService;
 import org.billing.api.app.service.AccountingPointService;
-import org.billing.api.app.service.KeyRoomService;
+import org.billing.api.model.accountingPoint.AccountingPointRequest;
+import org.billing.api.model.accountingPoint.AccountingPointResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +43,11 @@ public class AccountingPointUseCaseService {
     }
 
     public ResponseEntity<AccountingPointResponse> update(@NonNull AccountingPointRequest request) {
-        keyRoomService.keyRoomExistOrElseThrow(request.getKeyRoomId());
-        accountingPointService.accountingPointExistOrElseThrow(request.getAccountingPointId());
-        return statusServices.get(request.isActive()).update(request);
+        return statusServices.get(request.getActive()).update(request);
     }
 
     public ResponseEntity<AccountingPointResponse> save(@NonNull AccountingPointRequest request) {
-        return statusServices.get(request.isActive()).save(request);
+        return statusServices.get(request.getActive()).save(request);
     }
 
     public ResponseEntity<Void> delete(@NonNull String keyRoomId, @NonNull String accountingPointId) {

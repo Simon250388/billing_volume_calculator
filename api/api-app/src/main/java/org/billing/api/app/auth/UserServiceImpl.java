@@ -1,7 +1,7 @@
 package org.billing.api.app.auth;
 
 import java.util.Map;
-import or.billing.api.repository.model.UserDetailsModel;
+import org.billing.api.repository.model.UserDetailsModel;
 import org.billing.api.app.useCase.user.AuthRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

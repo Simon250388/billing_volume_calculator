@@ -1,4 +1,4 @@
-package or.billing.api.repository.model;
+package org.billing.api.repository.model;
 
 import java.util.Collection;
 import javax.persistence.Entity;
