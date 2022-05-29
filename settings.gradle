@@ -3,14 +3,7 @@ include(
         'api:api-app',
         'api:api-client',
         'api:api-model',
-        'api:api-repository',
-        'accounting-points',
-        'accounts',
-        'calculation',
-        'cucumber-test',
-        'meter-values',
-        'rooms',
-        'telegram-bot'
+        'api:api-repository'
 )
 
 

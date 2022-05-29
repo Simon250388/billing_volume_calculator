@@ -1,4 +1,0 @@
-
-rootProject.name = 'cucumber-test'
-include('src')
-
