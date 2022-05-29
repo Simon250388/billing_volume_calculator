@@ -8,7 +8,7 @@ public class AccountServiceSteps {
 
     @Autowired private AccountServiceDbService accountServiceDbService;
 
-  @Given("есть услуга с ключом {string}")
+  @Given("Есть услуга с ключом {string}")
   public void saveService(String serviceId) {
         accountServiceDbService.save(serviceId);
     }

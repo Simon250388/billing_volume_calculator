@@ -1,48 +1,119 @@
 package org.billing.api.app.cucumber.step;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.List;
 import java.util.Map;
 import org.billing.api.app.cucumber.TestContext;
 import org.billing.api.client.AccountingPointClient;
 import org.billing.api.model.accountingPoint.AccountingPointRequest;
+import org.billing.api.model.accountingPoint.AccountingPointResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 public class AccountingPointSteps {
 
-    @Autowired private AccountingPointClient client;
+  @Autowired private AccountingPointClient client;
 
-    @When("Пользователь отправляет запрос создания точки учета c параметрами")
-    public void sendCreateRequest(List<Map<String, String>> table) {
-        TestContext.CONTEXT.setResponse(client.createAccountingPoint(convertRequestFromDataTable(table)));
-    }
+  @Autowired private ObjectMapper mapper;
 
-    private AccountingPointRequest convertRequestFromDataTable(List<Map<String, String>> values) {
+  @When("Пользователь отправляет запрос создания точки учета c параметрами")
+  public void sendCreateRequest(List<Map<String, String>> table) {
+    TestContext.CONTEXT.setResponse(
+        client.createAccountingPoint(convertRequestFromDataTable(table)));
+  }
 
-        final AccountingPointRequest.AccountingPointRequestBuilder builder = AccountingPointRequest.builder();
+  @Then("Созданная точка учета имеет значение полей")
+  public void responseEqual(DataTable table) throws JsonProcessingException {
 
-        values
-                .get(0)
-                .forEach(
-                        (key, value) -> {
-                            switch (key.toUpperCase()) {
-                                case "KEYROOMID":
-                                    builder.keyRoomId(value);
-                                    break;
-                                case "SERVICEID":
-                                    builder.serviceId(value);
-                                    break;
-                                case "PROVIDERID":
-                                    builder.providerId(value);
-                                    break;
-                                case "ACTIVE":
-                                    builder.active(Boolean.parseBoolean(value));
-                                    break;
-                                default:
-                                    break;
-                            }
-                        });
+    final AccountingPointResponse body = getBodyResponse();
 
-        return builder.build();
-    }
+    final AccountingPointResponse expected = convertResponseFromDataTable(table);
+
+    assertThat(body).usingRecursiveComparison().ignoringFields("id").isEqualTo(expected);
+  }
+
+  @Then("У созданной точки учета заполненно свойство id")
+  public void responseIdNotEmpty() throws JsonProcessingException {
+    final AccountingPointResponse body = getBodyResponse();
+    assertThat(body.getId()).isNotEmpty();
+  }
+
+  private AccountingPointResponse getBodyResponse() throws JsonProcessingException {
+    ResponseEntity<Map<String, String>> result = TestContext.CONTEXT.getResponse();
+
+    String bodyStr = mapper.writeValueAsString(result.getBody());
+
+    return mapper.readValue(bodyStr, AccountingPointResponse.class);
+  }
+
+  private AccountingPointRequest convertRequestFromDataTable(List<Map<String, String>> values) {
+
+    final AccountingPointRequest.AccountingPointRequestBuilder builder =
+        AccountingPointRequest.builder();
+
+    values
+        .get(0)
+        .forEach(
+            (key, value) -> {
+              switch (key.toUpperCase()) {
+                case "KEYROOMID":
+                  builder.keyRoomId(value.replace("\"", ""));
+                  break;
+                case "SERVICEID":
+                  builder.serviceId(value.replace("\"", ""));
+                  break;
+                case "PROVIDERID":
+                  builder.providerId(value.replace("\"", ""));
+                  break;
+                case "ACTIVE":
+                  builder.active(Boolean.parseBoolean(value));
+                  break;
+                case "METERISACTIVE":
+                  builder.meterIsActive(Boolean.parseBoolean(value));
+                default:
+                  break;
+              }
+            });
+
+    return builder.build();
+  }
+
+  private AccountingPointResponse convertResponseFromDataTable(DataTable table) {
+    final List<Map<String, String>> values = table.asMaps();
+
+    final AccountingPointResponse.AccountingPointResponseBuilder expectedBuilder =
+        AccountingPointResponse.builder();
+
+    values
+        .get(0)
+        .forEach(
+            (key, value) -> {
+              switch (key.toUpperCase()) {
+                case "KEYROOMID":
+                  expectedBuilder.keyRoomId(value.replace("\"", ""));
+                  break;
+                case "SERVICEID":
+                  expectedBuilder.serviceId(value.replace("\"", ""));
+                  break;
+                case "PROVIDERID":
+                  expectedBuilder.providerId(value.replace("\"", ""));
+                  break;
+                case "ACTIVE":
+                  expectedBuilder.active(Boolean.parseBoolean(value));
+                case "METERISACTIVE":
+                  expectedBuilder.meterIsActive(Boolean.parseBoolean(value));
+                  break;
+                default:
+                  break;
+              }
+            });
+
+    return expectedBuilder.build();
+  }
 }

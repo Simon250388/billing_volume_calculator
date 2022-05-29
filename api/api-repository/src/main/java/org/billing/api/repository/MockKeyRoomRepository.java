@@ -17,10 +17,10 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
   private final Map<String, KeyRoomRequest> dataSet = new HashMap<>();
 
   @Override
-  public void keyRoomExistOrElseThrow(@NonNull final String keyRoomId) {
-    if (notExistsById(keyRoomId)) {
+  public void existOrElseThrow(@NonNull final String id) {
+    if (notExistsById(id)) {
       throw new KeyRoomNotFoundException(
-          String.format("Помещение с ключом %s не найдено", keyRoomId));
+          String.format("Помещение с ключом %s не найдено", id));
     }
   }
 
@@ -31,16 +31,16 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
   }
 
   @Override
-  public boolean notExistsById(String keyRoomId) {
-    return !exist(keyRoomId);
+  public boolean notExistsById(String id) {
+    return !exist(id);
   }
 
   @Override
   public void saveHistory(KeyRoomRequest request, Instant instant) {}
 
   @Override
-  public void deleteById(String keyRoomId) {
-    findById(keyRoomId).ifPresent(value -> dataSet.remove(keyRoomId));
+  public void deleteById(String id) {
+    findById(id).ifPresent(value -> dataSet.remove(id));
   }
 
   @Override

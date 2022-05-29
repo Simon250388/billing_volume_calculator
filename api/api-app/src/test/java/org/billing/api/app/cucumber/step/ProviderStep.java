@@ -8,7 +8,7 @@ public class ProviderStep {
 
   @Autowired private ProviderDbService providerDbService;
 
-  @Given("есть поставщик с ключом {string}")
+  @Given("Есть поставщик с ключом {string}")
   public void saveService(String providerId) {
     providerDbService.save(providerId);
   }

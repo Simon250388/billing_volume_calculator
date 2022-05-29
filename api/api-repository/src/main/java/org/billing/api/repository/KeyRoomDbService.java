@@ -10,13 +10,13 @@ import org.springframework.stereotype.Repository;
 public interface KeyRoomDbService {
   KeyRoomResponse save(String id, KeyRoomRequest request, String userId);
 
-  void keyRoomExistOrElseThrow(@NonNull final String keyRoomId);
+  void existOrElseThrow(@NonNull final String id);
 
-  boolean notExistsById(String keyRoomId);
+  boolean notExistsById(String id);
 
   void saveHistory(KeyRoomRequest request, Instant instant);
 
-  void deleteById(String keyRoomId);
+  void deleteById(String id);
 
   boolean exist(String value);
 }

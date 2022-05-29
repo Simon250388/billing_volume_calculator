@@ -35,12 +35,12 @@ public class KeyRoomUseCaseService {
       @NonNull final String id, @NonNull final KeyRoomRequest request) {
     final UserDetailsModel token =
             (UserDetailsModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    keyRoomDbService.keyRoomExistOrElseThrow(id);
+    keyRoomDbService.existOrElseThrow(id);
     return ResponseEntity.ok(keyRoomDbService.save(id, request, token.getUsername()));
   }
 
   public ResponseEntity<KeyRoomResponse> delete(@NonNull final String id) {
-    keyRoomDbService.keyRoomExistOrElseThrow(id);
+    keyRoomDbService.existOrElseThrow(id);
     keyRoomDbService.deleteById(id);
     return ResponseEntity.noContent().build();
   }

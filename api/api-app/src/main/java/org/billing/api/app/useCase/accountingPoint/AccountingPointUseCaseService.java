@@ -38,7 +38,7 @@ public class AccountingPointUseCaseService {
     }
 
     public ResponseEntity<Collection<AccountingPointResponse>> list(String keyRoomId) {
-        keyRoomService.keyRoomExistOrElseThrow(keyRoomId);
+        keyRoomService.existOrElseThrow(keyRoomId);
         return ResponseEntity.ok(accountingPointService.getAll(keyRoomId));
     }
 
@@ -51,7 +51,7 @@ public class AccountingPointUseCaseService {
     }
 
     public ResponseEntity<Void> delete(@NonNull String keyRoomId, @NonNull String accountingPointId) {
-        keyRoomService.keyRoomExistOrElseThrow(keyRoomId);
+        keyRoomService.existOrElseThrow(keyRoomId);
         accountingPointService.accountingPointExistOrElseThrow(accountingPointId);
         boolean status = accountingPointService.accountingPointStatus(accountingPointId);
         Optional.ofNullable(statusServices.get(status))

@@ -9,8 +9,13 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = AccountingPointResponse.AccountingPointResponseBuilder.class)
 public class AccountingPointResponse {
-
-    @JsonPOJOBuilder
+    String id;
+    String keyRoomId;
+    String serviceId;
+    String providerId;
+    boolean active;
+    boolean meterIsActive;
+    @JsonPOJOBuilder(withPrefix = "")
     public static class AccountingPointResponseBuilder {
     }
 }
