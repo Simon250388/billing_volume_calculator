@@ -1,16 +1,10 @@
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'java'
     id 'application'
-//    id 'checkstyle'
 }
 application {
     mainClass = 'org.billing.api.app.ApiApplication'
-}
-
-repositories {
-    mavenCentral()
 }
 
 group = 'com.best.billing'
@@ -36,7 +30,6 @@ dependencies {
 
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'org.projectlombok:lombok:1.18.22'
 
     testImplementation project(':api:api-client')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -46,17 +39,9 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-junit:6.11.0'
     testImplementation 'io.cucumber:cucumber-junit-platform-engine:6.10.3'
     testImplementation 'io.cucumber:cucumber-spring:6.11.0'
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.1'
-    testImplementation 'org.assertj:assertj-core:3.22.0'
-
-    compileOnly 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
 }
 
-test {
-    useJUnitPlatform()
-}
+
 
 //checkstyle {
 //    configFile file('../../config/checkstyle/checkstyle.xml')
