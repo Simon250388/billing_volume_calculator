@@ -12,9 +12,9 @@ Feature: Работа с помещениями
       | Address   | roomTypeId   | countResident   | countSubscribed   | countOwner   | square   |
       | <Address> | <roomTypeId> | <countResident> | <countSubscribed> | <countOwner> | <square> |
     Then ответ содержит ошибку 404
-    And описание ошибки содержит ошибку валидации "address не должно быть пустым"
-    And описание ошибки содержит ошибку валидации "countOwner Количество собственников не может быть меньше 1"
-    And описание ошибки содержит ошибку валидации "square Площадь не может быть меньше 1"
+    And описание ошибки содержит ошибку валидации "address"
+    And описание ошибки содержит ошибку валидации "countOwner"
+    And описание ошибки содержит ошибку валидации "square"
     Examples:
       | Address | roomTypeId | countResident | countSubscribed | countOwner | square |
       | [blank] | 1          | 1             | 1               | 0          | 0      |
