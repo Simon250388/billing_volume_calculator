@@ -29,17 +29,17 @@ public class AccountingPointClientImpl implements AccountingPointClient {
     private static final String HANDLE_PATH = "/v1/accounting-point";
 
     @Override
-    public ResponseEntity<Collection<AccountingPointResponse>> getAllAccountingPoints() {
+    public ResponseEntity<Collection<AccountingPointResponse>> getAll(String keyRoomId) {
         return webClient
                 .get()
-                .uri(HANDLE_PATH)
+                .uri(String.join("/", HANDLE_PATH,keyRoomId))
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<Collection<AccountingPointResponse>>() {})
                 .block();
     }
 
     @Override
-    public ResponseEntity<Object> createAccountingPoint(AccountingPointRequest request) {
+    public ResponseEntity<Object> create(AccountingPointRequest request) {
         return webClient
                 .post()
                 .uri(HANDLE_PATH)
@@ -66,7 +66,7 @@ public class AccountingPointClientImpl implements AccountingPointClient {
     }
 
     @Override
-    public ResponseEntity<Object> updateAccountingPoint(String accountingPointId, AccountingPointRequest request) {
+    public ResponseEntity<Object> update(String accountingPointId, AccountingPointRequest request) {
         return webClient
                 .put()
                 .uri(String.join("/", HANDLE_PATH, accountingPointId))

@@ -44,6 +44,11 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
     }
 
     @Override
+    public void deleteAll() {
+        dataSet.clear();
+    }
+
+    @Override
     public boolean exist(String id) {
         return findById(id).isPresent();
     }

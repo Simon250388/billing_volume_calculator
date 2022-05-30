@@ -17,4 +17,9 @@ public class MockProviderDbService implements ProviderDbService {
   public boolean save(String id) {
     return dataSet.add(id);
   }
+
+  @Override
+  public void deleteAll() {
+    dataSet.clear();
+  }
 }

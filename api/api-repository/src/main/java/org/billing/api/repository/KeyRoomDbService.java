@@ -19,4 +19,6 @@ public interface KeyRoomDbService {
   void deleteById(String id);
 
   boolean exist(String value);
+
+  void deleteAll();
 }

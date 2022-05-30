@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service;
 public interface AccountServiceDbService {
     boolean existsById(String id);
     boolean save(String id);
+
+    void deleteAll();
 }

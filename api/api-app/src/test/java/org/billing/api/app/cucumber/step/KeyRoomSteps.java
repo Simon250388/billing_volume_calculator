@@ -12,19 +12,19 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.billing.api.repository.MockKeyRoomRepository;
 import org.assertj.core.api.Assertions;
 import org.billing.api.app.cucumber.TestContext;
 import org.billing.api.client.KeyRoomClient;
 import org.billing.api.model.keyRoom.KeyRoomRequest;
 import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.repository.KeyRoomDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 public class KeyRoomSteps {
   @Autowired private KeyRoomClient keyRoomClient;
   @Autowired private ObjectMapper mapper;
-  @Autowired private MockKeyRoomRepository keyRoomRepository;
+  @Autowired private KeyRoomDbService keyRoomRepository;
 
   @Given("Есть помещение с параметрами")
   public void saveKeyRoom(List<Map<String, String>> table) {

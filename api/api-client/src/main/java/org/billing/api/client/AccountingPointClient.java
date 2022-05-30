@@ -6,10 +6,10 @@ import org.billing.api.model.accountingPoint.AccountingPointResponse;
 import org.springframework.http.ResponseEntity;
 
 public interface AccountingPointClient {
-  ResponseEntity<Collection<AccountingPointResponse>> getAllAccountingPoints();
+  ResponseEntity<Collection<AccountingPointResponse>> getAll(String keyRoomId);
 
-  ResponseEntity<Object> createAccountingPoint(AccountingPointRequest request);
+  ResponseEntity<Object> create(AccountingPointRequest request);
 
-  ResponseEntity<Object> updateAccountingPoint(
+  ResponseEntity<Object> update(
       String accountingPointId, AccountingPointRequest request);
 }

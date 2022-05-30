@@ -7,12 +7,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import org.assertj.core.api.Assertions;
 import org.billing.api.app.cucumber.TestContext;
 import org.billing.api.client.AccountingPointClient;
 import org.billing.api.model.accountingPoint.AccountingPointRequest;
 import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.keyRoom.KeyRoomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -25,7 +28,12 @@ public class AccountingPointSteps {
   @When("Пользователь отправляет запрос создания точки учета c параметрами")
   public void sendCreateRequest(List<Map<String, String>> table) {
     TestContext.CONTEXT.setResponse(
-        client.createAccountingPoint(convertRequestFromDataTable(table)));
+        client.create(convertRequestFromDataTable(table)));
+  }
+
+  @When("Пользователь отправляет запрос получения списка точек учета {string}")
+  public void getAllRequest(String keyRoomId) {
+    TestContext.CONTEXT.setResponse(client.getAll(keyRoomId));
   }
 
   @Then("Созданная точка учета имеет значение полей")
@@ -42,6 +50,13 @@ public class AccountingPointSteps {
   public void responseIdNotEmpty() throws JsonProcessingException {
     final AccountingPointResponse body = getBodyResponse();
     assertThat(body.getId()).isNotEmpty();
+  }
+
+  @Then("полученный список точек учета пуст")
+  public void responseIsEmpty() {
+    ResponseEntity<Collection<AccountingPointResponse>> result = TestContext.CONTEXT.getResponse();
+    final Collection<AccountingPointResponse> body = result.getBody();
+    Assertions.assertThat(body).isEmpty();
   }
 
   private AccountingPointResponse getBodyResponse() throws JsonProcessingException {

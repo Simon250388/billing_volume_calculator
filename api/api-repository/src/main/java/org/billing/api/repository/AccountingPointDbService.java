@@ -17,6 +17,7 @@ public interface AccountingPointDbService {
   void saveHistory(AccountingPointRequest request, Instant instant);
 
   void deleteById(String id);
+  void deleteAll();
 
   boolean exist(String value);
 }

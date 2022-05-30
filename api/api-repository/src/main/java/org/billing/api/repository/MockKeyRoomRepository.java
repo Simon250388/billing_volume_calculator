@@ -48,6 +48,11 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
     return findById(id).isPresent();
   }
 
+  @Override
+  public void deleteAll() {
+    dataSet.clear();
+  }
+
   private Optional<KeyRoomRequest> findById(String id) {
     return Optional.ofNullable(dataSet.getOrDefault(id, null));
   }
