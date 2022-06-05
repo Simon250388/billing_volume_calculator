@@ -19,14 +19,14 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
   @Override
   public void existOrElseThrow(@NonNull final String id) {
     if (notExistsById(id)) {
-      throw new KeyRoomNotFoundException(String.format("Помещение с ключом %s не найдено", id));
+      throw new KeyRoomNotFoundException(id);
     }
   }
 
   @Override
   public AccountingPointResponse save(String id, AccountingPointRequest request) {
     mergeWithRequest(id, request);
-    return mapToResponse(id, request);
+    return mapToResponse(id);
   }
 
   @Override
@@ -55,10 +55,12 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
   @Override
   public Optional<AccountingPointResponse> findById(String id) {
     return Optional.ofNullable(dataSet.getOrDefault(id, null))
-        .map(value -> mapToResponse(id, value));
+        .map(value -> mapToResponse(id));
   }
 
-  private AccountingPointResponse mapToResponse(String id, AccountingPointRequest model) {
+  private AccountingPointResponse mapToResponse(String id) {
+
+    final AccountingPointRequest model = this.dataSet.get(id);
 
     return AccountingPointResponse.builder()
         .id(id)
@@ -66,6 +68,7 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
         .active(model.getActive())
         .serviceId(model.getServiceId())
         .providerId(model.getProviderId())
+        .meterIsActive(model.getMeterIsActive())
         .build();
   }
 
@@ -94,6 +97,11 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
         .ifPresentOrElse(
             modelBuilder::providerId,
             () -> modelBuilder.providerId(existModel.orElseThrow().getProviderId()));
+
+    Optional.ofNullable(request.getMeterIsActive())
+        .ifPresentOrElse(
+            modelBuilder::meterIsActive,
+            () -> modelBuilder.meterIsActive(existModel.orElseThrow().getMeterIsActive()));
 
     dataSet.put(id, modelBuilder.build());
   }

@@ -1,5 +1,6 @@
 package org.billing.api.app.validator;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.repository.AccountServiceDbService;
 import org.billing.api.model.validator.ExistValueType;
@@ -14,7 +15,7 @@ public class ServiceValueExistChecker implements ValueExistChecker {
 
     @Override
     public boolean exist(String value) {
-        return accountServiceDbService.existsById(value);
+        return Optional.ofNullable(value).map(accountServiceDbService::existsById).orElse(true);
     }
 
     @Override

@@ -19,8 +19,7 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
   @Override
   public void existOrElseThrow(@NonNull final String id) {
     if (notExistsById(id)) {
-      throw new KeyRoomNotFoundException(
-          String.format("Помещение с ключом %s не найдено", id));
+      throw new KeyRoomNotFoundException(id);
     }
   }
 
