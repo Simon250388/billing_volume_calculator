@@ -27,8 +27,13 @@ public class AccountingPointSteps {
 
   @When("Пользователь отправляет запрос создания точки учета c параметрами")
   public void sendCreateRequest(List<Map<String, String>> table) {
+    TestContext.CONTEXT.setResponse(client.create(convertRequestFromDataTable(table)));
+  }
+
+  @When("Пользователь отправляет запрос обновления точки учета c параметрами")
+  public void sendUpdateRequest(List<Map<String, String>> table) {
     TestContext.CONTEXT.setResponse(
-        client.create(convertRequestFromDataTable(table)));
+        client.update(table.get(0).get("AccountingPointId").replace("\"", ""), convertRequestFromDataTable(table)));
   }
 
   @When("Пользователь отправляет запрос получения списка точек учета {string}")

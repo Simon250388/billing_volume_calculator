@@ -14,87 +14,87 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MockAccountingPointDbService implements AccountingPointDbService {
-    private final Map<String, AccountingPointRequest> dataSet = new HashMap<>();
+  private final Map<String, AccountingPointRequest> dataSet = new HashMap<>();
 
-    @Override
-    public void existOrElseThrow(@NonNull final String id) {
-        if (notExistsById(id)) {
-            throw new KeyRoomNotFoundException(
-                    String.format("Помещение с ключом %s не найдено", id));
-        }
+  @Override
+  public void existOrElseThrow(@NonNull final String id) {
+    if (notExistsById(id)) {
+      throw new KeyRoomNotFoundException(String.format("Помещение с ключом %s не найдено", id));
     }
+  }
 
-    @Override
-    public AccountingPointResponse save(String id, AccountingPointRequest request) {
-        mergeWithRequest(id, request);
-        return mapToResponse(id);
-    }
+  @Override
+  public AccountingPointResponse save(String id, AccountingPointRequest request) {
+    mergeWithRequest(id, request);
+    return mapToResponse(id, request);
+  }
 
-    @Override
-    public boolean notExistsById(String id) {
-        return !exist(id);
-    }
+  @Override
+  public boolean notExistsById(String id) {
+    return !exist(id);
+  }
 
-    @Override
-    public void saveHistory(AccountingPointRequest request, Instant instant) {}
+  @Override
+  public void saveHistory(AccountingPointRequest request, Instant instant) {}
 
-    @Override
-    public void deleteById(String id) {
-        findById(id).ifPresent(value -> dataSet.remove(id));
-    }
+  @Override
+  public void deleteById(String id) {
+    findById(id).ifPresent(value -> dataSet.remove(id));
+  }
 
-    @Override
-    public void deleteAll() {
-        dataSet.clear();
-    }
+  @Override
+  public void deleteAll() {
+    dataSet.clear();
+  }
 
-    @Override
-    public boolean exist(String id) {
-        return findById(id).isPresent();
-    }
+  @Override
+  public boolean exist(String id) {
+    return findById(id).isPresent();
+  }
 
-    private Optional<AccountingPointRequest> findById(String id) {
-        return Optional.ofNullable(dataSet.getOrDefault(id, null));
-    }
+  @Override
+  public Optional<AccountingPointResponse> findById(String id) {
+    return Optional.ofNullable(dataSet.getOrDefault(id, null))
+        .map(value -> mapToResponse(id, value));
+  }
 
-    private AccountingPointResponse mapToResponse(String id) {
+  private AccountingPointResponse mapToResponse(String id, AccountingPointRequest model) {
 
-        AccountingPointRequest model = findById(id).orElseThrow();
+    return AccountingPointResponse.builder()
+        .id(id)
+        .keyRoomId(model.getKeyRoomId())
+        .active(model.getActive())
+        .serviceId(model.getServiceId())
+        .providerId(model.getProviderId())
+        .build();
+  }
 
-        return AccountingPointResponse.builder()
-                .id(id)
-                .keyRoomId(model.getKeyRoomId())
-                .active(model.getActive())
-                .serviceId(model.getServiceId())
-                .providerId(model.getProviderId())
-                .build();
-    }
+  private void mergeWithRequest(String id, AccountingPointRequest request) {
+    final AccountingPointRequest.AccountingPointRequestBuilder modelBuilder =
+        AccountingPointRequest.builder();
 
-    private void mergeWithRequest(String id, AccountingPointRequest request) {
-        final AccountingPointRequest.AccountingPointRequestBuilder modelBuilder = AccountingPointRequest.builder();
+    final Optional<AccountingPointRequest> existModel =
+        Optional.ofNullable(dataSet.getOrDefault(id, null));
 
-        final Optional<AccountingPointRequest> existModel = findById(id);
+    Optional.ofNullable(request.getKeyRoomId())
+        .ifPresentOrElse(
+            modelBuilder::keyRoomId,
+            () -> modelBuilder.keyRoomId(existModel.orElseThrow().getKeyRoomId()));
 
-        Optional.ofNullable(request.getKeyRoomId())
-                .ifPresentOrElse(
-                        modelBuilder::keyRoomId,
-                        () -> modelBuilder.keyRoomId(existModel.orElseThrow().getKeyRoomId()));
+    Optional.ofNullable(request.getActive())
+        .ifPresentOrElse(
+            modelBuilder::active, () -> modelBuilder.active(existModel.orElseThrow().getActive()));
 
-        Optional.ofNullable(request.getActive())
-                .ifPresentOrElse(
-                        modelBuilder::active,
-                        () -> modelBuilder.active(existModel.orElseThrow().getActive()));
+    Optional.ofNullable(request.getServiceId())
+        .ifPresentOrElse(
+            modelBuilder::serviceId,
+            () -> modelBuilder.serviceId(existModel.orElseThrow().getServiceId()));
 
-        Optional.ofNullable(request.getServiceId())
-                .ifPresentOrElse(
-                        modelBuilder::serviceId,
-                        () -> modelBuilder.serviceId(existModel.orElseThrow().getServiceId()));
+    Optional.ofNullable(request.getProviderId())
+        .ifPresentOrElse(
+            modelBuilder::providerId,
+            () -> modelBuilder.providerId(existModel.orElseThrow().getProviderId()));
 
-        Optional.ofNullable(request.getProviderId())
-                .ifPresentOrElse(
-                        modelBuilder::providerId,
-                        () -> modelBuilder.providerId(existModel.orElseThrow().getProviderId()));
-
-        dataSet.put(id, modelBuilder.build());
-    }
+    dataSet.put(id, modelBuilder.build());
+  }
 }

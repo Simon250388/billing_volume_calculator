@@ -3,6 +3,7 @@ package org.billing.api.app.useCase.accountingPoint;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.repository.KeyRoomDbService;
@@ -17,47 +18,27 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AccountingPointUseCaseService {
-    private final Map<Boolean, AccountingPointStatusService> statusServices;
     private final AccountingPointService accountingPointService;
     private final KeyRoomDbService keyRoomService;
-
-    @Autowired
-    public AccountingPointUseCaseService(
-            @Qualifier("AccountingPointActiveStatusService") AccountingPointStatusService activeStatusService,
-            @Qualifier("AccountingPointDisableStatusService") AccountingPointStatusService notActiveStatusService,
-            AccountingPointService accountingPointService,
-            KeyRoomDbService keyRoomService
-    ) {
-
-        this.accountingPointService = accountingPointService;
-        this.keyRoomService = keyRoomService;
-        this.statusServices = Map.of(
-                true, activeStatusService,
-                false, notActiveStatusService
-        );
-    }
 
     public ResponseEntity<Collection<AccountingPointResponse>> list(String keyRoomId) {
         keyRoomService.existOrElseThrow(keyRoomId);
         return ResponseEntity.ok(accountingPointService.getAll(keyRoomId));
     }
 
-    public ResponseEntity<AccountingPointResponse> update(@NonNull AccountingPointRequest request) {
-        return statusServices.get(request.getActive()).update(request);
+    public ResponseEntity<AccountingPointResponse> update(@NonNull String accountingPointId, @NonNull AccountingPointRequest request) {
+        accountingPointService.accountingPointExistOrElseThrow(accountingPointId);
+        return ResponseEntity.ok(accountingPointService.save(accountingPointId, request));
     }
 
     public ResponseEntity<AccountingPointResponse> save(@NonNull AccountingPointRequest request) {
-        return statusServices.get(request.getActive()).save(request);
+        final String accountingPointId = UUID.randomUUID().toString();
+        return ResponseEntity.ok(accountingPointService.save(accountingPointId, request));
     }
 
-    public ResponseEntity<Void> delete(@NonNull String keyRoomId, @NonNull String accountingPointId) {
-        keyRoomService.existOrElseThrow(keyRoomId);
+    public ResponseEntity<Void> delete(@NonNull String accountingPointId) {
         accountingPointService.accountingPointExistOrElseThrow(accountingPointId);
-        boolean status = accountingPointService.accountingPointStatus(accountingPointId);
-        Optional.ofNullable(statusServices.get(status))
-                .orElseThrow(() -> new IllegalStateException(
-                        String.format("AccountingPointActiveStatusService with status %s not found", status)))
-                .update(accountingPointId);
-        return ResponseEntity.ok().build();
+        accountingPointService.delete(accountingPointId);
+        return ResponseEntity.noContent().build();
     }
 }

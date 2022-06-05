@@ -15,7 +15,7 @@ public class AccountingPointActiveStatusService implements AccountingPointStatus
   private final AccountingPointDbService accountingPointDbService;
 
   @Override
-  public ResponseEntity<AccountingPointResponse> update(AccountingPointRequest request) {
+  public ResponseEntity<AccountingPointResponse> update(String accountingPointId, AccountingPointRequest request) {
     return null;
   }
 

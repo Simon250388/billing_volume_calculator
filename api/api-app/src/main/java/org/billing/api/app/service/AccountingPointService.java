@@ -4,20 +4,33 @@ import java.util.Collection;
 import java.util.Collections;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.billing.api.model.accountingPoint.AccountingPointRequest;
 import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.exception.AccountingPointNotFoundException;
+import org.billing.api.repository.AccountingPointDbService;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AccountingPointService {
-    public Collection<AccountingPointResponse> getAll(@NonNull final String keyRoomID) {
-        return Collections.emptyList();
-    }
 
-    public void accountingPointExistOrElseThrow(@NonNull final String accountingPointId) {}
+  private final AccountingPointDbService dbService;
 
-    public boolean accountingPointStatus(@NonNull final String accountingPointId ) {
-        return false;
-    }
+  public Collection<AccountingPointResponse> getAll(@NonNull final String keyRoomID) {
+    return Collections.emptyList();
+  }
 
+  public void accountingPointExistOrElseThrow(@NonNull final String accountingPointId) {
+    dbService
+        .findById(accountingPointId)
+        .orElseThrow(() -> new AccountingPointNotFoundException(accountingPointId));
+  }
+
+  public AccountingPointResponse save(String accountingPointId, AccountingPointRequest request) {
+    return dbService.save(accountingPointId, request);
+  }
+
+  public void delete(String accountingPointId) {
+    dbService.deleteById(accountingPointId);
+  }
 }

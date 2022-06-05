@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service("AccountingPointDisableStatusService")
 public class AccountingPointDisableStatusService implements AccountingPointStatusService {
     @Override
-    public ResponseEntity<AccountingPointResponse> update(AccountingPointRequest request) {
+    public ResponseEntity<AccountingPointResponse> update(String accountingPointId, AccountingPointRequest request) {
         return null;
     }
 

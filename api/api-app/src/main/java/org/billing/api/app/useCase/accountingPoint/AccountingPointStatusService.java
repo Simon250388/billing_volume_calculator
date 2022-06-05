@@ -5,9 +5,10 @@ import org.billing.api.model.accountingPoint.AccountingPointResponse;
 import org.springframework.http.ResponseEntity;
 
 public interface AccountingPointStatusService {
-    ResponseEntity<AccountingPointResponse> update(AccountingPointRequest request);
+  ResponseEntity<AccountingPointResponse> update(
+      String accountingPointId, AccountingPointRequest request);
 
-    ResponseEntity<AccountingPointResponse> save(AccountingPointRequest request);
+  ResponseEntity<AccountingPointResponse> save(AccountingPointRequest request);
 
-    void update(String accountingPointId);
+  void update(String accountingPointId);
 }

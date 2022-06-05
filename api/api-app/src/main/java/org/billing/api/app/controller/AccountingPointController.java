@@ -37,16 +37,15 @@ public class AccountingPointController {
     return accountingPointUseCaseService.save(request);
   }
 
-  @PutMapping
+  @PutMapping("{accountingPointId}")
   public ResponseEntity<AccountingPointResponse> update(
-      @RequestBody AccountingPointRequest request) {
-    return accountingPointUseCaseService.update(request);
+          @PathVariable String accountingPointId,
+      @RequestBody @Validated AccountingPointRequest request) {
+    return accountingPointUseCaseService.update(accountingPointId, request);
   }
 
-  @DeleteMapping("/{keyRoomId}/{accountingPointId}}")
-  public ResponseEntity<Void> delete(
-      @PathVariable(name = "keyRoomId") String keyRoomId,
-      @PathVariable(name = "accountingPointId") String accountingPointId) {
-    return accountingPointUseCaseService.delete(keyRoomId, accountingPointId);
+  @DeleteMapping("{accountingPointId}}")
+  public ResponseEntity<Void> delete(@PathVariable(name = "accountingPointId") String accountingPointId) {
+    return accountingPointUseCaseService.delete(accountingPointId);
   }
 }

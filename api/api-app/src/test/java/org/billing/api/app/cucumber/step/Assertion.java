@@ -21,7 +21,7 @@ public class Assertion {
   }
 
   @Then("описание ошибки содержит ошибку валидации {string}")
-  public void errorMessageContains(String msg) {
+  public void messageContainValidationError(String msg) {
     ResponseEntity<Map<String, String>> result = TestContext.CONTEXT.getResponse();
     final Map<String, String> response = result.getBody();
 
@@ -30,5 +30,13 @@ public class Assertion {
         .containsKey("error");
 
     Assertions.assertThat(response.get("error")).containsIgnoringCase(msg);
+  }
+
+  @Then("описание ошибки содержит ошибку {string}")
+  public void messageContainError(String msg) {
+    ResponseEntity<Map<String, String>> result = TestContext.CONTEXT.getResponse();
+    final Map<String, String> response = result.getBody();
+
+    Assertions.assertThat(response).contains(new AbstractMap.SimpleEntry("message", msg));
   }
 }

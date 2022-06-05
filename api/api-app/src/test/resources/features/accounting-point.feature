@@ -41,3 +41,16 @@ Feature: Работа с точками учета
     Examples:
       | keyRoomId                              | serviceId                              | providerId                             | active | meterIsActive |
       | "dc6a54cc-9708-43e7-a7b0-1b172d3e5c71" | "7fba434f-7542-4201-a7c4-e22a06ae307c" | "fa8fcd9d-997b-479f-bd11-a7e60f8ca076" | true   | false         |
+
+  @fail
+  Scenario Template: Ошибка обновлении не существующей точки учета
+    Given Есть помещение с ключом <keyRoomId>
+    And Есть услуга с ключом <serviceId>
+    When Пользователь отправляет запрос обновления точки учета c параметрами
+      | AccountingPointId   | keyRoomId   | serviceId   |
+      | <AccountingPointId> | <keyRoomId> | <serviceId> |
+    Then ответ содержит ошибку 404
+    And описание ошибки содержит ошибку "Точка учета с ключом dc6a54cc-9708-43e7-a7b0-1b172d3e5c71 не найдена"
+    Examples:
+      | AccountingPointId                      | keyRoomId                              | serviceId                              |
+      | "dc6a54cc-9708-43e7-a7b0-1b172d3e5c71" | "dc6a54cc-9708-43e7-a7b0-1b172d3e5c71" | "7fba434f-7542-4201-a7c4-e22a06ae307c" |
