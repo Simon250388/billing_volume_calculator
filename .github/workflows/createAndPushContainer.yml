@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  build:
+  pushToCR:
     needs: build
     runs-on: ubuntu-latest
     permissions:
