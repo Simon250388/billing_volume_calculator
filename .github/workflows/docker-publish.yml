@@ -32,6 +32,6 @@ jobs:
           CR_REPOSITORY: billing-volume-calculator-backend
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build --file ./api/api/app/Dockerfile --tag cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+          docker build --file ./api/api-app/Dockerfile --tag cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
 
