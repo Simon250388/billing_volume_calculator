@@ -8,8 +8,9 @@ on:
     branches: [ master, main ]
 
 jobs:
-  build:
 
+  build:
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
