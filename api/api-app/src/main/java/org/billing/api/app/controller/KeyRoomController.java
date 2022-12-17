@@ -1,8 +1,8 @@
 package org.billing.api.app.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import java.util.Collection;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.billing.api.app.useCase.KeyRoomUseCaseService;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/key-room")
+@RequestMapping("/v1/key-room")
 @RequiredArgsConstructor
 @Validated
 public class KeyRoomController {

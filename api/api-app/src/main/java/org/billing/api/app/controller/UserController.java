@@ -1,6 +1,6 @@
 package org.billing.api.app.controller;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.app.useCase.user.AuthRequest;
 import org.billing.api.app.useCase.user.AuthResponse;

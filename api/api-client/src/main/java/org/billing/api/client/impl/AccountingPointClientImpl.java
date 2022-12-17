@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.billing.api.client.AccountingPointClient;
 import org.billing.api.model.accountingPoint.AccountingPointRequest;
 import org.billing.api.model.accountingPoint.AccountingPointResponse;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,7 +67,7 @@ public class AccountingPointClientImpl implements AccountingPointClient {
     @Override
     public ResponseEntity<Object> update(String accountingPointId, AccountingPointRequest request) {
         return webClient
-                .put()
+                .patch()
                 .uri(String.join("/", HANDLE_PATH, accountingPointId))
                 .body(BodyInserters.fromValue(request))
                 .retrieve()

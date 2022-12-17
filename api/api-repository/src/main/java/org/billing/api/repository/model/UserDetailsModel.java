@@ -1,8 +1,9 @@
 package org.billing.api.repository.model;
 
+import java.io.Serial;
 import java.util.Collection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetailsModel implements UserDetails {
+  @Serial
   private static final long serialVersionUID = 5189173344056068628L;
   @Id
   private String username;

@@ -5,10 +5,9 @@ import java.util.Collections;
 import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.billing.api.repository.KeyRoomDbService;
-import org.billing.api.repository.model.UserDetailsModel;
 import org.billing.api.model.keyRoom.KeyRoomRequest;
 import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.repository.KeyRoomDbService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,18 +24,18 @@ public class KeyRoomUseCaseService {
 
   public ResponseEntity<KeyRoomResponse> create(@NonNull final KeyRoomRequest request) {
     final String keyRoomId = UUID.randomUUID().toString();
-    final UserDetailsModel token =
-        (UserDetailsModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return ResponseEntity.ok(keyRoomDbService.save(keyRoomId, request, token.getUsername()));
+    final String userName =
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+    return ResponseEntity.ok(keyRoomDbService.save(keyRoomId, request, userName));
   }
 
   @Transactional
   public ResponseEntity<KeyRoomResponse> update(
       @NonNull final String id, @NonNull final KeyRoomRequest request) {
-    final UserDetailsModel token =
-            (UserDetailsModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    final String userName =
+             SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     keyRoomDbService.existOrElseThrow(id);
-    return ResponseEntity.ok(keyRoomDbService.save(id, request, token.getUsername()));
+    return ResponseEntity.ok(keyRoomDbService.save(id, request, userName));
   }
 
   public ResponseEntity<KeyRoomResponse> delete(@NonNull final String id) {

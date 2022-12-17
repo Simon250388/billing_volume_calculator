@@ -2,7 +2,7 @@ package org.billing.api.app.controller;
 
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.billing.api.model.exception.AccountingPointNotFoundException;
 import org.billing.api.model.exception.KeyRoomNotFoundException;
 import org.springframework.http.HttpStatus;
