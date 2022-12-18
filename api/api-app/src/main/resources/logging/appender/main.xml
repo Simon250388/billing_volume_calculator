@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <appender name="MAIN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archive/${LOG_FILE}.log.%d{yyyy-MM-dd.HH, Europe/Moscow}.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{ISO8601, Europe/Moscow} [%t] %p [{requestId:-NA}] %c{50} [user:%X{uid}] %m%n
+            </pattern>
+        </encoder>
+    </appender>
+</included>
