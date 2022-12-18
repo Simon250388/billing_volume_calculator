@@ -46,7 +46,7 @@ dependencies {
 //}
 //
 //checkstyleMain {
-//    source = 'src/main/java'
+//    source = 'src/main.xml/java'
 //}
 //
 //checkstyleTest {

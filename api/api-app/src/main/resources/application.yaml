@@ -1,14 +1,15 @@
-services:
-  meter-value: meter-value
-  rooms: rooms
-
 server:
   port: 8085
 
   servlet:
     context-path: /api
 
+spring:
+  profiles:
+    active: ${ENVIRONMENT:local}
+
 logging:
-  level:
-    root: INFO
+  config: classpath:logging/${environment:local}/logback.xml
+  path: ${LOG_PATH:./logs/}
+  file: billing-api
 

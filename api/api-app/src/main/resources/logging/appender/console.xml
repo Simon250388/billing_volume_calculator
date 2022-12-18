@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %X{requestId:-NA} %cyan(%logger{35}) - %replace(%msg){'[\r\n]+',' '} %ex{50}%n
+            </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+</included>
