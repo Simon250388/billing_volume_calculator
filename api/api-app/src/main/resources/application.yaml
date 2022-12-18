@@ -9,7 +9,7 @@ spring:
     active: ${ENVIRONMENT:local}
 
 logging:
-  config: classpath:logging/${environment:local}/logback.xml
+  config: classpath:logging/${ENVIRONMENT:local}/logback.xml
   path: ${LOG_PATH:./logs/}
   file: billing-api
 
