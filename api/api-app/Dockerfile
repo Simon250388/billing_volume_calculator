@@ -2,7 +2,7 @@ FROM gradle:7.6-jdk17-alpine
 
 COPY --chown=gradle:gradle . /api-project
 WORKDIR /api-project
-RUN gradle bootJar --nodaemon -x test
+RUN gradle bootJar --no-daemon -x test
 
 EXPOSE 8085
 WORKDIR /api-project
