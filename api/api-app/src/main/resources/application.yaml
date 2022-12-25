@@ -6,7 +6,7 @@ server:
 
 spring:
   profiles:
-    active: ${ENVIRONMENT:local}
+    active: ${ENVIRONMENT:production}
 
 management:
   endpoints:
@@ -19,7 +19,7 @@ management:
         enabled: true
 
 logging:
-  config: classpath:logging/${ENVIRONMENT:local}/logback.xml
+  config: classpath:logging/${ENVIRONMENT:production}/logback.xml
   path: ${LOG_PATH:./logs/}
   file: billing-api
 

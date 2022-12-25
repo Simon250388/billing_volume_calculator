@@ -8,7 +8,7 @@
             <totalSizeCap>2GB</totalSizeCap>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{ISO8601, Europe/Moscow} [%t] %p [{requestId:-NA}] %c{50} [user:%X{uid}] %m%n
+            <pattern>%d{ISO8601, Europe/Moscow} thread=[%t] level=%p requestId=%X{requestId:-NA} stackTrace=%c{50} message=%m%n
             </pattern>
         </encoder>
     </appender>

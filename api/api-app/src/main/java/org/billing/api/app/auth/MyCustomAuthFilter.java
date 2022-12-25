@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.slf4j.MDC;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,6 +29,8 @@ public class MyCustomAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         Authentication authenticationResult = authenticationManager.authenticate(new CustomAuthToken());
+
+        MDC.put("uid", authenticationResult.getName());
 
         SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 
