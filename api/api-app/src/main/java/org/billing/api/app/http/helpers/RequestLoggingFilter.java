@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -17,8 +20,12 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 @Slf4j
 public class RequestLoggingFilter extends CommonsRequestLoggingFilter {
 
-    public RequestLoggingFilter() {
+    private final Set<String> doNotLogUrl;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+
+    public RequestLoggingFilter(@Value("${logging.do-not-log-url}") Set<String> doNotLogUrl) {
         setIncludePayload(true);
+        this.doNotLogUrl = doNotLogUrl;
     }
 
     @Override
@@ -55,10 +62,22 @@ public class RequestLoggingFilter extends CommonsRequestLoggingFilter {
     }
 
     @Override
+    protected boolean shouldLog(HttpServletRequest request) {
+        var URI = request.getRequestURI();
+        return super.shouldLog(request) && doNotLogUrl
+                .stream()
+                .noneMatch(pattern -> pathMatcher.match(pattern, URI));
+    }
+
+    @Override
     protected void afterRequest(HttpServletRequest request, String message) { }
 
     @SneakyThrows
     protected void afterRequest(HttpServletRequest request, HttpServletResponse response, long timeBeforeStart) {
+
+        if (!shouldLog(request)) {
+            return;
+        }
 
         final long timeAfter = System.currentTimeMillis();
 
