@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  service-calculator-api:
+    container_name: service-calculator-api
+    image: cr.yandex/crpr8vgnsgo9sdr5nnnf/billing-volume-calculator-backend:c41588beb2b0129b232866e41c180ec80480060b
+    depends_on:
+      - fluent-bit-plugin
+    environment:
+      - ENVIRONMENT=production
+      - LOG_PATH=/logs
+    ports:
+      - "80:8085"
+    restart: always
+    volumes:
+      - /var/log/service-calculator-api:/logs
+
+  yandex_unified_agent:
+    container_name: yandex_unified_agent
+    image: cr.yandex/yc/unified-agent:latest
+    restart: always
+    depends_on:
+      - service-calculator-api
+    environment:
+      - FOLDER_ID=b1g5ushnne9bb4in8beo
+    volumes:
+      - /home/simon/config/service-prometheus-config.yml:/etc/yandex/unified_agent/conf.d/service-prometheus-config.yml
+
+  fluent-bit-plugin:
+    container_name: fluent-bit
+    image: cr.yandex/yc/fluent-bit-plugin-yandex:v2.0.2-fluent-bit-1.9.3
+    restart: always
+    volumes:
+      - /var/log/service-calculator-api:/logs
+      - /home/simon/config/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - /home/simon/config/fluent-bit-parser.conf:/fluent-bit/parsers/parsers.conf

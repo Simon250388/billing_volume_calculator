@@ -1,17 +1,13 @@
-FROM gradle:7.6-jdk17-alpine
+FROM bellsoft/liberica-openjdk-alpine:17
 
-COPY --chown=gradle:gradle . /api-project
-WORKDIR /api-project
-RUN gradle bootJar --no-daemon -x test
+COPY ./build/libs/api-app-0.0.1-SNAPSHOT.jar /api-app.jar
 
 EXPOSE 8085
-WORKDIR /api-project
 
 VOLUME /logs
 
 ENV ENVIRONMENT production
+
 ENV LOG_PATH /logs
 
-CMD java -jar api/api-app/build/libs/api-app-0.0.1-SNAPSHOT.jar
-
-# docker run --volume /var/log/billing-api-log:/logs billing-api
+ENTRYPOINT ["java","-jar","/api-app.jar"]
