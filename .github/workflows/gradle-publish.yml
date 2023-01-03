@@ -50,6 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: volume-calculator
+          path: build/libs/api-app-0.0.1-SNAPSHOT.jar
 
         # Runs a single command using the runners shell
       - name: Login to Yandex Cloud Container Registry
