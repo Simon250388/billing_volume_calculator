@@ -8,7 +8,6 @@ import org.billing.api.app.useCase.meterValues.MeterResponse;
 import org.billing.api.app.useCase.meterValues.MeterValueRequest;
 import org.billing.api.app.useCase.meterValues.MeterValueResponse;
 import org.billing.api.app.useCase.meterValues.MeterValueUseCaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
