@@ -4,9 +4,8 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.billing.api.repository.KeyRoomDbService;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,19 +14,12 @@ public class KeyRoomService {
 
   private final KeyRoomDbService keyRoomDbService;
 
-  public KeyRoomResponse save(KeyRoomRequest request, String userId) {
+  public KeyRoom save(KeyRoom request, String userId) {
     final String keyRoomId = UUID.randomUUID().toString();
-    return keyRoomDbService.save(keyRoomId, request, userId);
+    return keyRoomDbService.save(request.toBuilder().id(keyRoomId).build(), userId);
   }
 
-  public KeyRoomResponse save(
-      @NonNull final String keyRoomId,
-      @NonNull final KeyRoomRequest request,
-      @NonNull final String userId) {
-    return keyRoomDbService.save(keyRoomId, request, userId);
-  }
-
-  public void saveHistory(@NonNull final KeyRoomRequest request, @NonNull final Instant instant) {
+  public void saveHistory(@NonNull final KeyRoom request, @NonNull final Instant instant) {
     keyRoomDbService.saveHistory(request, instant);
   }
 

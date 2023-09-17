@@ -15,8 +15,7 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.billing.api.app.cucumber.TestContext;
 import org.billing.api.client.KeyRoomClient;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.billing.api.repository.KeyRoomDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +27,13 @@ public class KeyRoomSteps {
 
   @Given("Есть помещение с параметрами")
   public void saveKeyRoom(List<Map<String, String>> table) {
-    keyRoomRepository.save(table.get(0).get("keyRoomId"), convertRequestFromDataTable(table), "");
+    keyRoomRepository.save(convertRequestFromDataTable(table), "");
   }
 
   @Given("Есть помещение с ключом {string}")
   public void saveKeyRoom(String keyRoomId) {
-    keyRoomRepository.save(keyRoomId, KeyRoomRequest.builder()
+    keyRoomRepository.save(KeyRoom.builder()
+                    .id(keyRoomId)
                     .roomTypeId(1L)
                     .address("")
                     .countResident(1L)
@@ -55,13 +55,13 @@ public class KeyRoomSteps {
   @When("Пользователь отправляет запрос обновление помещения с параметрами")
   public void sendUpdateRequest(List<Map<String, String>> params) {
     TestContext.CONTEXT.setResponse(
-        keyRoomClient.updateKeyRoom(params.get(0).get("keyRoomId"), convertRequestFromDataTable(params)));
+        keyRoomClient.updateKeyRoom(convertRequestFromDataTable(params)));
   }
 
   @Then("полученный список помещений пуст")
   public void responseIsEmpty() {
-    ResponseEntity<Collection<KeyRoomResponse>> result = TestContext.CONTEXT.getResponse();
-    final Collection<KeyRoomResponse> body = result.getBody();
+    ResponseEntity<Collection<KeyRoom>> result = TestContext.CONTEXT.getResponse();
+    final Collection<KeyRoom> body = result.getBody();
     Assertions.assertThat(body).isEmpty();
   }
 
@@ -72,9 +72,9 @@ public class KeyRoomSteps {
 
     String bodyStr = mapper.writeValueAsString(result.getBody());
 
-    final KeyRoomResponse body = mapper.readValue(bodyStr, KeyRoomResponse.class);
+    final KeyRoom body = mapper.readValue(bodyStr, KeyRoom.class);
 
-    final KeyRoomResponse expected = convertResponseFromDataTable(table);
+    final KeyRoom expected = convertResponseFromDataTable(table);
 
     assertThat(body)
         .satisfies(
@@ -86,15 +86,18 @@ public class KeyRoomSteps {
         .satisfies(value -> assertThat(value.getId()).isNotEmpty());
   }
 
-  private KeyRoomRequest convertRequestFromDataTable(List<Map<String, String>> values) {
+  private KeyRoom convertRequestFromDataTable(List<Map<String, String>> values) {
 
-    final KeyRoomRequest.KeyRoomRequestBuilder builder = KeyRoomRequest.builder();
+    final KeyRoom.KeyRoomBuilder builder = KeyRoom.builder();
 
     values
         .get(0)
         .forEach(
             (key, value) -> {
               switch (key.toUpperCase()) {
+                case "KEYROOMID":
+                  builder.id(value);
+                  break;
                 case "ADDRESS":
                   builder.address(value);
                   break;
@@ -121,10 +124,10 @@ public class KeyRoomSteps {
     return builder.build();
   }
 
-  private KeyRoomResponse convertResponseFromDataTable(DataTable table) {
+  private KeyRoom convertResponseFromDataTable(DataTable table) {
     final List<Map<String, String>> values = table.asMaps();
 
-    final KeyRoomResponse.KeyRoomResponseBuilder expectedBuilder = KeyRoomResponse.builder();
+    final KeyRoom.KeyRoomBuilder expectedBuilder = KeyRoom.builder();
 
     values
         .get(0)

@@ -7,8 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.client.AccountingPointClient;
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,17 +27,17 @@ public class AccountingPointClientImpl implements AccountingPointClient {
     private static final String HANDLE_PATH = "/v1/accounting-point";
 
     @Override
-    public ResponseEntity<Collection<AccountingPointResponse>> getAll(String keyRoomId) {
+    public ResponseEntity<Collection<AccountingPoint>> getAll(String keyRoomId) {
         return webClient
                 .get()
                 .uri(String.join("/", HANDLE_PATH,keyRoomId))
                 .retrieve()
-                .toEntity(new ParameterizedTypeReference<Collection<AccountingPointResponse>>() {})
+                .toEntity(new ParameterizedTypeReference<Collection<AccountingPoint>>() {})
                 .block();
     }
 
     @Override
-    public ResponseEntity<Object> create(AccountingPointRequest request) {
+    public ResponseEntity<Object> create(AccountingPoint request) {
         return webClient
                 .post()
                 .uri(HANDLE_PATH)
@@ -65,10 +64,10 @@ public class AccountingPointClientImpl implements AccountingPointClient {
     }
 
     @Override
-    public ResponseEntity<Object> update(String accountingPointId, AccountingPointRequest request) {
+    public ResponseEntity<Object> update(AccountingPoint request) {
         return webClient
                 .patch()
-                .uri(String.join("/", HANDLE_PATH, accountingPointId))
+                .uri(HANDLE_PATH)
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<>() {})

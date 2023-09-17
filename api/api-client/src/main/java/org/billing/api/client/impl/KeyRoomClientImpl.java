@@ -7,8 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.client.KeyRoomClient;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,18 +25,18 @@ public class KeyRoomClientImpl implements KeyRoomClient {
   private final String HANDLE_PATH = "/v1/key-room";
 
   @Override
-  public ResponseEntity<Collection<KeyRoomResponse>> getAllKeyRooms() {
+  public ResponseEntity<Collection<KeyRoom>> getAllKeyRooms() {
 
     return webClient
         .get()
         .uri(HANDLE_PATH)
         .retrieve()
-        .toEntity(new ParameterizedTypeReference<Collection<KeyRoomResponse>>() {})
+        .toEntity(new ParameterizedTypeReference<Collection<KeyRoom>>() {})
         .block();
   }
 
   @Override
-  public ResponseEntity<Object> createKeyRoom(KeyRoomRequest request) {
+  public ResponseEntity<Object> createKeyRoom(KeyRoom request) {
     return webClient
         .post()
         .uri(HANDLE_PATH)
@@ -64,10 +63,10 @@ public class KeyRoomClientImpl implements KeyRoomClient {
   }
 
   @Override
-  public ResponseEntity<Object> updateKeyRoom(String keyRoomId, KeyRoomRequest request) {
+  public ResponseEntity<Object> updateKeyRoom(KeyRoom request) {
     return webClient
         .put()
-        .uri(String.join("/", HANDLE_PATH, keyRoomId))
+        .uri(HANDLE_PATH)
         .body(BodyInserters.fromValue(request))
         .retrieve()
         .toEntity(new ParameterizedTypeReference<>() {})

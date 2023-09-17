@@ -1,9 +1,7 @@
 package org.billing.api.app.useCase.accountingPoint;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.billing.api.repository.AccountingPointDbService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,14 +13,13 @@ public class AccountingPointActiveStatusService implements AccountingPointStatus
   private final AccountingPointDbService accountingPointDbService;
 
   @Override
-  public ResponseEntity<AccountingPointResponse> update(String accountingPointId, AccountingPointRequest request) {
+  public ResponseEntity<AccountingPoint> update(String accountingPointId, AccountingPoint request) {
     return null;
   }
 
   @Override
-  public ResponseEntity<AccountingPointResponse> save(AccountingPointRequest request) {
-    String id = UUID.randomUUID().toString();
-    return ResponseEntity.ok(accountingPointDbService.save(id, request));
+  public ResponseEntity<AccountingPoint> save(AccountingPoint request) {
+    return ResponseEntity.ok(accountingPointDbService.save(request));
   }
 
   @Override

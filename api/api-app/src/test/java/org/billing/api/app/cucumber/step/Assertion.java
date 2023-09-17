@@ -1,9 +1,11 @@
 package org.billing.api.app.cucumber.step;
 
+import static org.assertj.core.api.BDDAssertions.as;
+
 import io.cucumber.java.en.Then;
-import java.util.AbstractMap;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.billing.api.app.cucumber.TestContext;
 import org.springframework.http.ResponseEntity;
 
@@ -26,10 +28,14 @@ public class Assertion {
     final Map<String, String> response = result.getBody();
 
     Assertions.assertThat(response)
-        .contains(new AbstractMap.SimpleEntry("message", "VALIDATION ERROR"))
-        .containsKey("error");
+            .containsKey("message")
+            .extracting("message", as(InstanceOfAssertFactories.STRING))
+            .containsIgnoringCase("VALIDATION ERROR");
 
-    Assertions.assertThat(response.get("error")).containsIgnoringCase(msg);
+    Assertions.assertThat(response)
+            .containsKey("error")
+            .extracting("error", as(InstanceOfAssertFactories.STRING))
+            .containsIgnoringCase(msg);
   }
 
   @Then("описание ошибки содержит ошибку {string}")
@@ -37,6 +43,9 @@ public class Assertion {
     ResponseEntity<Map<String, String>> result = TestContext.CONTEXT.getResponse();
     final Map<String, String> response = result.getBody();
 
-    Assertions.assertThat(response).contains(new AbstractMap.SimpleEntry("message", msg));
+    Assertions.assertThat(response)
+        .containsKey("error")
+        .extracting("error", as(InstanceOfAssertFactories.STRING))
+            .containsIgnoringCase(msg);
   }
 }

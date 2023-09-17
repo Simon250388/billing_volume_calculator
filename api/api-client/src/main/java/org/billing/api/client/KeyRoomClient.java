@@ -1,14 +1,13 @@
 package org.billing.api.client;
 
 import java.util.Collection;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.springframework.http.ResponseEntity;
 
 public interface KeyRoomClient {
-    ResponseEntity<Collection<KeyRoomResponse>> getAllKeyRooms();
+    ResponseEntity<Collection<KeyRoom>> getAllKeyRooms();
 
-    ResponseEntity<Object> createKeyRoom(KeyRoomRequest request);
+    ResponseEntity<Object> createKeyRoom(KeyRoom request);
 
-    ResponseEntity<Object> updateKeyRoom(String keyRoomId, KeyRoomRequest request);
+    ResponseEntity<Object> updateKeyRoom(KeyRoom request);
 }

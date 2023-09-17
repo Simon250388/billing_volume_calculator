@@ -6,15 +6,14 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.billing.api.model.exception.KeyRoomNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class MockAccountingPointDbService implements AccountingPointDbService {
-  private final Map<String, AccountingPointRequest> dataSet = new HashMap<>();
+  private final Map<String, AccountingPoint> dataSet = new HashMap<>();
 
   @Override
   public void existOrElseThrow(@NonNull final String id) {
@@ -24,9 +23,9 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
   }
 
   @Override
-  public AccountingPointResponse save(String id, AccountingPointRequest request) {
-    mergeWithRequest(id, request);
-    return mapToResponse(id);
+  public AccountingPoint save(AccountingPoint request) {
+    mergeWithRequest(request);
+    return mapToResponse(request.getId());
   }
 
   @Override
@@ -35,7 +34,7 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
   }
 
   @Override
-  public void saveHistory(AccountingPointRequest request, Instant instant) {}
+  public void saveHistory(AccountingPoint request, Instant instant) {}
 
   @Override
   public void deleteById(String id) {
@@ -53,56 +52,37 @@ public class MockAccountingPointDbService implements AccountingPointDbService {
   }
 
   @Override
-  public Optional<AccountingPointResponse> findById(String id) {
-    return Optional.ofNullable(dataSet.getOrDefault(id, null))
-        .map(value -> mapToResponse(id));
+  public Optional<AccountingPoint> findById(String id) {
+    return Optional.ofNullable(dataSet.getOrDefault(id, null)).map(value -> mapToResponse(id));
   }
 
-  private AccountingPointResponse mapToResponse(String id) {
+  private AccountingPoint mapToResponse(String id) {
 
-    final AccountingPointRequest model = this.dataSet.get(id);
+    final AccountingPoint model = this.dataSet.get(id);
 
-    return AccountingPointResponse.builder()
+    return AccountingPoint.builder()
         .id(id)
         .keyRoomId(model.getKeyRoomId())
         .active(model.getActive())
         .serviceId(model.getServiceId())
         .providerId(model.getProviderId())
-        .meterIsActive(model.getMeterIsActive())
+        .meterActive(model.getMeterActive())
         .build();
   }
 
-  private void mergeWithRequest(String id, AccountingPointRequest request) {
-    final AccountingPointRequest.AccountingPointRequestBuilder modelBuilder =
-        AccountingPointRequest.builder();
+  private void mergeWithRequest(AccountingPoint request) {
+    var builder =
+        dataSet
+            .computeIfAbsent(request.getId(), id -> AccountingPoint.builder().id(id).build())
+            .toBuilder();
 
-    final Optional<AccountingPointRequest> existModel =
-        Optional.ofNullable(dataSet.getOrDefault(id, null));
+    Optional.ofNullable(request.getKeyRoomId()).ifPresent(builder::keyRoomId);
+    Optional.ofNullable(request.getActive()).ifPresent(builder::active);
+    Optional.ofNullable(request.getServiceId()).ifPresent(builder::serviceId);
+    Optional.ofNullable(request.getProviderId()).ifPresent(builder::providerId);
+    Optional.ofNullable(request.getMeterActive()).ifPresent(builder::meterActive);
+    Optional.ofNullable(request.getMeterActive()).ifPresent(builder::meterActive);
 
-    Optional.ofNullable(request.getKeyRoomId())
-        .ifPresentOrElse(
-            modelBuilder::keyRoomId,
-            () -> modelBuilder.keyRoomId(existModel.orElseThrow().getKeyRoomId()));
-
-    Optional.ofNullable(request.getActive())
-        .ifPresentOrElse(
-            modelBuilder::active, () -> modelBuilder.active(existModel.orElseThrow().getActive()));
-
-    Optional.ofNullable(request.getServiceId())
-        .ifPresentOrElse(
-            modelBuilder::serviceId,
-            () -> modelBuilder.serviceId(existModel.orElseThrow().getServiceId()));
-
-    Optional.ofNullable(request.getProviderId())
-        .ifPresentOrElse(
-            modelBuilder::providerId,
-            () -> modelBuilder.providerId(existModel.orElseThrow().getProviderId()));
-
-    Optional.ofNullable(request.getMeterIsActive())
-        .ifPresentOrElse(
-            modelBuilder::meterIsActive,
-            () -> modelBuilder.meterIsActive(existModel.orElseThrow().getMeterIsActive()));
-
-    dataSet.put(id, modelBuilder.build());
+    dataSet.put(request.getId(), builder.build());
   }
 }

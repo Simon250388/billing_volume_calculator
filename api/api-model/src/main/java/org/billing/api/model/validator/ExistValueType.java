@@ -1,5 +1,5 @@
 package org.billing.api.model.validator;
 
 public enum ExistValueType {
-    SERVICE, KEYROOM, PROVIDER
+    SERVICE, KEYROOM, PROVIDER, ACCOUNTING_POINT
 }

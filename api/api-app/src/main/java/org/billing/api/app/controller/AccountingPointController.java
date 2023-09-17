@@ -3,8 +3,7 @@ package org.billing.api.app.controller;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.app.useCase.accountingPoint.AccountingPointUseCaseService;
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,22 +22,21 @@ public class AccountingPointController {
   private final AccountingPointUseCaseService accountingPointUseCaseService;
 
   @GetMapping("/{keyRoomId}")
-  public ResponseEntity<Collection<AccountingPointResponse>> list(@PathVariable String keyRoomId) {
+  public ResponseEntity<Collection<AccountingPoint>> list(@PathVariable String keyRoomId) {
     return accountingPointUseCaseService.list(keyRoomId);
   }
 
   @PostMapping
-  public ResponseEntity<AccountingPointResponse> create(
-      @RequestBody @Validated(AccountingPointRequest.AccountingPointCreateValidationGroup.class)
-          AccountingPointRequest request) {
-    return accountingPointUseCaseService.save(request);
+  public ResponseEntity<AccountingPoint> create(
+      @RequestBody @Validated(AccountingPoint.AccountingPointCreateValidationGroup.class)
+      AccountingPoint request) {
+    return accountingPointUseCaseService.create(request);
   }
 
-  @PatchMapping("{accountingPointId}")
-  public ResponseEntity<AccountingPointResponse> update(
-      @PathVariable String accountingPointId,
-      @RequestBody @Validated AccountingPointRequest request) {
-    return accountingPointUseCaseService.update(accountingPointId, request);
+  @PatchMapping
+  public ResponseEntity<AccountingPoint> update(
+      @RequestBody @Validated(AccountingPoint.AccountingPointUpdateValidationGroup.class) AccountingPoint request) {
+    return accountingPointUseCaseService.update(request);
   }
 
   @DeleteMapping("{accountingPointId}")

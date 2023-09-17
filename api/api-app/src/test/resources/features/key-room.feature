@@ -70,7 +70,7 @@ Feature: Работа с помещениями
       | keyRoomId   | roomTypeId   |
       | <keyRoomId> | <roomTypeId> |
     Then ответ содержит ошибку 404
-    And описание ошибки содержит ошибку "Помещение с ключом 0a53e03a-1574-4e0e-b707-3e4dcd92e539 не найдено"
+    And описание ошибки содержит ошибку "Ключ помещения не найден"
     Examples:
       | keyRoomId                            | roomTypeId |
       | 0a53e03a-1574-4e0e-b707-3e4dcd92e539 | 1          |

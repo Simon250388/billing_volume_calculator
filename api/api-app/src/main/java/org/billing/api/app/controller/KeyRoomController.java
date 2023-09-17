@@ -1,13 +1,10 @@
 package org.billing.api.app.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Valid;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.billing.api.app.useCase.KeyRoomUseCaseService;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,30 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class KeyRoomController {
 
-    private final KeyRoomUseCaseService keyRoomUseCaseService;
+  private final KeyRoomUseCaseService keyRoomUseCaseService;
 
-    private final ObjectMapper mapper;
+  @GetMapping
+  public ResponseEntity<Collection<KeyRoom>> getAll() {
+    return keyRoomUseCaseService.getAll();
+  }
 
-    @GetMapping
-    public ResponseEntity<Collection<KeyRoomResponse>> getAll() {
-        return keyRoomUseCaseService.getAll();
-    }
+  @PostMapping
+  @SneakyThrows
+  public ResponseEntity<KeyRoom> create(
+      @RequestBody @Validated(KeyRoom.KeyRoomCreateValidationGroup.class) KeyRoom request) {
+    return keyRoomUseCaseService.create(request);
+  }
 
-    @PostMapping
-    @SneakyThrows
-    public ResponseEntity<KeyRoomResponse> create(
-            @RequestBody @Validated(KeyRoomRequest.KeyRoomCreateRequestValidationGroup.class) KeyRoomRequest request) {
-        return keyRoomUseCaseService.create(request);
-    }
+  @PutMapping
+  public ResponseEntity<KeyRoom> update(
+      @RequestBody @Validated(KeyRoom.KeyRoomUpdateValidationGroup.class) KeyRoom request) {
+    return keyRoomUseCaseService.update(request);
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<KeyRoomResponse> update(@PathVariable String id, @RequestBody @Valid KeyRoomRequest request) {
-        return keyRoomUseCaseService.update(id, request);
-
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<KeyRoomResponse> delete(@PathVariable String id) {
-        return keyRoomUseCaseService.delete(id);
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<KeyRoom> delete(@PathVariable String id) {
+    return keyRoomUseCaseService.delete(id);
+  }
 }

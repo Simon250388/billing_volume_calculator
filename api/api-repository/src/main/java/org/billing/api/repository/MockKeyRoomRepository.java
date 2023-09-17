@@ -7,14 +7,13 @@ import java.util.Optional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.billing.api.model.exception.KeyRoomNotFoundException;
-import org.billing.api.model.keyRoom.KeyRoomRequest;
-import org.billing.api.model.keyRoom.KeyRoomResponse;
+import org.billing.api.model.keyRoom.KeyRoom;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class MockKeyRoomRepository implements KeyRoomDbService {
-  private final Map<String, KeyRoomRequest> dataSet = new HashMap<>();
+  private final Map<String, KeyRoom> dataSet = new HashMap<>();
 
   @Override
   public void existOrElseThrow(@NonNull final String id) {
@@ -24,9 +23,9 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
   }
 
   @Override
-  public KeyRoomResponse save(String keyRoomId, KeyRoomRequest request, String userId) {
-    mergeWithRequest(keyRoomId, request);
-    return mapToResponse(keyRoomId);
+  public KeyRoom save(KeyRoom request, String userId) {
+    mergeWithRequest(request);
+    return mapToResponse(request.getId());
   }
 
   @Override
@@ -35,7 +34,7 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
   }
 
   @Override
-  public void saveHistory(KeyRoomRequest request, Instant instant) {}
+  public void saveHistory(KeyRoom request, Instant instant) {}
 
   @Override
   public void deleteById(String id) {
@@ -52,15 +51,15 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
     dataSet.clear();
   }
 
-  private Optional<KeyRoomRequest> findById(String id) {
+  private Optional<KeyRoom> findById(String id) {
     return Optional.ofNullable(dataSet.getOrDefault(id, null));
   }
 
-  private KeyRoomResponse mapToResponse(String id) {
+  private KeyRoom mapToResponse(String id) {
 
-    KeyRoomRequest model = findById(id).orElseThrow();
+    KeyRoom model = findById(id).orElseThrow();
 
-    return KeyRoomResponse.builder()
+    return KeyRoom.builder()
         .id(id)
         .roomTypeId(model.getRoomTypeId())
         .address(model.getAddress())
@@ -71,40 +70,19 @@ public class MockKeyRoomRepository implements KeyRoomDbService {
         .build();
   }
 
-  private void mergeWithRequest(String keyRoomId, KeyRoomRequest request) {
-    final KeyRoomRequest.KeyRoomRequestBuilder modelBuilder = KeyRoomRequest.builder();
+  private void mergeWithRequest(KeyRoom request) {
+    var builder =
+            dataSet
+                    .computeIfAbsent(request.getId(), id -> KeyRoom.builder().id(id).build())
+                    .toBuilder();
 
-    final Optional<KeyRoomRequest> existModel = findById(keyRoomId);
+    Optional.ofNullable(request.getRoomTypeId()).ifPresent(builder::roomTypeId);
+    Optional.ofNullable(request.getAddress()).ifPresent(builder::address);
+    Optional.ofNullable(request.getCountOwner()).ifPresent(builder::countOwner);
+    Optional.ofNullable(request.getCountResident()).ifPresent(builder::countResident);
+    Optional.ofNullable(request.getCountSubscribed()).ifPresent(builder::countSubscribed);
+    Optional.ofNullable(request.getSquare()).ifPresent(builder::square);
 
-    Optional.ofNullable(request.getRoomTypeId())
-        .ifPresentOrElse(
-            modelBuilder::roomTypeId,
-            () -> modelBuilder.roomTypeId(existModel.orElseThrow().getRoomTypeId()));
-
-    Optional.ofNullable(request.getAddress())
-        .ifPresentOrElse(
-            modelBuilder::address,
-            () -> modelBuilder.address(existModel.orElseThrow().getAddress()));
-
-    Optional.ofNullable(request.getCountOwner())
-        .ifPresentOrElse(
-            modelBuilder::countOwner,
-            () -> modelBuilder.countOwner(existModel.orElseThrow().getCountOwner()));
-
-    Optional.ofNullable(request.getCountResident())
-        .ifPresentOrElse(
-            modelBuilder::countResident,
-            () -> modelBuilder.countResident(existModel.orElseThrow().getCountResident()));
-
-    Optional.ofNullable(request.getCountSubscribed())
-        .ifPresentOrElse(
-            modelBuilder::countSubscribed,
-            () -> modelBuilder.countSubscribed(existModel.orElseThrow().getCountSubscribed()));
-
-    Optional.ofNullable(request.getSquare())
-        .ifPresentOrElse(
-            modelBuilder::square, () -> modelBuilder.square(existModel.orElseThrow().getSquare()));
-
-    dataSet.put(keyRoomId, modelBuilder.build());
+    dataSet.put(request.getId(), builder.build());
   }
 }

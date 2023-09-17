@@ -4,8 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.billing.api.model.exception.AccountingPointNotFoundException;
 import org.billing.api.repository.AccountingPointDbService;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class AccountingPointService {
 
   private final AccountingPointDbService dbService;
 
-  public Collection<AccountingPointResponse> getAll(@NonNull final String keyRoomID) {
+  public Collection<AccountingPoint> getAll(@NonNull final String keyRoomID) {
     return Collections.emptyList();
   }
 
@@ -26,8 +25,8 @@ public class AccountingPointService {
         .orElseThrow(() -> new AccountingPointNotFoundException(accountingPointId));
   }
 
-  public AccountingPointResponse save(String accountingPointId, AccountingPointRequest request) {
-    return dbService.save(accountingPointId, request);
+  public AccountingPoint save(AccountingPoint request) {
+    return dbService.save(request);
   }
 
   public void delete(String accountingPointId) {

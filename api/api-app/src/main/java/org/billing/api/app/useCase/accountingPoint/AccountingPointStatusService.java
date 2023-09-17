@@ -1,14 +1,13 @@
 package org.billing.api.app.useCase.accountingPoint;
 
-import org.billing.api.model.accountingPoint.AccountingPointRequest;
-import org.billing.api.model.accountingPoint.AccountingPointResponse;
+import org.billing.api.model.accountingPoint.AccountingPoint;
 import org.springframework.http.ResponseEntity;
 
 public interface AccountingPointStatusService {
-  ResponseEntity<AccountingPointResponse> update(
-      String accountingPointId, AccountingPointRequest request);
+  ResponseEntity<AccountingPoint> update(
+      String accountingPointId, AccountingPoint request);
 
-  ResponseEntity<AccountingPointResponse> save(AccountingPointRequest request);
+  ResponseEntity<AccountingPoint> save(AccountingPoint request);
 
   void update(String accountingPointId);
 }
