@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.billing.api.app.useCase.accountingPoint.AccountingPointUseCaseService;
 import org.billing.api.model.accountingPoint.AccountingPointRequest;
 import org.billing.api.model.accountingPoint.AccountingPointResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/accounting-point")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AccountingPointController {
   private final AccountingPointUseCaseService accountingPointUseCaseService;
 
@@ -37,13 +36,14 @@ public class AccountingPointController {
 
   @PatchMapping("{accountingPointId}")
   public ResponseEntity<AccountingPointResponse> update(
-          @PathVariable String accountingPointId,
+      @PathVariable String accountingPointId,
       @RequestBody @Validated AccountingPointRequest request) {
     return accountingPointUseCaseService.update(accountingPointId, request);
   }
 
   @DeleteMapping("{accountingPointId}")
-  public ResponseEntity<Void> delete(@PathVariable(name = "accountingPointId") String accountingPointId) {
+  public ResponseEntity<Void> delete(
+      @PathVariable(name = "accountingPointId") String accountingPointId) {
     return accountingPointUseCaseService.delete(accountingPointId);
   }
 }
